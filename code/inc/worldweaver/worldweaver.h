@@ -30,6 +30,7 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 #include <QMainWindow>
+#include <QGroupBox>
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -70,24 +71,26 @@ QT_END_NAMESPACE
  */
 class WorldWeaver : public QMainWindow
 {
-    Q_OBJECT
-    public:
-        /**************************************************************************************************/
-        /**
-         * \brief: Main WorldWeaver QT application constructor.
-         * 
-         * \param[inout]    parent  The parent QT widget.
-         */
-        WorldWeaver(QWidget *parent = nullptr);
+Q_OBJECT
+public:
+    /**************************************************************************************************/
+    /**
+     * \brief: Main WorldWeaver QT application constructor.
+     * 
+     * \param[inout]    parent  The parent QT widget.
+     */
+    WorldWeaver(QWidget *parent = nullptr);
 
-        /**************************************************************************************************/
-        /**
-         * \brief: WorldWeaver QT destructor class.
-         */
-        ~WorldWeaver();
+    /**************************************************************************************************/
+    /**
+     * \brief: WorldWeaver QT destructor class.
+     */
+    ~WorldWeaver();
 
-    private:
-        Ui::WorldWeaver *ui;    // QT ui variable.
+private:
+    Ui::WorldWeaver *ui;    // QT ui variable.
+
+        
 };
 
 #endif // WORLDWEAVER_H

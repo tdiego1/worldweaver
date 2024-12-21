@@ -85,7 +85,7 @@
        <string>Gyr</string>
       </property>
      </widget>
-     <widget class="QSlider" name="horizontalSlider">
+     <widget class="QSlider" name="starMassSlider">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -113,7 +113,7 @@
        <enum>QSlider::TickPosition::TicksBelow</enum>
       </property>
      </widget>
-     <widget class="QSlider" name="horizontalSlider_2">
+     <widget class="QSlider" name="starAgeSlider">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -247,7 +247,7 @@
         </spacer>
        </item>
        <item row="0" column="1">
-        <widget class="QLabel" name="label_6">
+        <widget class="QLabel" name="starClassLabel">
          <property name="text">
           <string>N/A</string>
          </property>
@@ -257,7 +257,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLabel" name="label_35">
+        <widget class="QLabel" name="starMaxAgeLabel">
          <property name="text">
           <string>N/A</string>
          </property>
@@ -267,7 +267,7 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLabel" name="label_36">
+        <widget class="QLabel" name="starRadiusLabel">
          <property name="text">
           <string>N/A</string>
          </property>
@@ -277,7 +277,7 @@
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QLabel" name="label_37">
+        <widget class="QLabel" name="starLuminLabel">
          <property name="text">
           <string>N/A</string>
          </property>
@@ -287,7 +287,7 @@
         </widget>
        </item>
        <item row="4" column="1">
-        <widget class="QLabel" name="label_38">
+        <widget class="QLabel" name="starDensityLabel">
          <property name="text">
           <string>N/A</string>
          </property>
@@ -297,7 +297,7 @@
         </widget>
        </item>
        <item row="5" column="1">
-        <widget class="QLabel" name="label_39">
+        <widget class="QLabel" name="starTempLabel">
          <property name="text">
           <string>N/A</string>
          </property>
@@ -307,7 +307,7 @@
         </widget>
        </item>
        <item row="6" column="1">
-        <widget class="QLabel" name="label_40">
+        <widget class="QLabel" name="starColorLabel">
          <property name="autoFillBackground">
           <bool>false</bool>
          </property>
@@ -320,7 +320,7 @@
         </widget>
        </item>
        <item row="7" column="1">
-        <widget class="QLabel" name="label_41">
+        <widget class="QLabel" name="starHabZoneLabel">
          <property name="text">
           <string>N/A</string>
          </property>
@@ -330,7 +330,7 @@
         </widget>
        </item>
        <item row="8" column="1">
-        <widget class="QLabel" name="label_42">
+        <widget class="QLabel" name="starHabPlanetLabel">
          <property name="text">
           <string>N/A</string>
          </property>
@@ -341,22 +341,22 @@
        </item>
       </layout>
      </widget>
-     <widget class="QLineEdit" name="lineEdit">
+     <widget class="QSpinBox" name="starMassSpinBox">
       <property name="geometry">
        <rect>
         <x>300</x>
         <y>50</y>
-        <width>91</width>
+        <width>88</width>
         <height>28</height>
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_2">
+     <widget class="QSpinBox" name="starAgeSpinBox">
       <property name="geometry">
        <rect>
         <x>300</x>
         <y>130</y>
-        <width>91</width>
+        <width>88</width>
         <height>28</height>
        </rect>
       </property>
@@ -405,7 +405,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>33</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuWorldWeaver">

@@ -28,8 +28,8 @@
 /*=================================================================================================
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
-#include "worldweaver.h"
-#include "./ui_worldweaver.h"
+#include "worldweaver/worldweaver.h"
+#include <QApplication>
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -62,20 +62,13 @@
 **===============================================================================================*/
 /**************************************************************************************************/
 /**
- * \par Details: Default constructor.
+ * \brief This is the main function for the QT window
  */
-WorldWeaver::WorldWeaver(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::WorldWeaver)
+int main(int argc, char *argv[])
 {
-    ui->setupUi(this);
+    QApplication a(argc, argv);
+    WorldWeaver w;
+    w.show();
+    return a.exec();
 }
-
-/**************************************************************************************************/
-/**
- * \par Details: Destructor
- */
-WorldWeaver::~WorldWeaver()
-{
-    delete ui;
-}
+/** @}*/

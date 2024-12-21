@@ -28,8 +28,8 @@
 /*=================================================================================================
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
-#include "worldweaver.h"
-#include <QApplication>
+#include "worldweaver/worldweaver.h"
+#include "./ui_worldweaver.h"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -62,13 +62,27 @@
 **===============================================================================================*/
 /**************************************************************************************************/
 /**
- * \brief This is the main function for the QT window
+ * \par Details: Default constructor.
  */
-int main(int argc, char *argv[])
+WorldWeaver::WorldWeaver(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::WorldWeaver)
 {
-    QApplication a(argc, argv);
-    WorldWeaver w;
-    w.show();
-    return a.exec();
+    ui->setupUi(this);
+    
+    connect(ui->starMassSlider, &QSlider::valueChanged, ui->starMassSpinBox, &QSpinBox::setValue);
+    connect(ui->starMassSpinBox, &QSpinBox::valueChanged, ui->starMassSlider, &QSlider::setValue);
+
+    connect(ui->starAgeSlider, &QSlider::valueChanged, ui->starAgeSpinBox, &QSpinBox::setValue);
+    connect(ui->starAgeSpinBox, &QSpinBox::valueChanged, ui->starAgeSlider, &QSlider::setValue);
+
 }
-/** @}*/
+
+/**************************************************************************************************/
+/**
+ * \par Details: Destructor
+ */
+WorldWeaver::~WorldWeaver()
+{
+    delete ui;
+}
