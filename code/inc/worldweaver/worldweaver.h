@@ -32,7 +32,7 @@
 #include <QMainWindow>
 #include <QGroupBox>
 
-#include "worldweaver/double_slider.h"
+#include "worldweaver/double_slider.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -88,8 +88,8 @@ public:
 
 private:
     Ui::WorldWeaver *ui;    // QT ui variable.
-    DoubleSlider* m_StarMassSlider; // Custom slider widget for star mass double values.
-    DoubleSlider* m_StarAgeSlider;  // Custom slider widget for star age double values
+    Control::DoubleSlider* m_StarMassSlider; // Custom slider widget for star mass double values.
+    Control::DoubleSlider* m_StarAgeSlider;  // Custom slider widget for star age double values
 
         
 };

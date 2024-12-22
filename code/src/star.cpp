@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup DoubleSlider
+* \addtogroup <DoxModuleId>
 * @{
 * \details
-* This file provides the public interface for the DoubleSlider Module.
+* This file provides the public interface for the <Module_Name> Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -28,8 +28,7 @@
 /*=================================================================================================
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
-
-#include "worldweaver/double_slider.hpp"
+#include "worldweaver/star.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -59,77 +58,14 @@
 
 /**************************************************************************************************/
 /**
- * \par Details: Default constructor.
- */
-Control::DoubleSlider::DoubleSlider(QSlider* slider, double minDouble, double maxDouble, int minSlider, int maxSlider) :
-    m_Slider(slider),
-    m_Min(minDouble),
-    m_Max(maxDouble)
+* \par Details: 
+*/
+WorldWeaver::Model::Star::Star()
 {
-    m_Slider->setRange(minSlider, maxSlider);
-
-    connect(slider, &QSlider::valueChanged, this, &DoubleSlider::onValueChanged);
-}
-
-/**************************************************************************************************/
-/**
- * \par Details: None.
- */
-void Control::DoubleSlider::setDoubleRange(double min, double max)
-{
-    this->m_Min = min;
-    this->m_Max = max;
-}
-
-/**************************************************************************************************/
-/**
- * \par Details: None.
- */
-void Control::DoubleSlider::setDoubleValue(double value)
-{
-    m_Slider->setValue(this->toIntValue(value));
-}
-
-/**************************************************************************************************/
-/**
- * \par Details: None.
- */
-double Control::DoubleSlider::getDoubleValue() const
-{
-    return this->toDoubleValue(m_Slider->value());
 }
 
 /*=================================================================================================
 ** 5.  PRIVATE AND PROTECTED FUNCTIONS
 **===============================================================================================*/
-
-/**************************************************************************************************/
-/**
- * \par Details: None.
- */
-int Control::DoubleSlider::toIntValue(double value) const
-{
-    int new_value = static_cast<int>(((value - this->m_Min) / (this->m_Max - this->m_Min)) * 100000.0);
-    return new_value;
-}
-
-/**************************************************************************************************/
-/**
- * \par Details: None.
- */
-double Control::DoubleSlider::toDoubleValue(int value) const
-{
-    double new_value = static_cast<double>(value) / 100000.0 * (this->m_Max - this->m_Min) + this->m_Min;
-    return new_value; 
-}
-
-/**************************************************************************************************/
-/**
- * \par Details: None.
- */
-void Control::DoubleSlider::onValueChanged(int value)
-{
-    emit doubleValueChanged(this->getDoubleValue());
-}
 
 /** @} */

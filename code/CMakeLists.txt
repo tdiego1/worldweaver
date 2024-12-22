@@ -8,8 +8,9 @@ set(PROJECT_SOURCES
 )
 
 set(PROJECT_INCLUDES
-    ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/double_slider.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/double_slider.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/worldweaver.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/star.hpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

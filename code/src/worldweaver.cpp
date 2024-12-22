@@ -80,8 +80,8 @@ WorldWeaver::WorldWeaver(QWidget* parent) :
     ui->setupUi(this);
 
     // Create custom slider widgets.
-    m_StarMassSlider = new DoubleSlider(ui->starMassSlider, c_star_mass_min, c_star_mass_max, c_star_mass_slider_min, c_star_mass_slider_max);
-    m_StarAgeSlider = new DoubleSlider(ui->starAgeSlider, 0.0, 80.0, 0, 100000);
+    m_StarMassSlider = new Control::DoubleSlider(ui->starMassSlider, c_star_mass_min, c_star_mass_max, c_star_mass_slider_min, c_star_mass_slider_max);
+    m_StarAgeSlider = new Control::DoubleSlider(ui->starAgeSlider, 0.0, 80.0, 0, 100000);
 
     // Set star mass spin box default values.
     ui->starMassSpinBox->setMinimum(c_star_mass_min);
@@ -97,7 +97,7 @@ WorldWeaver::WorldWeaver(QWidget* parent) :
     ui->starAgeSpinBox->setMinimum(0.0);
 
     connect(m_StarMassSlider, SIGNAL(doubleValueChanged(double)), ui->starMassSpinBox, SLOT(setValue(double)));
-    connect(ui->starMassSpinBox, &QDoubleSpinBox::valueChanged, m_StarMassSlider, &DoubleSlider::setDoubleValue);
+    connect(ui->starMassSpinBox, &QDoubleSpinBox::valueChanged, m_StarMassSlider, &Control::DoubleSlider::setDoubleValue);
 
     connect(ui->starAgeSlider, &QSlider::valueChanged, ui->starAgeSpinBox, &QDoubleSpinBox::setValue);
     connect(ui->starAgeSpinBox, &QDoubleSpinBox::valueChanged, ui->starAgeSlider, &QSlider::setValue);
