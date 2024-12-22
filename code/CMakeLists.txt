@@ -3,13 +3,14 @@ project(code)
 set(PROJECT_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/double_slider.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/worldweaver.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/worldweaver.ui
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/main_window.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/main_window.ui
 )
 
 set(PROJECT_INCLUDES
-    ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/double_slider.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/worldweaver.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/double_slider.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/main_window.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/star.hpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

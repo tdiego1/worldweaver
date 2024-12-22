@@ -20,8 +20,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
-#ifndef WORLDWEAVER_H
-#define WORLDWEAVER_H
+#ifndef MAIN_WINDOW_H
+#define MAIN_WINDOW_H
 /*=================================================================================================
 ** 1.  REFERENCES
 **===============================================================================================*/
@@ -32,7 +32,7 @@
 #include <QMainWindow>
 #include <QGroupBox>
 
-#include "worldweaver/double_slider.h"
+#include "worldweaver/double_slider.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -41,7 +41,7 @@
 **===============================================================================================*/
 QT_BEGIN_NAMESPACE
 namespace Ui {
-class WorldWeaver;
+class MainWindow;
 }
 QT_END_NAMESPACE
 /*=================================================================================================
@@ -68,7 +68,7 @@ QT_END_NAMESPACE
 /**
  * \brief Main WorldWeaver QT application class
  */
-class WorldWeaver : public QMainWindow
+class MainWindow : public QMainWindow
 {
 Q_OBJECT
 public:
@@ -78,18 +78,18 @@ public:
      * 
      * \param[inout]    parent  The parent QT widget.
      */
-    WorldWeaver(QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr);
 
     /**************************************************************************************************/
     /**
      * \brief WorldWeaver QT destructor class.
      */
-    ~WorldWeaver();
+    ~MainWindow();
 
 private:
-    Ui::WorldWeaver *ui;    // QT ui variable.
-    DoubleSlider* m_StarMassSlider; // Custom slider widget for star mass double values.
-    DoubleSlider* m_StarAgeSlider;  // Custom slider widget for star age double values
+    Ui::MainWindow *ui;    // QT ui variable.
+    WorldWeaver::Control::DoubleSlider* m_StarMassSlider; // Custom slider widget for star mass double values.
+    WorldWeaver::Control::DoubleSlider* m_StarAgeSlider;  // Custom slider widget for star age double values
 
         
 };
