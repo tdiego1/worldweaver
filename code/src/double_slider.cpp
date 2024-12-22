@@ -61,7 +61,7 @@
 /**
  * \par Details: Default constructor.
  */
-Control::DoubleSlider::DoubleSlider(QSlider* slider, double minDouble, double maxDouble, int minSlider, int maxSlider) :
+WorldWeaver::Control::DoubleSlider::DoubleSlider(QSlider* slider, double minDouble, double maxDouble, int minSlider, int maxSlider) :
     m_Slider(slider),
     m_Min(minDouble),
     m_Max(maxDouble)
@@ -75,7 +75,7 @@ Control::DoubleSlider::DoubleSlider(QSlider* slider, double minDouble, double ma
 /**
  * \par Details: None.
  */
-void Control::DoubleSlider::setDoubleRange(double min, double max)
+void WorldWeaver::Control::DoubleSlider::setDoubleRange(double min, double max)
 {
     this->m_Min = min;
     this->m_Max = max;
@@ -85,7 +85,7 @@ void Control::DoubleSlider::setDoubleRange(double min, double max)
 /**
  * \par Details: None.
  */
-void Control::DoubleSlider::setDoubleValue(double value)
+void WorldWeaver::Control::DoubleSlider::setDoubleValue(double value)
 {
     m_Slider->setValue(this->toIntValue(value));
 }
@@ -94,7 +94,7 @@ void Control::DoubleSlider::setDoubleValue(double value)
 /**
  * \par Details: None.
  */
-double Control::DoubleSlider::getDoubleValue() const
+double WorldWeaver::Control::DoubleSlider::getDoubleValue() const
 {
     return this->toDoubleValue(m_Slider->value());
 }
@@ -107,7 +107,7 @@ double Control::DoubleSlider::getDoubleValue() const
 /**
  * \par Details: None.
  */
-int Control::DoubleSlider::toIntValue(double value) const
+int WorldWeaver::Control::DoubleSlider::toIntValue(double value) const
 {
     int new_value = static_cast<int>(((value - this->m_Min) / (this->m_Max - this->m_Min)) * 100000.0);
     return new_value;
@@ -117,7 +117,7 @@ int Control::DoubleSlider::toIntValue(double value) const
 /**
  * \par Details: None.
  */
-double Control::DoubleSlider::toDoubleValue(int value) const
+double WorldWeaver::Control::DoubleSlider::toDoubleValue(int value) const
 {
     double new_value = static_cast<double>(value) / 100000.0 * (this->m_Max - this->m_Min) + this->m_Min;
     return new_value; 
@@ -127,7 +127,7 @@ double Control::DoubleSlider::toDoubleValue(int value) const
 /**
  * \par Details: None.
  */
-void Control::DoubleSlider::onValueChanged(int value)
+void WorldWeaver::Control::DoubleSlider::onValueChanged(int value)
 {
     emit doubleValueChanged(this->getDoubleValue());
 }

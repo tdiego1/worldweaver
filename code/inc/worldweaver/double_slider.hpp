@@ -46,126 +46,129 @@
 /*=================================================================================================
 ** 3.2 Types and Classes
 **===============================================================================================*/
-namespace Control
+namespace WorldWeaver
 {
-    /**************************************************************************************************/
-    /**
-    * \par Details: 
-    */
-    class DoubleSlider :
-        public QWidget
+    namespace Control
     {
-    Q_OBJECT
-    public:
-        /*********************************/
-        // Public type definitions
-        /*********************************/
-
-        /*********************************/
-        // Public member variables
-        /*********************************/
-
-        /*********************************/
-        // Constructors/Destructor
-        /*********************************/
-
         /**************************************************************************************************/
         /**
-         * \brief Main WorldWeaver QT application constructor.
-         * 
-         * \param[inout]    slider      The parent QT widget.
-         * \param[in]       minDouble   Minimum double range.
-         * \param[in]       maxDouble   Max double range.
-         * \param[in]       minSlider   Min slider integer range value.
-         * \param[in]       maxSlider   Max slider integer range value.
-         */
-        DoubleSlider(QSlider* slider, double minDouble, double maxDouble, int minSlider, int maxSlider);
+        * \par Details: 
+        */
+        class DoubleSlider :
+            public QWidget
+        {
+        Q_OBJECT
+        public:
+            /*********************************/
+            // Public type definitions
+            /*********************************/
 
-        /**************************************************************************************************/
-        /**
-         * \brief The destructor for the DoubleSlider.
-         */
-        ~DoubleSlider(void);
+            /*********************************/
+            // Public member variables
+            /*********************************/
 
-        /*********************************/
-        // Public functions
-        /*********************************/
+            /*********************************/
+            // Constructors/Destructor
+            /*********************************/
 
-        /**************************************************************************************************/
-        /**
-         * \brief Sets the range of double values you wish the slider to be.
-         * 
-         * \param[in]   min     Minimum value the slider should be set to.
-         * \param[in]   max     Maximum value the slider should be set to.
-         */
-        void setDoubleRange(double min, double max);
+            /**************************************************************************************************/
+            /**
+             * \brief Main WorldWeaver QT application constructor.
+             * 
+             * \param[inout]    slider      The parent QT widget.
+             * \param[in]       minDouble   Minimum double range.
+             * \param[in]       maxDouble   Max double range.
+             * \param[in]       minSlider   Min slider integer range value.
+             * \param[in]       maxSlider   Max slider integer range value.
+             */
+            DoubleSlider(QSlider* slider, double minDouble, double maxDouble, int minSlider, int maxSlider);
 
-        /**************************************************************************************************/
-        /**
-         * \brief Gets the value of the slider by converting the value from a range of (0,99) to the
-         *         double range set .
-         * 
-         * \retval  double  Returns the curent value of the slider within the range set.
-         */
-        double getDoubleValue() const;
+            /**************************************************************************************************/
+            /**
+             * \brief The destructor for the DoubleSlider.
+             */
+            ~DoubleSlider(void);
 
-    signals:
-        /**************************************************************************************************/
-        /**
-         * \brief Signal to use when double value has changed.
-         */
-        void doubleValueChanged(double value);
+            /*********************************/
+            // Public functions
+            /*********************************/
 
-    public slots:
-        /**************************************************************************************************/
-        /**
-         * \brief Sets the value of the slider by converting the value into a range of (0,99).
-         * 
-         * \param[in]   value   Value to set the slider.
-         */
-        void setDoubleValue(double value);
+            /**************************************************************************************************/
+            /**
+             * \brief Sets the range of double values you wish the slider to be.
+             * 
+             * \param[in]   min     Minimum value the slider should be set to.
+             * \param[in]   max     Maximum value the slider should be set to.
+             */
+            void setDoubleRange(double min, double max);
 
-    private slots:
-        /**************************************************************************************************/
-        /**
-         * \brief Function called when the slider changed.
-         */
-        void onValueChanged(int value);
+            /**************************************************************************************************/
+            /**
+             * \brief Gets the value of the slider by converting the value from a range of (0,99) to the
+             *         double range set .
+             * 
+             * \retval  double  Returns the curent value of the slider within the range set.
+             */
+            double getDoubleValue() const;
 
-    private:
-        /*********************************/
-        // Private type definitions
-        /*********************************/
+        signals:
+            /**************************************************************************************************/
+            /**
+             * \brief Signal to use when double value has changed.
+             */
+            void doubleValueChanged(double value);
 
-        /*********************************/
-        // Private member variables
-        /*********************************/
+        public slots:
+            /**************************************************************************************************/
+            /**
+             * \brief Sets the value of the slider by converting the value into a range of (0,99).
+             * 
+             * \param[in]   value   Value to set the slider.
+             */
+            void setDoubleValue(double value);
 
-        QSlider* m_Slider;  // QSlider object to extend.
-        double m_Min;       // Minimum slider value set by setRange().
-        double m_Max;       // Maximum slider value set by setRange().
+        private slots:
+            /**************************************************************************************************/
+            /**
+             * \brief Function called when the slider changed.
+             */
+            void onValueChanged(int value);
 
-        /*********************************/
-        // Private functions
-        /*********************************/
+        private:
+            /*********************************/
+            // Private type definitions
+            /*********************************/
 
-        /**************************************************************************************************/
-        /**
-         * \brief Converts a double value to an integer within the set range.
-         * 
-         * \retval  int  Returns the integer value of the slider within the range (0,99)
-         */
-        int toIntValue(double value) const;
+            /*********************************/
+            // Private member variables
+            /*********************************/
 
-        /**************************************************************************************************/
-        /**
-         * \brief Converts an int value to a double within the set range.
-         * 
-         * \retval  double  Double value of the slider.
-         */
-        double toDoubleValue(int value) const;
+            QSlider* m_Slider;  // QSlider object to extend.
+            double m_Min;       // Minimum slider value set by setRange().
+            double m_Max;       // Maximum slider value set by setRange().
 
-    };
+            /*********************************/
+            // Private functions
+            /*********************************/
+
+            /**************************************************************************************************/
+            /**
+             * \brief Converts a double value to an integer within the set range.
+             * 
+             * \retval  int  Returns the integer value of the slider within the range (0,99)
+             */
+            int toIntValue(double value) const;
+
+            /**************************************************************************************************/
+            /**
+             * \brief Converts an int value to a double within the set range.
+             * 
+             * \retval  double  Double value of the slider.
+             */
+            double toDoubleValue(int value) const;
+
+        };
+    }
 }
 
 
@@ -180,13 +183,16 @@ namespace Control
 /*=================================================================================================
 ** 3.5 Functions
 **===============================================================================================*/
-namespace Control
+namespace WorldWeaver
 {
-    /**************************************************************************************************/
-    /**
-    * \par Details: 
-    */
-    inline DoubleSlider::~DoubleSlider(void){}
+    namespace Control
+    {
+        /**************************************************************************************************/
+        /**
+        * \par Details: 
+        */
+        inline DoubleSlider::~DoubleSlider(void){}
+    }
 }
 
 #endif
