@@ -28,8 +28,7 @@
 /*=================================================================================================
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
-#include "worldweaver/worldweaver.h"
-#include "./ui_worldweaver.h"
+#include "worldweaver/double_slider.h"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -56,6 +55,34 @@
 /*=================================================================================================
 ** 4.  PRIVATE FUNCTIONS
 **===============================================================================================*/
+/**************************************************************************************************/
+/**
+ * \par Details: None.
+ */
+int DoubleSlider::toIntValue(double value) const
+{
+    int new_value = static_cast<int>(((value - this->m_Min) / (this->m_Max - this->m_Min)) * 100000.0);
+    return new_value;
+}
+
+/**************************************************************************************************/
+/**
+ * \par Details: None.
+ */
+double DoubleSlider::toDoubleValue(int value) const
+{
+    double new_value = static_cast<double>(value) / 100000.0 * (this->m_Max - this->m_Min) + this->m_Min;
+    return new_value; 
+}
+
+/**************************************************************************************************/
+/**
+ * \par Details: None.
+ */
+void DoubleSlider::onValueChanged(int value)
+{
+    emit doubleValueChanged(this->getDoubleValue());
+}
 
 /*=================================================================================================
 ** 5.  PUBLIC FUNCTIONS
@@ -64,51 +91,44 @@
 /**
  * \par Details: Default constructor.
  */
-WorldWeaver::WorldWeaver(QWidget* parent) :
-    QMainWindow(parent),
-    ui(new Ui::WorldWeaver)
+DoubleSlider::DoubleSlider(QSlider* slider, double minDouble, double maxDouble, int minSlider, int maxSlider) :
+    m_Slider(slider),
+    m_Min(minDouble),
+    m_Max(maxDouble)
 {
-    const double c_star_mass_min = 0.0;         // Min star mass in solar masses (Msol).
-    const double c_star_mass_max = 2.0;         // Max star mass in solar masses (Msol).
-    const double c_star_mass_step = 0.01;       // Star mass spin box step interval.
-    const double c_star_mass_default = 1.0;     // Star mass default value (Earth = 1Msol).
-    const int c_star_mass_slider_min = 0;       // Min star mass slider (integer).
-    const int c_star_mass_slider_max = 100000;  // Max star mass slider (integer).
-    const int c_star_mass_slider_step = 1;      // Star mass slider step interval.
-    const double c_star_age_min = 0.0;          // Min star age in billions of Earth years (Gyr)
+    m_Slider->setRange(minSlider, maxSlider);
 
-    ui->setupUi(this);
-
-    // Create custom slider widgets.
-    m_StarMassSlider = new DoubleSlider(ui->starMassSlider, c_star_mass_min, c_star_mass_max, c_star_mass_slider_min, c_star_mass_slider_max);
-    m_StarAgeSlider = new DoubleSlider(ui->starAgeSlider, 0.0, 80.0, 0, 100000);
-
-    // Set star mass spin box default values.
-    ui->starMassSpinBox->setMinimum(c_star_mass_min);
-    ui->starMassSpinBox->setMaximum(c_star_mass_max);
-    ui->starMassSpinBox->setSingleStep(c_star_mass_step);
-    ui->starMassSpinBox->setValue(c_star_mass_default);
-
-    // Set star mass slider default values.
-    ui->starMassSlider->setSingleStep(c_star_mass_slider_step);
-    ui->starMassSlider->setTickPosition(QSlider::NoTicks);
-    ui->starMassSlider->setValue(c_star_mass_slider_max / 2);
-
-    ui->starAgeSpinBox->setMinimum(0.0);
-
-    connect(m_StarMassSlider, SIGNAL(doubleValueChanged(double)), ui->starMassSpinBox, SLOT(setValue(double)));
-    connect(ui->starMassSpinBox, &QDoubleSpinBox::valueChanged, m_StarMassSlider, &DoubleSlider::setDoubleValue);
-
-    connect(ui->starAgeSlider, &QSlider::valueChanged, ui->starAgeSpinBox, &QDoubleSpinBox::setValue);
-    connect(ui->starAgeSpinBox, &QDoubleSpinBox::valueChanged, ui->starAgeSlider, &QSlider::setValue);
-
+    connect(slider, &QSlider::valueChanged, this, &DoubleSlider::onValueChanged);
 }
 
 /**************************************************************************************************/
 /**
- * \par Details: Destructor
+ * \par Details: None.
  */
-WorldWeaver::~WorldWeaver()
+void DoubleSlider::setDoubleRange(double min, double max)
 {
-    delete ui;
+    this->m_Min = min;
+    this->m_Max = max;
 }
+
+/**************************************************************************************************/
+/**
+ * \par Details: None.
+ */
+void DoubleSlider::setDoubleValue(double value)
+{
+    m_Slider->setValue(this->toIntValue(value));
+}
+
+/**************************************************************************************************/
+/**
+ * \par Details: None.
+ */
+double DoubleSlider::getDoubleValue() const
+{
+    return this->toDoubleValue(m_Slider->value());
+}
+
+
+
+

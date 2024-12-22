@@ -20,8 +20,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
-#ifndef WORLDWEAVER_H
-#define WORLDWEAVER_H
+#ifndef DOUBLE_SLIDER_H
+#define DOUBLE_SLIDER_H
 /*=================================================================================================
 ** 1.  REFERENCES
 **===============================================================================================*/
@@ -29,21 +29,17 @@
 /*=================================================================================================
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
-#include <QMainWindow>
-#include <QGroupBox>
+#include <stdfloat>
 
-#include "worldweaver/double_slider.h"
+#include <QWidget>
+#include <QSlider>
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
 **
 ** 3.1 Macros
 **===============================================================================================*/
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class WorldWeaver;
-}
-QT_END_NAMESPACE
+
 /*=================================================================================================
 ** 3.2 Types
 **===============================================================================================*/
@@ -61,14 +57,15 @@ QT_END_NAMESPACE
 **===============================================================================================*/
 
 /*=================================================================================================
-** 4.  PUBLIC CLASSES FUNCTIONS
+** 4.  PUBLIC CLASSES AND FUNCTIONS
 **===============================================================================================*/
 
 /**************************************************************************************************/
 /**
  * \brief Main WorldWeaver QT application class
  */
-class WorldWeaver : public QMainWindow
+class DoubleSlider :
+    public QWidget
 {
 Q_OBJECT
 public:
@@ -76,22 +73,77 @@ public:
     /**
      * \brief Main WorldWeaver QT application constructor.
      * 
-     * \param[inout]    parent  The parent QT widget.
+     * \param[inout]    slider      The parent QT widget.
+     * \param[in]       minDouble   Minimum double range.
+     * \param[in]       maxDouble   Max double range.
+     * \param[in]       minSlider   Min slider integer range value.
+     * \param[in]       maxSlider   Max slider integer range value.
      */
-    WorldWeaver(QWidget *parent = nullptr);
+    DoubleSlider(QSlider* slider, double minDouble, double maxDouble, int minSlider, int maxSlider);
 
     /**************************************************************************************************/
     /**
-     * \brief WorldWeaver QT destructor class.
+     * \brief Sets the range of double values you wish the slider to be.
+     * 
+     * \param[in]   min     Minimum value the slider should be set to.
+     * \param[in]   max     Maximum value the slider should be set to.
      */
-    ~WorldWeaver();
+    void setDoubleRange(double min, double max);
+
+    /**************************************************************************************************/
+    /**
+     * \brief Gets the value of the slider by converting the value from a range of (0,99) to the
+     *         double range set .
+     * 
+     * \retval  double  Returns the curent value of the slider within the range set.
+     */
+    double getDoubleValue() const;
+
+signals:
+    /**************************************************************************************************/
+    /**
+     * \brief Signal to use when double value has changed.
+     */
+    void doubleValueChanged(double value);
+
+public slots:
+    /**************************************************************************************************/
+    /**
+     * \brief Sets the value of the slider by converting the value into a range of (0,99).
+     * 
+     * \param[in]   value   Value to set the slider.
+     */
+    void setDoubleValue(double value);
+
+private slots:
+    /**************************************************************************************************/
+    /**
+     * \brief Function called when the slider changed.
+     */
+    void onValueChanged(int value);
 
 private:
-    Ui::WorldWeaver *ui;    // QT ui variable.
-    DoubleSlider* m_StarMassSlider; // Custom slider widget for star mass double values.
-    DoubleSlider* m_StarAgeSlider;  // Custom slider widget for star age double values
+    QSlider* m_Slider;  // QSlider object to extend.
+    double m_Min;       // Minimum slider value set by setRange().
+    double m_Max;       // Maximum slider value set by setRange().
 
-        
+    /**************************************************************************************************/
+    /**
+     * \brief Converts a double value to an integer within the set range.
+     * 
+     * \retval  int  Returns the integer value of the slider within the range (0,99)
+     */
+    int toIntValue(double value) const;
+
+    /**************************************************************************************************/
+    /**
+     * \brief Converts an int value to a double within the set range.
+     * 
+     * \retval  double  Double value of the slider.
+     */
+    double toDoubleValue(int value) const;
+
 };
 
-#endif // WORLDWEAVER_H
+
+#endif // DOUBLE_SLIDER_H
