@@ -23,9 +23,11 @@ target_include_directories(worldweaver PUBLIC
                            ${CMAKE_CURRENT_SOURCE_DIR}/inc
                            ${CMAKE_SOURCE_DIR}/lib/glfw/include
                            ${CMAKE_SOURCE_DIR}/lib/glm
+                           ${CMAKE_SOURCE_DIR}/lib/imgui
                            )
 
 target_link_libraries(worldweaver
+                      imgui
                       ${OPENGL_LIBRARIES}
                       glm
                       glfw
