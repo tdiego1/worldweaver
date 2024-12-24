@@ -24,9 +24,11 @@ target_include_directories(worldweaver PUBLIC
                            ${CMAKE_SOURCE_DIR}/lib/glfw/include
                            ${CMAKE_SOURCE_DIR}/lib/glm
                            ${CMAKE_SOURCE_DIR}/lib/imgui
+                           ${CMAKE_SOURCE_DIR}/lib/libassert
                            )
 
 target_link_libraries(worldweaver
+                      libassert-lib
                       imgui
                       ${OPENGL_LIBRARIES}
                       glm
