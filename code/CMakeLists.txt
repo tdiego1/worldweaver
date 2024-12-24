@@ -13,7 +13,6 @@ set(PROJECT_INCLUDES
 )
 
 add_executable(worldweaver
-    WIN32
     ${PROJECT_SOURCES}
     ${PROJECT_INCLUDES}
 )
@@ -36,9 +35,3 @@ target_link_libraries(worldweaver
                       glfw
                       glad
                       )
-
-install(TARGETS worldweaver
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
