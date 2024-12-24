@@ -25,6 +25,7 @@ target_include_directories(worldweaver PUBLIC
                            ${CMAKE_SOURCE_DIR}/lib/glm
                            ${CMAKE_SOURCE_DIR}/lib/imgui
                            ${CMAKE_SOURCE_DIR}/lib/libassert
+                           ${CMAKE_SOURCE_DIR}/lib/glad/include
                            )
 
 target_link_libraries(worldweaver
@@ -33,6 +34,7 @@ target_link_libraries(worldweaver
                       ${OPENGL_LIBRARIES}
                       glm
                       glfw
+                      glad
                       )
 
 install(TARGETS worldweaver
