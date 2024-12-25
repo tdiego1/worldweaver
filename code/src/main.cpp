@@ -39,6 +39,7 @@
 #include <libassert/assert.hpp>
 
 #include "gui/gui_main.hpp"
+#include "worldweaver/gfx_helper.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -110,11 +111,10 @@ int main(int argc, char *argv[])
 {
     // 1. Initialize and Configure GLFW
     ///////////////////////////////////////////////////////
+    
+    WorldWeaver::GFX::GFXHelper gfx_helper;
 
-    glfwInit(); // Initialize the GLFW window.
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);  // Set the OpenGL major version to 3.
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);  // Set the OpenGL minor version to 3.
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // Get the OpenGL profile to core.
+    gfx_helper.GFXHelperInit();
 
     // 2. Create GLFW Window
     ///////////////////////////////////////////////////////
@@ -147,92 +147,17 @@ int main(int argc, char *argv[])
     // 4. Setup Vertex Shader
     ///////////////////////////////////////////////////////
 
-    uint32_t vertex_shader; // Vertex shader object ID.
-    int32_t success;        // Is the shader compilation successful?
-    char info_log[512];     // String for logging errors.
-
-    // Create vertex shader object.
-    vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-
-    // Attach the shader source code to the shader object.
-    glShaderSource(vertex_shader, 1, &g_VertexShaderSource, NULL);
-
-    // Compile the vertex shader.
-    glCompileShader(vertex_shader);
-
-    // Check if compilation was successful.
-    glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, &success);
-
-    // Retrieve error message if compilation was unsuccessful.
-    if(!success)
-    {
-        glGetShaderInfoLog(vertex_shader, 512, NULL, info_log);
-
-        printf("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n");
-        printf("%s", info_log);
-        printf("\n");
-    }
+    gfx_helper.SetupShader(g_VertexShaderSource, WorldWeaver::GFX::GFXHelper::ShaderType::VERTEX);
 
     // 5. Setup Fragment Shader
     ///////////////////////////////////////////////////////
-    
-    uint32_t fragment_shader;   // Fragment shader object ID.
 
-    // Create fragment shader object.
-    fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-
-    // Attach the fragment source code to the fragment shader object.
-    glShaderSource(fragment_shader, 1, &g_FragmentShaderSource, NULL);
-
-    // Compile the fragement shader.
-    glCompileShader(fragment_shader);
-
-    // Check if the compilation was successful.
-    glGetShaderiv(fragment_shader, GL_COMPILE_STATUS, &success);
-
-    // Retrieve error message if compilation was unsuccessful.
-    if(!success)
-    {
-        glGetShaderInfoLog(fragment_shader, 512, NULL, info_log);
-
-        printf("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n");
-        printf("%s", info_log);
-        printf("\n");
-    }
+    gfx_helper.SetupShader(g_FragmentShaderSource, WorldWeaver::GFX::GFXHelper::ShaderType::FRAGMENT);    
 
     // 6. Link and Compile Shader Program
     ///////////////////////////////////////////////////////
 
-    uint32_t shader_program;    // Shader program object ID.
-
-    // Create shader program.
-    shader_program = glCreateProgram();
-
-    // Attach vertex shader to shader program.
-    glAttachShader(shader_program, vertex_shader);
-
-    // Attach fragment shader to shader program.
-    glAttachShader(shader_program, fragment_shader);
-
-    // Link shaders to shader program.
-    glLinkProgram(shader_program);
-
-    // Check if linking was successful.
-    glGetProgramiv(shader_program, GL_LINK_STATUS, &success);
-
-    //Retrieve error message if linking was unsuccessful.
-    if(!success)
-    {
-        glGetProgramInfoLog(shader_program, 512, NULL, info_log);
-
-        printf("ERROR::SHADER::PROGRAM::LINKING_FAILED\n");
-        printf("%s", info_log);
-        printf("\n");
-    }
-
-    // Delete vertex and fragment shaders after linking.
-    glDeleteShader(vertex_shader);
-    glDeleteShader(fragment_shader);
+    gfx_helper.CompileShaderProgram();
 
     // 7. Setup Vertex Data, Attributes, and Buffers
     ///////////////////////////////////////////////////////
@@ -328,7 +253,7 @@ int main(int argc, char *argv[])
         glClear(GL_COLOR_BUFFER_BIT);
 
         // Specify the shader program to use.
-        glUseProgram(shader_program);
+        glUseProgram(gfx_helper.GetShaderProgram());
 
         // Bind to VAO
         glBindVertexArray(vao);
@@ -353,7 +278,7 @@ int main(int argc, char *argv[])
     glDeleteVertexArrays(1, &vao);
     glDeleteBuffers(1, &vbo);
     glDeleteBuffers(1, &ebo);
-    glDeleteProgram(shader_program);
+    glDeleteProgram(gfx_helper.GetShaderProgram());
 
     // Properly terminates and cleans all the GLFW resources that were allocated.
     glfwTerminate();

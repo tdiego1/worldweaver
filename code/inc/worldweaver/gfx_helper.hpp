@@ -32,7 +32,6 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <string>
 #include <stdint.h>
 
 /*=================================================================================================
@@ -59,6 +58,12 @@ namespace WorldWeaver
             /*********************************/
             // Public type definitions
             /*********************************/
+
+            enum class ShaderType
+            {
+                VERTEX,
+                FRAGMENT
+            };
 
             /*********************************/
             // Public member variables
@@ -96,7 +101,7 @@ namespace WorldWeaver
             * 
             * \param[in] shaderSource The shader source code.
             */
-            void SetupShader(std::string shaderSource);
+            void SetupShader(const char* shaderSource, ShaderType shaderType);
 
             /**************************************************************************************************/
             /**
