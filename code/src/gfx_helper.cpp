@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup <DoxModuleId>
+* \addtogroup GFX_HELPER
 * @{
 * \details
-* This file provides the public interface for the <Module_Name> Module.
+* This file provides the public interface for the GFX_Helper Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -29,11 +29,7 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include "imgui.h"
-
-#include "gui/gui_main.hpp"
-#include "worldweaver/star.hpp"
-
+#include "worldweaver/gfx_helper.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -65,26 +61,8 @@
 /**
 * \par Details: 
 */
-void WorldWeaver::GUI::StarInterface()
+WorldWeaver::GFX::GFXHelper::GFXHelper()
 {
-    // 1. Create a window called "Star Interface" and begin ImGui frame.
-    ImGui::Begin("Star", NULL);
-
-    static float star_mass = 1.0f;
-    static float star_age = 6.0f;
-
-    if(ImGui::SliderFloat("Mass", &star_mass, 0.0f, 2.0f, "%.2f Msol"))
-    {
-        // Set the mass of the star.
-    }
-
-    if(ImGui::SliderFloat("Current Age", &star_age, 0.0f, 2.0f, "%.2f Gyr"))
-    {
-        // Set the current age of the star.
-    }
-
-    // 3. End the ImGui frame.
-    ImGui::End();
 }
 
 /*=================================================================================================
