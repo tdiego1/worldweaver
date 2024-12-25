@@ -5,11 +5,12 @@ find_package( OpenGL REQUIRED)
 set(PROJECT_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/star.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
-
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/gui_main.cpp
 )
 
 set(PROJECT_INCLUDES
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/star.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/gui/gui_main.hpp
 )
 
 add_executable(worldweaver
