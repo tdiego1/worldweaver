@@ -31,6 +31,7 @@
 /*=================================================================================================
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
+#include <cstdint>
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -74,13 +75,35 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
+             * \brief Describes whether the star is capable of Earth-like life.
+             */
+            enum class LifeCapable
+            {
+                YES,
+                NO,
+                TOO_YOUNG
+            };
+
+            /**************************************************************************************************/
+            /**
             * \brief The spectral class of stars.
             */
             struct SpectralClass
             {
                 SpectralMajor spectralMajor;
-                double spectralMinor;
+                float spectralMinor;
                 bool isMainSequence;
+            };
+
+            /**************************************************************************************************/
+            /**
+             * \brief The color of a star in rgba.
+             */
+            struct Color
+            {
+                uint8_t r;
+                uint8_t g;
+                uint8_t b;
             };
 
             /*********************************/
@@ -106,221 +129,204 @@ namespace WorldWeaver
             /*********************************/
             // Public functions
             /*********************************/
+
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Calculates the star's characteristics from mass.
+            */
+            void CalculateCharacteristics();
+
+            /**************************************************************************************************/
+            /**
+            * \brief Sets the spectral class of a star.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] spectralClass The spectral class of the star.
             */
             void SetSpectralClass(SpectralClass spectralClass);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Sets the mass of a star.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] mass The mass of the star.
             */
-           void SetMass(double mass);
+           void SetMass(float mass);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Sets the current age of a star.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] currentAge The current age of the star.
             */
-            void SetCurrentAge(double currentAge);
+            void SetCurrentAge(float currentAge);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Sets the maximum age of a star.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] maxAge The maximum age of the star.
             */
-            void SetMaxAge(double maxAge);
+            void SetMaxAge(float maxAge);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Sets the radius of a star.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] radius The radius of the star.
             */
-            void SetRadius(double radius);
+            void SetRadius(float radius);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Sets the luminosity of a star.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] luminosity The luminosity of the star.
             */
-            void SetLuminosity(double luminosity);
+            void SetLuminosity(float luminosity);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Sets the density of a star.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] density The density of the star.
             */
-            void SetDensity(double density);
+            void SetDensity(float density);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Sets the temperature of a star.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] temperature The temperature of the star.
             */
-            void SetTemperature(double temperature);
+            void SetTemperature(float temperature);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Sets the color of a star.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] color The color of the star in rgb.
             */
-            void SetColor(double color);
+            void SetColor(Color color);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Sets the minimum habitable zone of a star in AU.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] minHabitableZone The minimum habitable zone of the star in AU.
             */
-            void SetMinHabitableZone(double minHabitableZone);
+            void SetMinHabitableZone(float minHabitableZone);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Sets the maximum habitable zone of a star in AU.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] maxHabitableZone The maximum habitable zone of the star in AU.
             */
-            void SetMaxHabitableZone(double maxHabitableZone);
+            void SetMaxHabitableZone(float maxHabitableZone);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Sets whether a star is capable of supporting Earth-like life.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] lifeCapable The capability of the star to support Earth-like life.
             */
-            void SetIsEarthLike(bool isEarthLike);
+            void SetIsLifeCapable(LifeCapable lifeCapable);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Gets the spectral class of a star.
             * 
-            * \retval 
+            * \retval SpectralClass The spectral class of the star.
             */
             SpectralClass GetSpectralClass() const;
 
             /**************************************************************************************************/
             /**
-             * \brief
+             * \brief Gets the mass of a star.
              *  
-             * \retval 
+             * \retval float The mass of the star.
              */
-            double GetMass() const;
+            float GetMass() const;
 
             /**************************************************************************************************/
             /**
-             * \brief
+             * \brief Gets the current age of a star.
              *  
-             * \retval 
+             * \retval float The current age of the star.
              */
-            double GetCurrentAge() const;
+            float GetCurrentAge() const;
 
             /**************************************************************************************************/
             /**
-             * \brief
+             * \brief Gets the maximum age of a star.
              *  
-             * \retval 
+             * \retval float The maximum age of the star.
              */
-            double GetMaxAge() const;
+            float GetMaxAge() const;
 
             /**************************************************************************************************/
             /**
-             * \brief
+             * \brief Gets the radius of a star.
              *  
-             * \retval 
+             * \retval float The radius of the star.
              */
-            double GetRadius() const;
+            float GetRadius() const;
 
             /**************************************************************************************************/
             /**
-             * \brief
+             * \brief Gets the luminosity of a star.
              *  
-             * \retval 
+             * \retval float The luminosity of the star.
              */
-            double GetLuminosity() const;
+            float GetLuminosity() const;
 
             /**************************************************************************************************/
             /**
-             * \brief
+             * \brief Gets the density of a star.
              *  
-             * \retval 
+             * \retval float The density of the star.
              */
-            double GetDensity() const;
+            float GetDensity() const;
 
             /**************************************************************************************************/
             /**
-             * \brief
+             * \brief Gets the temperature of a star.
              *  
-             * \retval 
+             * \retval float The temperature of the star.
              */
-            double GetTemperature() const;
+            float GetTemperature() const;
 
             /**************************************************************************************************/
             /**
-             * \brief
+             * \brief Gets the color of a star.
              *  
-             * \retval 
+             * \retval WorldWeaver::Model::Star::Color The color of the star in rgb.
              */
-            double GetColor() const;
+            Color GetColor() const;
 
             /**************************************************************************************************/
             /**
-             * \brief
+             * \brief Gets the minimum habitable zone of a star in AU.
              *  
-             * \retval 
+             * \retval float The minimum habitable zone of the star in AU.
              */
-            double GetMinHabitableZone() const;
+            float GetMinHabitableZone() const;
 
             /**************************************************************************************************/
             /**
-             * \brief
+             * \brief Gets the maximum habitable zone of a star in AU.
              *  
-             * \retval 
+             * \retval float The maximum habitable zone of the star in AU.
              */
-            double GetMaxHabitableZone() const;
+            float GetMaxHabitableZone() const;
 
             /**************************************************************************************************/
             /**
-             * \brief
+             * \brief Gets whether a star is capable of supporting Earth-like life.
              *  
-             * \retval 
+             * \retval LifeCapable The capability of the star to support Earth-like life.
              */
-            bool GetIsEarthLike() const;
+            LifeCapable GetIsLifeCapable() const;
 
         private:
             /*********************************/
@@ -331,22 +337,21 @@ namespace WorldWeaver
             // Private member variables
             /*********************************/
             SpectralClass m_SpectralClass;
-            double m_Mass;
-            double m_CurrentAge;
-            double m_MaxAge;
-            double m_Radius;
-            double m_Luminosity;
-            double m_Density;
-            double m_Temperature;
-            double m_Color;
-            double m_MinHabitableZone;
-            double m_MaxHabitableZone;
-            bool m_IsEarthLike;
+            float m_Mass;
+            float m_CurrentAge;
+            float m_MaxAge;
+            float m_Radius;
+            float m_Luminosity;
+            float m_Density;
+            float m_Temperature;
+            Color m_Color;
+            float m_MinHabitableZone;
+            float m_MaxHabitableZone;
+            LifeCapable m_IsLifeCapable;
 
             /*********************************/
             // Private functions
             /*********************************/
-
         };
     }
 }
@@ -373,5 +378,6 @@ namespace WorldWeaver
         inline Star::~Star(){}
     }
 }
+
 #endif
 /** @} */

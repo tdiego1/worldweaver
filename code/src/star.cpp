@@ -30,6 +30,7 @@
 **===============================================================================================*/
 #include "worldweaver/star.hpp"
 #include <cstring>
+#include <cmath>
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -53,6 +54,49 @@
 ** 3.5 Static function prototypes
 **===============================================================================================*/
 
+/**************************************************************************************************/
+/**
+ * \brief Calculates the luminosity of a star.
+ *  
+ * \param[in] mass The mass of the star.
+ * 
+ * \retval float The luminosity of the star.
+ */
+static float CalculateLuminosity(float mass);
+
+/**************************************************************************************************/
+/**
+ * \brief Calculates the radius of a star.
+ *  
+ * \param[in] mass The mass of the star.
+ * 
+ * \retval float The radius of the star.
+ */
+static float CalculateRadius(float mass);
+
+/**************************************************************************************************/
+/**
+* \brief Calculate the color of a star.
+* 
+* \param[in] temperature The temperature of the star.
+* 
+* \retval WorldWeaver::Model::Star::Color The color of the star in rgb.
+*/
+static WorldWeaver::Model::Star::Color CalculateColor(float temperature);
+
+/**************************************************************************************************/
+/**
+* \brief Determines if star is life capable.
+* 
+* \param[in] mass           The mass of the star.
+* \param[in] currentAge     The current age of the star.
+* 
+* \retval LifeCapable::Yes The star is capable of supporting Earth-like life.
+* \retval LifeCapable::No  The star is not capable of supporting Earth-like life.
+* \retval LifeCapable::TooYoung The star is too young to support Earth-like life.
+*/
+static WorldWeaver::Model::Star::LifeCapable DetermineIfLifeCapable(float mass, float currentAge);
+
 /*=================================================================================================
 ** 4.  PUBLIC FUNCTIONS
 **===============================================================================================*/
@@ -62,21 +106,53 @@
 * \par Details: 
 */
 WorldWeaver::Model::Star::Star() :
-    m_Mass(0.0),
-    m_CurrentAge(0.0),
+    m_Mass(1.0),
+    m_CurrentAge(6.0),
     m_MaxAge(0.0),
     m_Radius(0.0),
-    m_Luminosity(1.0),
-    m_Density(1.0),
-    m_Temperature(1.0),
-    m_Color(1.0),
+    m_Luminosity(0.0),
+    m_Density(0.0),
+    m_Temperature(0.0),
+    m_Color{ 0 },
     m_MinHabitableZone(0.0),
     m_MaxHabitableZone(0.0),
-    m_IsEarthLike(false)
+    m_IsLifeCapable(LifeCapable::YES)
 {
     m_SpectralClass.spectralMajor = SpectralMajor::UNSET;
     m_SpectralClass.spectralMinor = 0.0;
     m_SpectralClass.isMainSequence = false;
+}
+
+/**************************************************************************************************/
+/**
+ * \par Details: 
+ */
+void WorldWeaver::Model::Star::CalculateCharacteristics()
+{
+    // Calculate the luminoisty of the star.
+    m_Luminosity = CalculateLuminosity(m_Mass);
+
+    // Calculate the max age of the star.
+    m_MaxAge = (m_Mass / m_Luminosity) * 10.0f;
+
+    // Calculate the radius of the star.
+    m_Radius = CalculateRadius(m_Mass);
+
+    // Calculate the density of the star.
+    m_Density = m_Mass / (float)pow(m_Radius, 3);
+
+    // Calculate the temperature of the star in Kelvin.
+    m_Temperature = 5776.0f * ((float)pow((m_Luminosity / (float)pow(m_Radius, 2)), 0.25f));
+
+    // Calculate the color of the star.
+    m_Color = CalculateColor(m_Temperature);
+
+    // Calculate the habitable zone of the star.
+    m_MinHabitableZone = (float)sqrt(m_Luminosity / 1.1);
+    m_MaxHabitableZone = (float)sqrt(m_Luminosity / 0.53);
+
+    // Determine if the star will have Earth-like life.
+    m_IsLifeCapable = DetermineIfLifeCapable(m_Mass, m_CurrentAge);
 }
 
 /**************************************************************************************************/
@@ -92,7 +168,7 @@ void WorldWeaver::Model::Star::SetSpectralClass(SpectralClass spectralClass)
 /**
  * \par Details: 
  */
-void WorldWeaver::Model::Star::SetMass(double mass)
+void WorldWeaver::Model::Star::SetMass(float mass)
 {
     m_Mass = mass;
 }
@@ -101,7 +177,7 @@ void WorldWeaver::Model::Star::SetMass(double mass)
 /**
  * \par Details: 
  */
-void WorldWeaver::Model::Star::SetCurrentAge(double currentAge)
+void WorldWeaver::Model::Star::SetCurrentAge(float currentAge)
 {
     m_CurrentAge = currentAge;
 }
@@ -110,7 +186,7 @@ void WorldWeaver::Model::Star::SetCurrentAge(double currentAge)
 /**
  * \par Details: 
  */
-void WorldWeaver::Model::Star::SetMaxAge(double maxAge)
+void WorldWeaver::Model::Star::SetMaxAge(float maxAge)
 {
     m_MaxAge = maxAge;
 }
@@ -119,7 +195,7 @@ void WorldWeaver::Model::Star::SetMaxAge(double maxAge)
 /**
  * \par Details: 
  */
-void WorldWeaver::Model::Star::SetRadius(double radius)
+void WorldWeaver::Model::Star::SetRadius(float radius)
 {
     m_Radius = radius;
 }
@@ -128,7 +204,7 @@ void WorldWeaver::Model::Star::SetRadius(double radius)
 /**
  * \par Details: 
  */
-void WorldWeaver::Model::Star::SetLuminosity(double luminosity)
+void WorldWeaver::Model::Star::SetLuminosity(float luminosity)
 {
     m_Luminosity = luminosity;
 }
@@ -137,7 +213,7 @@ void WorldWeaver::Model::Star::SetLuminosity(double luminosity)
 /**
  * \par Details: 
  */
-void WorldWeaver::Model::Star::SetDensity(double density)
+void WorldWeaver::Model::Star::SetDensity(float density)
 {
     m_Density = density;
 }
@@ -146,7 +222,7 @@ void WorldWeaver::Model::Star::SetDensity(double density)
 /**
  * \par Details: 
  */
-void WorldWeaver::Model::Star::SetTemperature(double temperature)
+void WorldWeaver::Model::Star::SetTemperature(float temperature)
 {
     m_Temperature = temperature;
 }
@@ -155,7 +231,7 @@ void WorldWeaver::Model::Star::SetTemperature(double temperature)
 /**
  * \par Details: 
  */
-void WorldWeaver::Model::Star::SetColor(double color)
+void WorldWeaver::Model::Star::SetColor(Color color)
 {
     m_Color = color;
 }
@@ -164,7 +240,7 @@ void WorldWeaver::Model::Star::SetColor(double color)
 /**
  * \par Details: 
  */
-void WorldWeaver::Model::Star::SetMinHabitableZone(double minHabitableZone)
+void WorldWeaver::Model::Star::SetMinHabitableZone(float minHabitableZone)
 {
     m_MinHabitableZone = minHabitableZone;
 }
@@ -173,7 +249,7 @@ void WorldWeaver::Model::Star::SetMinHabitableZone(double minHabitableZone)
 /**
  * \par Details: 
  */
-void WorldWeaver::Model::Star::SetMaxHabitableZone(double maxHabitableZone)
+void WorldWeaver::Model::Star::SetMaxHabitableZone(float maxHabitableZone)
 {
     m_MaxHabitableZone = maxHabitableZone;
 }
@@ -182,9 +258,9 @@ void WorldWeaver::Model::Star::SetMaxHabitableZone(double maxHabitableZone)
 /**
  * \par Details: 
  */
-void WorldWeaver::Model::Star::SetIsEarthLike(bool isEarthLike)
+void WorldWeaver::Model::Star::SetIsLifeCapable(LifeCapable lifeCapable)
 {
-    m_IsEarthLike = isEarthLike;
+    m_IsLifeCapable = lifeCapable;
 }
 
 /**************************************************************************************************/
@@ -200,7 +276,7 @@ WorldWeaver::Model::Star::SpectralClass WorldWeaver::Model::Star::GetSpectralCla
 /**
  * \par Details: 
  */
-double WorldWeaver::Model::Star::GetMass() const
+float WorldWeaver::Model::Star::GetMass() const
 {
     return m_Mass;
 }
@@ -209,7 +285,7 @@ double WorldWeaver::Model::Star::GetMass() const
 /**
  * \par Details: 
  */
-double WorldWeaver::Model::Star::GetCurrentAge() const
+float WorldWeaver::Model::Star::GetCurrentAge() const
 {
     return m_CurrentAge;
 }
@@ -218,7 +294,7 @@ double WorldWeaver::Model::Star::GetCurrentAge() const
 /**
  * \par Details: 
  */
-double WorldWeaver::Model::Star::GetMaxAge() const
+float WorldWeaver::Model::Star::GetMaxAge() const
 {
     return m_MaxAge;
 }
@@ -227,7 +303,7 @@ double WorldWeaver::Model::Star::GetMaxAge() const
 /**
  * \par Details: 
  */
-double WorldWeaver::Model::Star::GetRadius() const
+float WorldWeaver::Model::Star::GetRadius() const
 {
     return m_Radius;
 }
@@ -236,7 +312,7 @@ double WorldWeaver::Model::Star::GetRadius() const
 /**
  * \par Details: 
  */
-double WorldWeaver::Model::Star::GetLuminosity() const
+float WorldWeaver::Model::Star::GetLuminosity() const
 {
     return m_Luminosity;
 }
@@ -245,7 +321,7 @@ double WorldWeaver::Model::Star::GetLuminosity() const
 /**
  * \par Details: 
  */
-double WorldWeaver::Model::Star::GetDensity() const
+float WorldWeaver::Model::Star::GetDensity() const
 {
     return m_Density;
 }
@@ -254,7 +330,7 @@ double WorldWeaver::Model::Star::GetDensity() const
 /**
  * \par Details: 
  */
-double WorldWeaver::Model::Star::GetTemperature() const
+float WorldWeaver::Model::Star::GetTemperature() const
 {
     return m_Temperature;
 }
@@ -263,7 +339,7 @@ double WorldWeaver::Model::Star::GetTemperature() const
 /**
  * \par Details: 
  */
-double WorldWeaver::Model::Star::GetColor() const
+WorldWeaver::Model::Star::Color WorldWeaver::Model::Star::GetColor() const
 {
     return m_Color;
 }
@@ -272,7 +348,7 @@ double WorldWeaver::Model::Star::GetColor() const
 /**
  * \par Details: 
  */
-double WorldWeaver::Model::Star::GetMinHabitableZone() const
+float WorldWeaver::Model::Star::GetMinHabitableZone() const
 {
     return m_MinHabitableZone;
 }
@@ -281,7 +357,7 @@ double WorldWeaver::Model::Star::GetMinHabitableZone() const
 /**
  * \par Details: 
  */
-double WorldWeaver::Model::Star::GetMaxHabitableZone() const
+float WorldWeaver::Model::Star::GetMaxHabitableZone() const
 {
     return m_MaxHabitableZone;
 }
@@ -290,13 +366,134 @@ double WorldWeaver::Model::Star::GetMaxHabitableZone() const
 /**
  * \par Details: 
  */
-bool WorldWeaver::Model::Star::GetIsEarthLike() const
+WorldWeaver::Model::Star::LifeCapable WorldWeaver::Model::Star::GetIsLifeCapable() const
 {
-    return m_IsEarthLike;
+    return m_IsLifeCapable;
 }
 
 /*=================================================================================================
 ** 5.  PRIVATE AND PROTECTED FUNCTIONS
 **===============================================================================================*/
+
+/**************************************************************************************************/
+/**
+* \par Details: 
+*/
+float CalculateLuminosity(float mass)
+{
+    if(mass < 0.43f)
+    {
+        return (0.23 * (float)pow(mass, 0.23));
+    }
+    else if(mass < 2.0f)
+    {
+        return((float)pow(mass, 4));
+    }
+    else
+    {
+        return(1.4 * (float)pow(mass, 3.5));
+    }
+}
+
+/**************************************************************************************************/
+/**
+ * \par Details: 
+ */
+float CalculateRadius(float mass)
+{
+    if(mass < 1.0f)
+    {
+        return((float)pow(mass, 0.8));
+    }
+    else
+    {
+        return((float)pow(mass, 0.57));
+    }
+}
+
+/**************************************************************************************************/
+/**
+* \par Details: 
+*/
+WorldWeaver::Model::Star::Color CalculateColor(float temperature)
+{
+    WorldWeaver::Model::Star::Color star_color;
+
+    if(temperature <= 3700)
+    {
+        //Yellow
+        star_color.r = 255;
+        star_color.g = 204;
+        star_color.b = 111;
+    }
+    else if(temperature < 5200)
+    {
+        // Yellow-orange
+        star_color.r = 255;
+        star_color.g = 210;
+        star_color.b = 161;
+    }
+    else if(temperature < 6000)
+    {
+        // Orange-white
+        star_color.r = 255;
+        star_color.g = 244;
+        star_color.b = 234;
+    }
+    else if(temperature < 7500)
+    {
+        // White
+        star_color.r = 248;
+        star_color.g = 247;
+        star_color.b = 255;
+    }
+    else if(temperature < 10000)
+    {
+        // Blue-white
+        star_color.r = 202;
+        star_color.g = 215;
+        star_color.b = 255;
+    }
+    else if(temperature < 33000)
+    {
+        // Light blue
+        star_color.r = 170;
+        star_color.g = 191;
+        star_color.b = 255;
+    }
+    else
+    {
+        // Blue
+        star_color.r = 155;
+        star_color.g = 176;
+        star_color.b = 255;
+    }
+
+    return star_color;
+}
+
+/**************************************************************************************************/
+/**
+* \par Details: 
+*/
+WorldWeaver::Model::Star::LifeCapable DetermineIfLifeCapable(float mass, float currentAge)
+{
+    if(mass >= 0.5 && mass <= 1.4)
+    {
+        if(currentAge >= 3.5)
+        {
+            return(WorldWeaver::Model::Star::LifeCapable::YES);
+        }
+        else
+        {
+            return(WorldWeaver::Model::Star::LifeCapable::TOO_YOUNG);
+        }
+    }
+    else
+    {
+        return(WorldWeaver::Model::Star::LifeCapable::NO);
+    }
+}
+
 
 /** @} */
