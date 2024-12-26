@@ -109,7 +109,7 @@ void WorldWeaver::GUI::StarInterface()
 
     ImGui::Text("Temperature: %.f K", g_CurrentStar.GetTemperature());
 
-    ImGui::Text("Color: %.3f", 1.0f);
+    ImGui::Text("Color: R: %d, G: %d, B: %d", g_CurrentStar.GetColor().r, g_CurrentStar.GetColor().g, g_CurrentStar.GetColor().b);
 
     ImGui::Text("Habitable Zone: %.3f - %.3f AU", g_CurrentStar.GetMinHabitableZone(), g_CurrentStar.GetMaxHabitableZone());
 
