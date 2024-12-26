@@ -31,6 +31,7 @@
 
 #include <cmath>
 #include <string>
+#include <format>
 
 #include "imgui.h"
 
@@ -75,7 +76,7 @@ void WorldWeaver::GUI::StarInterface()
     ImGui::Begin("Star", NULL);
 
     float star_mass = g_CurrentStar.GetMass();
-    float star_age = g_CurrentStar.GetCurrentAge();
+    std::string spectral_class = "";
     std::string is_life_capable = "";
 
     if(ImGui::SliderFloat("Mass", &star_mass, 0.075f, 2.0f, "%.3f Msol", ImGuiSliderFlags_AlwaysClamp))
@@ -83,7 +84,7 @@ void WorldWeaver::GUI::StarInterface()
         g_CurrentStar.SetMass(star_mass);
     }
 
-    g_CurrentStar.CalculateCharacteristics();
+    float star_age = g_CurrentStar.GetCurrentAge();
 
     if(ImGui::SliderFloat("Current Age", &star_age, 0.0f, g_CurrentStar.GetMaxAge(), "%.3f Gyr", ImGuiSliderFlags_AlwaysClamp))
     {
@@ -93,7 +94,37 @@ void WorldWeaver::GUI::StarInterface()
 
     ImGui::Separator();
 
-    ImGui::Text("Spectral Class: ");
+    switch(g_CurrentStar.GetSpectralClass().spectralMajor)
+    {
+        case WorldWeaver::Model::Star::SpectralMajor::O:
+            spectral_class = "O";
+            break;
+        case WorldWeaver::Model::Star::SpectralMajor::B:
+            spectral_class = "B";
+            break;
+        case WorldWeaver::Model::Star::SpectralMajor::A:
+            spectral_class = "A";
+            break;
+        case WorldWeaver::Model::Star::SpectralMajor::F:
+            spectral_class = "F";
+            break;
+        case WorldWeaver::Model::Star::SpectralMajor::G:
+            spectral_class = "G";
+            break;
+        case WorldWeaver::Model::Star::SpectralMajor::K:
+            spectral_class = "K";
+            break;
+        case WorldWeaver::Model::Star::SpectralMajor::M:
+            spectral_class = "M";
+            break;
+    }
+
+    spectral_class.append(std::format("{:.1f}", g_CurrentStar.GetSpectralClass().spectralMinor));
+
+    spectral_class.append("V");
+
+
+    ImGui::Text("Spectral Class: %s", spectral_class.c_str());
 
     ImGui::Text("Mass: %.3f Msol", g_CurrentStar.GetMass());
 

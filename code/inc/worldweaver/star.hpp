@@ -132,12 +132,6 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
-            * \brief Calculates the star's characteristics from mass.
-            */
-            void CalculateCharacteristics();
-
-            /**************************************************************************************************/
-            /**
             * \brief Sets the spectral class of a star.
             * 
             * \param[in] spectralClass The spectral class of the star.
@@ -159,78 +153,6 @@ namespace WorldWeaver
             * \param[in] currentAge The current age of the star.
             */
             void SetCurrentAge(float currentAge);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Sets the maximum age of a star.
-            * 
-            * \param[in] maxAge The maximum age of the star.
-            */
-            void SetMaxAge(float maxAge);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Sets the radius of a star.
-            * 
-            * \param[in] radius The radius of the star.
-            */
-            void SetRadius(float radius);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Sets the luminosity of a star.
-            * 
-            * \param[in] luminosity The luminosity of the star.
-            */
-            void SetLuminosity(float luminosity);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Sets the density of a star.
-            * 
-            * \param[in] density The density of the star.
-            */
-            void SetDensity(float density);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Sets the temperature of a star.
-            * 
-            * \param[in] temperature The temperature of the star.
-            */
-            void SetTemperature(float temperature);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Sets the color of a star.
-            * 
-            * \param[in] color The color of the star in rgb.
-            */
-            void SetColor(Color color);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Sets the minimum habitable zone of a star in AU.
-            * 
-            * \param[in] minHabitableZone The minimum habitable zone of the star in AU.
-            */
-            void SetMinHabitableZone(float minHabitableZone);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Sets the maximum habitable zone of a star in AU.
-            * 
-            * \param[in] maxHabitableZone The maximum habitable zone of the star in AU.
-            */
-            void SetMaxHabitableZone(float maxHabitableZone);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Sets whether a star is capable of supporting Earth-like life.
-            * 
-            * \param[in] lifeCapable The capability of the star to support Earth-like life.
-            */
-            void SetIsLifeCapable(LifeCapable lifeCapable);
 
             /**************************************************************************************************/
             /**
@@ -352,6 +274,12 @@ namespace WorldWeaver
             /*********************************/
             // Private functions
             /*********************************/
+
+            /**************************************************************************************************/
+            /**
+            * \brief Calculates the star's characteristics from mass.
+            */
+            void CalculateCharacteristics();
         };
     }
 }
