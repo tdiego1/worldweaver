@@ -56,6 +56,16 @@
 
 /**************************************************************************************************/
 /**
+* \brief Determines the Spectral Class of a star.
+* 
+* \param[in] mass The mass of the star.
+* 
+* \retval SpectralClass The spectral class of the star.
+*/
+static WorldWeaver::Model::Star::SpectralClass DetermineSpectralClass(float temperature);
+
+/**************************************************************************************************/
+/**
  * \brief Calculates the luminosity of a star.
  *  
  * \param[in] mass The mass of the star.
@@ -127,38 +137,6 @@ WorldWeaver::Model::Star::Star() :
 /**
  * \par Details: 
  */
-void WorldWeaver::Model::Star::CalculateCharacteristics()
-{
-    // Calculate the luminoisty of the star.
-    m_Luminosity = CalculateLuminosity(m_Mass);
-
-    // Calculate the max age of the star.
-    m_MaxAge = (m_Mass / m_Luminosity) * 10.0f;
-
-    // Calculate the radius of the star.
-    m_Radius = CalculateRadius(m_Mass);
-
-    // Calculate the density of the star.
-    m_Density = m_Mass / (float)pow(m_Radius, 3);
-
-    // Calculate the temperature of the star in Kelvin.
-    m_Temperature = 5776.0f * ((float)pow((m_Luminosity / (float)pow(m_Radius, 2)), 0.25f));
-
-    // Calculate the color of the star.
-    m_Color = CalculateColor(m_Temperature);
-
-    // Calculate the habitable zone of the star.
-    m_MinHabitableZone = (float)sqrt(m_Luminosity / 1.1);
-    m_MaxHabitableZone = (float)sqrt(m_Luminosity / 0.53);
-
-    // Determine if the star will have Earth-like life.
-    m_IsLifeCapable = DetermineIfLifeCapable(m_Mass, m_CurrentAge);
-}
-
-/**************************************************************************************************/
-/**
- * \par Details: 
- */
 void WorldWeaver::Model::Star::SetSpectralClass(SpectralClass spectralClass)
 {
     m_SpectralClass = spectralClass;
@@ -171,6 +149,9 @@ void WorldWeaver::Model::Star::SetSpectralClass(SpectralClass spectralClass)
 void WorldWeaver::Model::Star::SetMass(float mass)
 {
     m_Mass = mass;
+
+    // Calculate the star's characteristics.
+    CalculateCharacteristics();
 }
 
 /**************************************************************************************************/
@@ -180,87 +161,9 @@ void WorldWeaver::Model::Star::SetMass(float mass)
 void WorldWeaver::Model::Star::SetCurrentAge(float currentAge)
 {
     m_CurrentAge = currentAge;
-}
 
-/**************************************************************************************************/
-/**
- * \par Details: 
- */
-void WorldWeaver::Model::Star::SetMaxAge(float maxAge)
-{
-    m_MaxAge = maxAge;
-}
-
-/**************************************************************************************************/
-/**
- * \par Details: 
- */
-void WorldWeaver::Model::Star::SetRadius(float radius)
-{
-    m_Radius = radius;
-}
-
-/**************************************************************************************************/
-/**
- * \par Details: 
- */
-void WorldWeaver::Model::Star::SetLuminosity(float luminosity)
-{
-    m_Luminosity = luminosity;
-}
-
-/**************************************************************************************************/
-/**
- * \par Details: 
- */
-void WorldWeaver::Model::Star::SetDensity(float density)
-{
-    m_Density = density;
-}
-
-/**************************************************************************************************/
-/**
- * \par Details: 
- */
-void WorldWeaver::Model::Star::SetTemperature(float temperature)
-{
-    m_Temperature = temperature;
-}
-
-/**************************************************************************************************/
-/**
- * \par Details: 
- */
-void WorldWeaver::Model::Star::SetColor(Color color)
-{
-    m_Color = color;
-}
-
-/**************************************************************************************************/
-/**
- * \par Details: 
- */
-void WorldWeaver::Model::Star::SetMinHabitableZone(float minHabitableZone)
-{
-    m_MinHabitableZone = minHabitableZone;
-}
-
-/**************************************************************************************************/
-/**
- * \par Details: 
- */
-void WorldWeaver::Model::Star::SetMaxHabitableZone(float maxHabitableZone)
-{
-    m_MaxHabitableZone = maxHabitableZone;
-}
-
-/**************************************************************************************************/
-/**
- * \par Details: 
- */
-void WorldWeaver::Model::Star::SetIsLifeCapable(LifeCapable lifeCapable)
-{
-    m_IsLifeCapable = lifeCapable;
+    // Calculate the star's characteristics.
+    CalculateCharacteristics();
 }
 
 /**************************************************************************************************/
@@ -374,6 +277,100 @@ WorldWeaver::Model::Star::LifeCapable WorldWeaver::Model::Star::GetIsLifeCapable
 /*=================================================================================================
 ** 5.  PRIVATE AND PROTECTED FUNCTIONS
 **===============================================================================================*/
+
+/**************************************************************************************************/
+/**
+ * \par Details: 
+ */
+void WorldWeaver::Model::Star::CalculateCharacteristics()
+{
+    // Calculate the luminoisty of the star.
+    m_Luminosity = CalculateLuminosity(m_Mass);
+
+    // Calculate the max age of the star.
+    m_MaxAge = (m_Mass / m_Luminosity) * 10.0f;
+
+    if(m_CurrentAge > m_MaxAge)
+    {
+        m_CurrentAge = m_MaxAge;
+    }
+
+    // Calculate the radius of the star.
+    m_Radius = CalculateRadius(m_Mass);
+
+    // Calculate the density of the star.
+    m_Density = m_Mass / (float)pow(m_Radius, 3);
+
+    // Calculate the temperature of the star in Kelvin.
+    m_Temperature = 5776.0f * ((float)pow((m_Luminosity / (float)pow(m_Radius, 2)), 0.25f));
+
+    // Determine the spectral class of the star.
+    m_SpectralClass = DetermineSpectralClass(m_Temperature);
+
+    // Calculate the color of the star.
+    m_Color = CalculateColor(m_Temperature);
+
+    // Calculate the habitable zone of the star.
+    m_MinHabitableZone = (float)sqrt(m_Luminosity / 1.1);
+    m_MaxHabitableZone = (float)sqrt(m_Luminosity / 0.53);
+
+    // Determine if the star will have Earth-like life.
+    m_IsLifeCapable = DetermineIfLifeCapable(m_Mass, m_CurrentAge);
+}
+
+/**************************************************************************************************/
+/**
+* \par Details: 
+*/
+WorldWeaver::Model::Star::SpectralClass DetermineSpectralClass(float temperature)
+{
+    WorldWeaver::Model::Star::SpectralClass spectral_class;
+
+    if(temperature < 3700)
+    {
+        spectral_class.spectralMajor = WorldWeaver::Model::Star::SpectralMajor::M;
+        spectral_class.spectralMinor = (1.0f - (temperature - 2000.0f) / 1700.0f) * 10.0f;
+        spectral_class.isMainSequence = true;
+    }
+    else if(temperature < 5200)
+    {
+        spectral_class.spectralMajor = WorldWeaver::Model::Star::SpectralMajor::K;
+        spectral_class.spectralMinor = (1.0f - (temperature - 3700.0f) / 1500.0f) * 10.0f;
+        spectral_class.isMainSequence = true;
+    }
+    else if(temperature < 6000)
+    {
+        spectral_class.spectralMajor = WorldWeaver::Model::Star::SpectralMajor::G;
+        spectral_class.spectralMinor = (1.0f - (temperature - 5200.0f) / 800.0f) * 10.0f;
+        spectral_class.isMainSequence = true;
+    }
+    else if(temperature < 7500)
+    {
+        spectral_class.spectralMajor = WorldWeaver::Model::Star::SpectralMajor::F;
+        spectral_class.spectralMinor = (1.0f - (temperature - 6000.0f) / 1500.0f) * 10.0f;
+        spectral_class.isMainSequence = true;
+    }
+    else if(temperature < 10000)
+    {
+        spectral_class.spectralMajor = WorldWeaver::Model::Star::SpectralMajor::A;
+        spectral_class.spectralMinor = (1.0f - (temperature - 7500.0f) / 2500.0f) * 10.0f;
+        spectral_class.isMainSequence = true;
+    }
+    else if(temperature < 33000)
+    {
+        spectral_class.spectralMajor = WorldWeaver::Model::Star::SpectralMajor::B;
+        spectral_class.spectralMinor = (1.0f - (temperature - 10000.0f) / 23000.0f) * 10.0f;
+        spectral_class.isMainSequence = true;
+    }
+    else
+    {
+        spectral_class.spectralMajor = WorldWeaver::Model::Star::SpectralMajor::O;
+        spectral_class.spectralMinor = (1.0f - (temperature - 33000.0f) / 62000.0f) * 10.0f;
+        spectral_class.isMainSequence = true;
+    }
+
+    return spectral_class;
+}
 
 /**************************************************************************************************/
 /**
