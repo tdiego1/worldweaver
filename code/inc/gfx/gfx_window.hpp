@@ -34,7 +34,7 @@
 
 #include <glfw/glfw3.h>
 
-#include "window/base_window.hpp"
+#include "gfx/base_window.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS

@@ -29,7 +29,7 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include "window/gfx_window.hpp"
+#include "gfx/gfx_window.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -110,7 +110,7 @@ void* WorldWeaver::Window::GFXWindow::GetNativeWindow()
 */
 void WorldWeaver::Window::GFXWindow::SetNativeWindow(void* window)
 {
-
+    m_Window = static_cast<GLFWwindow*>(window);
 }
 
 /**************************************************************************************************/
