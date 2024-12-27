@@ -34,6 +34,14 @@
 
 #include <stdint.h>
 #include <string>
+#include <memory>
+
+#include "gfx/element/gfx_mesh.hpp"
+#include "gfx/element/gfx_input.hpp"
+#include "gfx/element/gfx_camera.hpp"
+#include "gfx/element/gfx_light.hpp"
+#include "gfx/shader/gfx_shader.hpp"
+#include "gfx/gfx_glframebuffer.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -78,50 +86,84 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \brief Gets the Light.
             */
-            void GetLight(void);
+            GFX::Element::Light* GetLight(void);
 
             /**************************************************************************************************/
             /**
-             * \brief
+             * \brief Resizes the view.
              *  
-             * \param[in]
-             *  
-             * \retval
+             * \param[in] width  The width of the view.
+             * \param[in] height The height of the view.
              */
             void Resize(int32_t width, int32_t height);
 
             /**************************************************************************************************/
             /**
-             * \brief
-             *  
-             * \param[in]
-             *  
-             * \retval
+             * \brief Renders the view.
              */
             void Render(void);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Loads a mesh.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] path The path to the mesh.
             */
             void LoadMesh(const std::string& path);
 
-            
+            /**************************************************************************************************/
+            /**
+            * \brief Sets the mesh.
+            * 
+            * \param[in] mesh The mesh.
+            */
+           void SetMesh(std::shared_ptr<GFX::Element::Mesh> mesh);
+
+           /**************************************************************************************************/
+           /**
+           * \brief Gets the mesh.
+           * 
+           * \retval std::shared_ptr<GFX::Element::Mesh> The mesh.
+           */
+           std::shared_ptr<GFX::Element::Mesh> GetMesh(void);
+
+           /**************************************************************************************************/
+           /**
+           * \brief Called when the mouse is moved.
+           * 
+           * \param[in] x      The x position of the mouse.
+           * \param[in] y      The y position of the mouse.
+           * \param[in] button The button pressed.
+           */
+           void OnMouseMove(double x, double y, GFX::Element::Input::EInputButton button);
+
+           /**************************************************************************************************/
+           /**
+           * \brief Called when the mouse is scrolled.
+           * 
+           * \param[in] delta The scroll delta.
+           */
+           void OnMouseWheel(double delta);
+
+           /**************************************************************************************************/
+           /**
+           * \brief Resets the view.
+           */
+           void ResetView(void);
 
         private:
             /*********************************/
             // Private member variables
             /*********************************/
+
+            std::unique_ptr<GFX::Element::Camera> m_Camera;             // The camera.
+            std::unique_ptr<GFX::Render::GLFrameBuffer> m_FrameBuffer;  // The frame buffer.
+            std::unique_ptr<GFX::Util::Shader> m_Shader;                // The shader.
+            std::unique_ptr<GFX::Element::Light> m_Light;               // The light.
+            std::shared_ptr<GFX::Element::Mesh> m_Mesh;                 // The mesh.
+            glm::vec2 m_Size;                                           // The size of the view.
 
         };
     }
@@ -138,6 +180,16 @@ namespace WorldWeaver
 /*=================================================================================================
 ** 3.5 Functions
 **===============================================================================================*/
+namespace WorldWeaver
+{
+    namespace GUI
+    {
+        GLView::~GLView()
+        {
+            m_Shader->Unload();
+        }
+    }
+}
 
 #endif
 /** @} */
