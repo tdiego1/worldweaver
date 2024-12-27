@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup <DoxModuleId>
+* \addtogroup GUI
 * @{
 * \details
-* This file provides the public interface for the <Module_Name> Module.
+* This file provides the public interface for the GLView Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
