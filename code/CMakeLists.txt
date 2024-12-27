@@ -18,6 +18,7 @@ set(PROJECT_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_glframebuffer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_camera.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_input.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_light.cpp
 )
 
 set(PROJECT_INCLUDES
@@ -37,6 +38,7 @@ set(PROJECT_INCLUDES
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/element/gfx_element_vertex.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/element/gfx_camera.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/element/gfx_input.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/element/gfx_light.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/shader/gfx_shader.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_glframebuffer.hpp
     )
