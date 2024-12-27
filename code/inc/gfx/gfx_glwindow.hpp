@@ -32,7 +32,7 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <glfw/glfw3.h>
+#include <GLFW/glfw3.h>
 
 #include "gfx/gfx_window.hpp"
 
