@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup BASE_WINDOW
+* \addtogroup RENDER
 * @{
 * \details
-* This file provides the public interface for the BaseWindow Module.
+* This file provides the public interface for the UIContext Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -21,8 +21,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef BASE_WINDOW_HPP
-#define BASE_WINDOW_HPP
+#ifndef GFX_RENDER_UI_CONTEXT_HPP
+#define GFX_RENDER_UI_CONTEXT_HPP
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -31,8 +31,8 @@
 /*=================================================================================================
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
-#include <cstdint>
-#include <string>
+
+#include "gfx/gfx_rendercontext.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -45,81 +45,49 @@
 **===============================================================================================*/
 namespace GFX
 {
-    namespace Window
+    namespace Render
     {
         /**************************************************************************************************/
         /**
         * \par Details: 
         */
-        class BaseWindow
+        class UIContext : public RenderContext
         {
 
         public:
-            /*********************************/
-            // Public type definitions
-            /*********************************/
-
-            /*********************************/
-            // Public member variables
-            /*********************************/
-
-            int32_t m_Width;
-            int32_t m_Height;
-            std::string m_Title;
-
             /*********************************/
             // Public functions
             /*********************************/
 
             /**************************************************************************************************/
             /**
-            * \brief Gets the Native window.
+            * \brief Initializes the UIContext.
             * 
-            * \retval void* The native window.
+            * \param[in] window The window to initialize the UIContext with.
+            * 
+            * \retval True if the UIContext was initialized successfully.
+            * \retval False if the UIContext was not initialized successfully.
             */
-           virtual void* GetNativeWindow(void) = 0;
+            bool Initialize(GFX::Window::BaseWindow* window) override;
 
-           /**************************************************************************************************/
-           /**
-           * \brief Sets the native window.
-           * 
-           * \param[in] window The native window.
-           */
-           virtual void SetNativeWindow(void* window) = 0;
+            /**************************************************************************************************/
+            /**
+            * \brief Sets up the UIContext for rendering.
+            */
+            void PreRender(void) override;
 
-           /**************************************************************************************************/
-           /**
-           * \brief Called when scroll is registered.
-           * 
-           * \param[in] delta The scroll delta.
-           */
-           virtual void OnScroll(double delta) = 0;
+            /**************************************************************************************************/
+            /**
+            * \brief Renders the UIContext.
+            */
+            void Render(void) override;
 
-           /**************************************************************************************************/
-           /**
-           * \brief Called when a key is pressed.
-           * 
-           * \param[in] key The key pressed.
-           * \param[in] scanCode The scan code of the key.
-           * \param[in] action The action of the key.
-           * \param[in] mods The mods of the key.
-           */
-           virtual void OnKey(int32_t key, int32_t scanCode, int32_t action, int32_t mods) = 0;
+            /**************************************************************************************************/
+            /**
+            * \brief Cleans up and ends the UIContext.
+            */
+            void End(void) override;
 
-           /**************************************************************************************************/
-           /**
-           * \brief Called when the window is resized.
-           * 
-           * \param[in] width The width of the window.
-           * \param[in] height The height of the window.
-           */
-           virtual void OnResize(int32_t width, int32_t height) = 0;
-
-           /**************************************************************************************************/
-           /**
-           * \brief Called when the window is closed.
-           */
-           virtual void OnClose(void) = 0;
         };
     }
 }

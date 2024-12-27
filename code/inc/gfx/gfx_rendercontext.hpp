@@ -3,7 +3,7 @@
 * \addtogroup BASE_RENDER
 * @{
 * \details
-* This file provides the public interface for the FrameBuffer Module.
+* This file provides the public interface for the RenderContext Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -21,8 +21,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GFX_RENDER_FRAMEBUFFER_HPP
-#define GFX_RENDER_FRAMEBUFFER_HPP
+#ifndef GFX_RENDER_RENDERCONTEXT_HPP
+#define GFX_RENDER_RENDERCONTEXT_HPP
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -32,7 +32,7 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <stdint.h>
+#include "gfx/gfx_window.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -51,7 +51,7 @@ namespace GFX
         /**
         * \par Details: 
         */
-        class FrameBuffer
+        class RenderContext
         {
 
         public:
@@ -61,9 +61,9 @@ namespace GFX
 
             /**************************************************************************************************/
             /**
-            * \brief The default constructor for the FrameBuffer.
+            * \brief The default constructor for the <RenderContext>.
             */
-            FrameBuffer(void);
+            RenderContext(void);
 
             /*********************************/
             // Public functions
@@ -71,49 +71,39 @@ namespace GFX
 
             /**************************************************************************************************/
             /**
-            * \brief Creates the buffers for the FrameBuffer.
+            * \brief Initializes the RenderContext.
             * 
-            * \param[in] width  The width of the FrameBuffer.
-            * \param[in] height The height of the FrameBuffer.
-            */
-            virtual void CreateBuffers(int32_t width, int32_t height) = 0;
-
-            /**************************************************************************************************/
-            /**
-            * \brief Deletes the buffers for the FrameBuffer.
-            */
-            virtual void DeleteBuffers(void) = 0;
-
-            /**************************************************************************************************/
-            /**
-            * \brief Binds the FrameBuffer.
-            */
-            virtual void Bind(void) = 0;
-
-            /**************************************************************************************************/
-            /**
-            * \brief Unbinds the FrameBuffer.
-            */
-            virtual void Unbind(void) = 0;
-
-            /**************************************************************************************************/
-            /**
-            * \brief Gets the texture of the FrameBuffer.
+            * \param[in] window The window to initialize the RenderContext with.
             * 
-            * \retval uint32_t The texture of the FrameBuffer.
+            * \retval True if the RenderContext was initialized successfully.
             */
-            virtual uint32_t GetTexture(void) = 0;
+            virtual bool Initialize(GFX::Window::BaseWindow* window);
+
+            /**************************************************************************************************/
+            /**
+            * \brief Begins the RenderContext.
+            */
+            virtual void PreRender(void) = 0;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Post Render functions.
+            */
+            virtual void Render(void) = 0;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Ends the RenderContext.
+            */
+            virtual void End(void) = 0;
 
         protected:
             /*********************************/
             // Protected member variables
             /*********************************/
 
-            uint32_t m_FBO;         // The FrameBuffer Object.
-            uint32_t m_TextureID;   // The texture of the FrameBuffer.
-            uint32_t m_DepthID;     // The depth of the FrameBuffer.
-            int32_t m_Width;        // The width of the FrameBuffer.
-            int32_t m_Height;       // The height of the FrameBuffer;
+            GFX::Window::BaseWindow* m_Window;  // The window to render.
+
         };
     }
 }
@@ -137,8 +127,18 @@ namespace GFX
         /**
         * \par Details: 
         */
-        inline FrameBuffer::FrameBuffer() : m_FBO(0), m_TextureID(0), m_DepthID(0), m_Width(0), m_Height(0)
+        inline RenderContext::RenderContext() : m_Window(nullptr)
         {}
+
+        /**************************************************************************************************/
+        /**
+        * \par Details: 
+        */
+        inline bool RenderContext::Initialize(GFX::Window::BaseWindow* window)
+        {
+            m_Window = window;
+            return true;
+        }
     }
 }
 

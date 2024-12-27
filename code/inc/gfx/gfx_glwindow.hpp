@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup BASE_WINDOW
+* \addtogroup GFX_WINDOW
 * @{
 * \details
-* This file provides the public interface for the BaseWindow Module.
+* This file provides the public interface for the GFXWindow Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -21,8 +21,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef BASE_WINDOW_HPP
-#define BASE_WINDOW_HPP
+#ifndef GFX_WINDOW_HPP
+#define GFX_WINDOW_HPP
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -31,8 +31,10 @@
 /*=================================================================================================
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
-#include <cstdint>
-#include <string>
+
+#include <glfw/glfw3.h>
+
+#include "gfx/gfx_window.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -51,7 +53,7 @@ namespace GFX
         /**
         * \par Details: 
         */
-        class BaseWindow
+        class GLWindow : public BaseWindow
         {
 
         public:
@@ -63,9 +65,21 @@ namespace GFX
             // Public member variables
             /*********************************/
 
-            int32_t m_Width;
-            int32_t m_Height;
-            std::string m_Title;
+            /*********************************/
+            // Constructors/Destructor
+            /*********************************/
+
+            /**************************************************************************************************/
+            /**
+            * \brief The default constructor for the GFXWindow.
+            */
+            GLWindow(void);
+
+            /**************************************************************************************************/
+            /**
+            * \brief The defaiult destructor for the GFXWindow.
+            */
+            ~GLWindow(void);
 
             /*********************************/
             // Public functions
@@ -73,11 +87,36 @@ namespace GFX
 
             /**************************************************************************************************/
             /**
-            * \brief Gets the Native window.
+            * \brief Initializes the OpenGL window.
             * 
-            * \retval void* The native window.
+            * \param[in] width  The width of the window.
+            * \param[in] height The height of the window.
+            * \param[in] title  The title of the window.
+            * 
+            * \retval True if the window was initialized successfully.
+            * \retval False if the window was not initialized successfully.
             */
-           virtual void* GetNativeWindow(void) = 0;
+            bool Initialize(int32_t width, int32_t height, const std::string& title);
+
+            /**************************************************************************************************/
+            /**
+             * \brief Renders the OpenGL window.
+             */
+            void Render(void);
+
+           /**************************************************************************************************/
+           /**
+           * \brief Handles input for the OpenGL window.
+           */
+            void HandleInput(void);
+
+           /**************************************************************************************************/
+           /**
+           * \brief Gets the Native window.
+           * 
+           * \retval void* The native window.
+           */
+            void* GetNativeWindow(void) override;
 
            /**************************************************************************************************/
            /**
@@ -85,7 +124,7 @@ namespace GFX
            * 
            * \param[in] window The native window.
            */
-           virtual void SetNativeWindow(void* window) = 0;
+            void SetNativeWindow(void* window) override;
 
            /**************************************************************************************************/
            /**
@@ -93,33 +132,59 @@ namespace GFX
            * 
            * \param[in] delta The scroll delta.
            */
-           virtual void OnScroll(double delta) = 0;
+            void OnScroll(double delta) override;
 
            /**************************************************************************************************/
            /**
            * \brief Called when a key is pressed.
            * 
-           * \param[in] key The key pressed.
+           * \param[in] key      The key pressed.
            * \param[in] scanCode The scan code of the key.
-           * \param[in] action The action of the key.
-           * \param[in] mods The mods of the key.
+           * \param[in] action   The action of the key.
+           * \param[in] mods     The mods of the key.
            */
-           virtual void OnKey(int32_t key, int32_t scanCode, int32_t action, int32_t mods) = 0;
+            void OnKey(int32_t key, int32_t scanCode, int32_t action, int32_t mods) override;
 
            /**************************************************************************************************/
            /**
            * \brief Called when the window is resized.
            * 
-           * \param[in] width The width of the window.
+           * \param[in] width  The width of the window.
            * \param[in] height The height of the window.
            */
-           virtual void OnResize(int32_t width, int32_t height) = 0;
+            void OnResize(int32_t width, int32_t height) override;
 
            /**************************************************************************************************/
            /**
            * \brief Called when the window is closed.
            */
-           virtual void OnClose(void) = 0;
+            void OnClose(void) override;
+
+           /**************************************************************************************************/
+           /**
+           * \brief Determines if the window is running.
+           * 
+           * \retval True if the window is running.
+           * \retval False if the window is not running.
+           */
+            bool IsRunning(void);
+
+        private:
+            /*********************************/
+            // Private type definitions
+            /*********************************/
+
+            /*********************************/
+            // Private member variables
+            /*********************************/
+
+            GLFWwindow* m_Window;   // The GLFW window.
+            bool m_IsRunning;         // The running state of the window.
+
+            // Render Contexts
+
+            // UI Components
+
         };
     }
 }
@@ -135,6 +200,17 @@ namespace GFX
 /*=================================================================================================
 ** 3.5 Functions
 **===============================================================================================*/
+namespace GFX
+{
+    namespace Window
+    {
+        /**************************************************************************************************/
+        /**
+        * \par Details: 
+        */
+        inline GLWindow::~GLWindow(){}
+    }
+}
 
 #endif
 /** @} */
