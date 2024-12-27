@@ -78,7 +78,7 @@ static void OnKeyCallback(GLFWwindow* window, int32_t key, int32_t scanCode, int
 * \param[in] xOffset    The x offset of the scroll.
 * \param[in] yOffset    The y offset of the scroll.
 */
-static void OnScrollCallback(GLFWwindow* window, double xOffset, double yOffSet);
+static void OnScrollCallback(GLFWwindow* window, float64_t xOffset, float64_t yOffSet);
 
 /**************************************************************************************************/
 /**
@@ -196,7 +196,7 @@ static void OnKeyCallback(GLFWwindow* window, int32_t key, int32_t scanCode, int
 /**
  * \par Details: 
  */
-static void OnScrollCallback(GLFWwindow* window, double xOffset, double yOffSet)
+static void OnScrollCallback(GLFWwindow* window, float64_t xOffset, float64_t yOffSet)
 {
     GFX::Window::BaseWindow* gl_window = static_cast<GFX::Window::BaseWindow*>(glfwGetWindowUserPointer(window));
     gl_window->OnScroll(yOffSet);

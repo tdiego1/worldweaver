@@ -21,8 +21,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GFX_RENDER_RENDERCONTEXT_HPP
-#define GFX_RENDER_RENDERCONTEXT_HPP
+#pragma once
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -142,5 +141,4 @@ namespace GFX
     }
 }
 
-#endif
 /** @} */

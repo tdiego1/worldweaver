@@ -30,6 +30,7 @@
 **===============================================================================================*/
 
 #include "gfx/gfx_glwindow.hpp"
+#include "gfx/element/gfx_input.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -63,9 +64,20 @@
 */
 GFX::Window::GLWindow::GLWindow() :
     m_Window(nullptr),
-    m_IsRunning(true)
+    m_IsRunning(false)
 {
+    m_UIContext = std::make_unique<GFX::Render::UIContext>();
+    m_RenderContext = std::make_unique<GFX::Render::GLContext>();
+}
 
+/**************************************************************************************************/
+/**
+* \par Details: 
+*/
+GFX::Window::GLWindow::~GLWindow()
+{
+    m_UIContext->End();
+    m_RenderContext->End();
 }
 
 /**************************************************************************************************/
@@ -74,7 +86,24 @@ GFX::Window::GLWindow::GLWindow() :
 */
 bool GFX::Window::GLWindow::Initialize(int32_t width, int32_t height, const std::string& title)
 {
-    return true;
+    m_Width = width;
+    m_Height = height;
+    m_Title = title;
+
+    m_RenderContext->Initialize(this);
+
+    m_UIContext->Initialize(this);
+
+    m_RenderView = std::make_unique<WorldWeaver::GUI::GLView>();
+
+    m_PropertyPanel = std::make_unique<WorldWeaver::GUI::PropertyPanel>();
+
+    m_PropertyPanel->SetMeshLoadCallback(
+        [this](std::string filepath) { m_RenderView->LoadMesh(filepath); });
+
+    m_IsRunning = true;
+
+    return m_IsRunning;
 }
 
 /**************************************************************************************************/
@@ -83,7 +112,24 @@ bool GFX::Window::GLWindow::Initialize(int32_t width, int32_t height, const std:
 */
 void GFX::Window::GLWindow::Render()
 {
+    // Clear the view
+    m_RenderContext->PreRender();
 
+    // Initialize UI components
+    m_UIContext->PreRender();
+
+    // render scene to framebuffer and add it to scene view
+    m_RenderView->Render();
+
+    m_PropertyPanel->Render(m_RenderView.get());
+
+    // Render the UI 
+    m_UIContext->Render();
+
+    // Render end, swap buffers
+    m_RenderContext->Render();
+
+    HandleInput();
 }
 
 /**************************************************************************************************/
@@ -92,7 +138,28 @@ void GFX::Window::GLWindow::Render()
 */
 void GFX::Window::GLWindow::HandleInput()
 {
+    // TODO: move this and camera to scene UI component?
 
+    if (glfwGetKey(m_Window, GLFW_KEY_W) == GLFW_PRESS)
+    {
+        m_RenderView->OnMouseWheel(-0.4f);
+    }
+
+    if (glfwGetKey(m_Window, GLFW_KEY_S) == GLFW_PRESS)
+    {
+        m_RenderView->OnMouseWheel(0.4f);
+    }
+
+    if (glfwGetKey(m_Window, GLFW_KEY_F) == GLFW_PRESS)
+    {
+        m_RenderView->ResetView();
+    }
+
+    float64_t x_pos;
+    float64_t y_pos;
+    glfwGetCursorPos(m_Window, &x_pos, &y_pos);
+
+    m_RenderView->OnMouseMove(x_pos, y_pos, GFX::Element::Input::GetPressedButton(m_Window));
 }
 
 /**************************************************************************************************/
@@ -117,9 +184,9 @@ void GFX::Window::GLWindow::SetNativeWindow(void* window)
 /**
 * \par Details: 
 */
-void GFX::Window::GLWindow::OnScroll(double delta)
+void GFX::Window::GLWindow::OnScroll(float64_t delta)
 {
-
+    m_RenderView->OnMouseWheel(delta);
 }
 
 /**************************************************************************************************/
@@ -128,7 +195,10 @@ void GFX::Window::GLWindow::OnScroll(double delta)
 */
 void GFX::Window::GLWindow::OnKey(int32_t key, int32_t scanCode, int32_t action, int32_t mods)
 {
+    if(action == GLFW_PRESS)
+    {
 
+    }
 }
 
 /**************************************************************************************************/
@@ -137,7 +207,11 @@ void GFX::Window::GLWindow::OnKey(int32_t key, int32_t scanCode, int32_t action,
 */
 void GFX::Window::GLWindow::OnResize(int32_t width, int32_t height)
 {
+    m_Width = width;
+    m_Height = height;
 
+    m_RenderView->Resize(width, height);
+    Render();
 }
 
 /**************************************************************************************************/
@@ -146,7 +220,7 @@ void GFX::Window::GLWindow::OnResize(int32_t width, int32_t height)
 */
 void GFX::Window::GLWindow::OnClose()
 {
-
+    m_IsRunning = false;
 }
 
 /**************************************************************************************************/

@@ -75,7 +75,7 @@ void WorldWeaver::GUI::StarInterface()
     // 1. Create a window called "Star Interface" and begin ImGui frame.
     ImGui::Begin("Star", NULL);
 
-    float star_mass = g_CurrentStar.GetMass();
+    float32_t star_mass = g_CurrentStar.GetMass();
     std::string spectral_class = "";
     std::string is_life_capable = "";
 
@@ -84,7 +84,7 @@ void WorldWeaver::GUI::StarInterface()
         g_CurrentStar.SetMass(star_mass);
     }
 
-    float star_age = g_CurrentStar.GetCurrentAge();
+    float32_t star_age = g_CurrentStar.GetCurrentAge();
 
     if(ImGui::SliderFloat("Current Age", &star_age, 0.0f, g_CurrentStar.GetMaxAge(), "%.3f Gyr", ImGuiSliderFlags_AlwaysClamp))
     {

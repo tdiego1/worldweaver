@@ -21,8 +21,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GUI_PROPERTY_HPP
-#define GUI_PROPERTY_HPP
+#pragma once
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -32,8 +31,9 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
+#include "gfx/gfx_common.hpp"
+
 #include <functional>
-#include <string>
 
 #include "imgui.h"
 #include <ImFileBrowser.h>
@@ -120,5 +120,4 @@ namespace WorldWeaver
 ** 3.5 Functions
 **===============================================================================================*/
 
-#endif
 /** @} */

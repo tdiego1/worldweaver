@@ -171,7 +171,7 @@ std::shared_ptr<GFX::Element::Mesh> WorldWeaver::GUI::GLView::GetMesh()
 /**
 * \par Details: 
 */
-void WorldWeaver::GUI::GLView::OnMouseMove(double x, double y, GFX::Element::Input::EInputButton button)
+void WorldWeaver::GUI::GLView::OnMouseMove(float64_t x, float64_t y, GFX::Element::Input::EInputButton button)
 {
     m_Camera->OnMouseMove(x, y, button);
 }
@@ -180,7 +180,7 @@ void WorldWeaver::GUI::GLView::OnMouseMove(double x, double y, GFX::Element::Inp
 /**
 * \par Details: 
 */
-void WorldWeaver::GUI::GLView::OnMouseWheel(double delta)
+void WorldWeaver::GUI::GLView::OnMouseWheel(float64_t delta)
 {
     m_Camera->OnMouseWheel(delta);
 }

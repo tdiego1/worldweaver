@@ -21,8 +21,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GUI_HELPER_HPP
-#define GUI_HELPER_HPP
+#pragma once
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -32,9 +31,7 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <string>
-
-#include <glm/glm.hpp>
+#include "gfx/gfx_common.hpp"
 
 #include "imgui.h"
 #include "imgui_internal.h"
@@ -80,6 +77,4 @@ namespace WorldWeaver
 ** 3.5 Functions
 **===============================================================================================*/
 
-
-#endif
 /** @} */

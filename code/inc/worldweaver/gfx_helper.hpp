@@ -21,8 +21,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef Module_Id_HPP
-#define Module_Id_HPP
+#pragma once
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -177,5 +176,4 @@ namespace WorldWeaver
     }
 }
 
-#endif
 /** @} */

@@ -21,8 +21,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GFX_RENDER_VERTEX_INDEX_BUFFER_HPP
-#define GFX_RENDER_VERTEX_INDEX_BUFFER_HPP
+#pragma once
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -32,8 +31,7 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "gfx/gfx_common.hpp"
 
 #include "gfx/element/gfx_vertex.hpp"
 
@@ -144,5 +142,4 @@ namespace GFX
     }
 }
 
-#endif
 /** @} */

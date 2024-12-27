@@ -21,8 +21,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GFX_SHADER_HPP
-#define GFX_SHADER_HPP
+#pragma once
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -32,10 +31,7 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <cstdint>
-#include <string>
-
-#include <glm/glm.hpp>
+#include "gfx/gfx_common.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -124,23 +120,23 @@ namespace GFX
 
             /**************************************************************************************************/
             /**
-            * \brief Sets a OpenGL float 1.
+            * \brief Sets a OpenGL float32_t 1.
             * 
             * \param[in] value The value to set.
-            * \param[in] name  The name of the float variable in the shader program.
+            * \param[in] name  The name of the float32_t variable in the shader program.
             */
-            void SetFloat1(float value, const std::string& name);
+            void SetFloat1(float32_t value, const std::string& name);
 
             /**************************************************************************************************/
             /**
-            * \brief Sets a OpenGL float 3.
+            * \brief Sets a OpenGL float32_t 3.
             * 
             * \param[in] a     The x value to set.
             * \param[in] b     The y value to set.
             * \param[in] c     The z value to set.
-            * \param[in] name  The name of the float variable in the shader program.
+            * \param[in] name  The name of the float32_t variable in the shader program.
             */
-            void SetFloat3(float a, float b, float c, const std::string& name);
+            void SetFloat3(float32_t a, float32_t b, float32_t c, const std::string& name);
 
             /**************************************************************************************************/
             /**
@@ -198,5 +194,4 @@ namespace GFX
 ** 3.5 Functions
 **===============================================================================================*/
 
-#endif
 /** @} */

@@ -21,8 +21,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GUI_GLVIEW_HPP
-#define GUI_GLVIEW_HPP
+#pragma once
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -32,9 +31,7 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <stdint.h>
-#include <string>
-#include <memory>
+#include "gfx/gfx_common.hpp"
 
 #include "gfx/element/gfx_mesh.hpp"
 #include "gfx/element/gfx_input.hpp"
@@ -137,7 +134,7 @@ namespace WorldWeaver
            * \param[in] y      The y position of the mouse.
            * \param[in] button The button pressed.
            */
-           void OnMouseMove(double x, double y, GFX::Element::Input::EInputButton button);
+           void OnMouseMove(float64_t x, float64_t y, GFX::Element::Input::EInputButton button);
 
            /**************************************************************************************************/
            /**
@@ -145,7 +142,7 @@ namespace WorldWeaver
            * 
            * \param[in] delta The scroll delta.
            */
-           void OnMouseWheel(double delta);
+           void OnMouseWheel(float64_t delta);
 
            /**************************************************************************************************/
            /**
@@ -191,5 +188,4 @@ namespace WorldWeaver
     }
 }
 
-#endif
 /** @} */

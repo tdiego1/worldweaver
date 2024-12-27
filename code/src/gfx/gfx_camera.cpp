@@ -64,7 +64,7 @@
 /**
 * \par Details: 
 */
-GFX::Element::Camera::Camera(const glm::vec3& position, float fov, float aspect, float near, float far) : 
+GFX::Element::Camera::Camera(const glm::vec3& position, float32_t fov, float32_t aspect, float32_t near, float32_t far) : 
     m_Position(position),
     m_Distance(5.0f),
     m_FOV(fov), 
@@ -100,7 +100,7 @@ void GFX::Element::Camera::Update(GFX::Util::Shader* shader)
 /**
 * \par Details: 
 */
-void GFX::Element::Camera::SetAspect(float aspect)
+void GFX::Element::Camera::SetAspect(float32_t aspect)
 {
     m_Projection = glm::perspective(m_FOV, aspect, m_Near, m_Far);
 }
@@ -109,7 +109,7 @@ void GFX::Element::Camera::SetAspect(float aspect)
 /**
 * \par Details: 
 */
-void GFX::Element::Camera::SetDistance(float offset)
+void GFX::Element::Camera::SetDistance(float32_t offset)
 {
     m_Distance += offset;
     UpdateViewMatrix();
@@ -188,7 +188,7 @@ glm::mat4 GFX::Element::Camera::GetViewMatrix(void) const
 /**
 * \par Details: 
 */
-void GFX::Element::Camera::OnMouseWheel(double delta)
+void GFX::Element::Camera::OnMouseWheel(float64_t delta)
 {
     SetDistance(delta * 0.5f);
 
@@ -210,16 +210,16 @@ void GFX::Element::Camera::Reset(void)
 /**
 * \par Details: 
 */
-void GFX::Element::Camera::OnMouseMove(double x, double y, Input::EInputButton button)
+void GFX::Element::Camera::OnMouseMove(float64_t x, float64_t y, Input::EInputButton button)
 {
-    const float c_rotation_speed = 2.0f;
+    const float32_t c_rotation_speed = 2.0f;
     glm::vec2 position_2D{ x, y };
 
     if (button == Input::EInputButton::RIGHT)
     {
         glm::vec2 delta = (position_2D - m_CurrentPos2D) * 0.004f;
 
-        float sign = GetUp().y < 0 ? -1.0f : 1.0f;
+        float32_t sign = GetUp().y < 0 ? -1.0f : 1.0f;
         m_Yaw += sign * delta.x * c_rotation_speed;
         m_Pitch += delta.y * c_rotation_speed;
 

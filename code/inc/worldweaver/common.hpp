@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GUI
+* \addtogroup WORLDWEAVER
 * @{
 * \details
-* This file provides the public interface for the GUIHelper Module.
+* This file provides the public include headers for the Common Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -21,6 +21,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
+#pragma once
+
 /*=================================================================================================
 ** 1.  REFERENCES
 **===============================================================================================*/
@@ -29,7 +31,19 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include "gui/gui_helper.hpp"
+// Std includes
+#include <stdint.h>
+#include <string>
+#include <algorithm>
+#include <cmath>
+#include <vector>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <memory>
+#include <assert.h>
+
+#include "worldweaver/types.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -38,72 +52,19 @@
 **===============================================================================================*/
 
 /*=================================================================================================
-** 3.2 Types
+** 3.2 Types and Classes
 **===============================================================================================*/
 
 /*=================================================================================================
-** 3.3 External global variables
+** 3.3 Constants
 **===============================================================================================*/
 
 /*=================================================================================================
-** 3.4 Static global variables
+** 3.4 Variables
 **===============================================================================================*/
 
 /*=================================================================================================
-** 3.5 Static function prototypes
-**===============================================================================================*/
-
-/*=================================================================================================
-** 4.  PUBLIC FUNCTIONS
-**===============================================================================================*/
-
-/**************************************************************************************************/
-/**
-* \par Details: 
-*/
-void WorldWeaver::GUI::Helper::DrawVector3Widget(const std::string& label, glm::vec3& values)
-{
-    ImGuiIO& io = ImGui::GetIO();
-    auto boldFont = io.Fonts->Fonts[0];
-
-
-    ImGui::PushMultiItemsWidths(3, ImGui::CalcItemWidth());
-    ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 0 });
-
-    float32_t lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
-    ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
-
-    ImGui::PushFont(boldFont);
-    ImGui::Button("X", buttonSize);
-    ImGui::PopFont();
-
-    ImGui::SameLine();
-    ImGui::DragFloat("##X", &values.x, 0.1f, 0.0f, 0.0f, "%.2f");
-    ImGui::PopItemWidth();
-    ImGui::SameLine();
-
-    ImGui::PushFont(boldFont);
-    ImGui::Button("Y", buttonSize);
-    ImGui::PopFont();
-
-    ImGui::SameLine();
-    ImGui::DragFloat("##Y", &values.y, 0.1f, 0.0f, 0.0f, "%.2f");
-    ImGui::PopItemWidth();
-    ImGui::SameLine();
-
-    ImGui::PushFont(boldFont);
-    ImGui::Button("Z", buttonSize);
-    ImGui::PopFont();
-
-    ImGui::SameLine();
-    ImGui::DragFloat("##Z", &values.z, 0.1f, 0.0f, 0.0f, "%.2f");
-    ImGui::PopItemWidth();
-
-    ImGui::PopStyleVar();
-}
-
-/*=================================================================================================
-** 5.  PRIVATE AND PROTECTED FUNCTIONS
+** 3.5 Functions
 **===============================================================================================*/
 
 /** @} */

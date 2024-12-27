@@ -21,8 +21,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GFX_ELEMENT_CAMERA_HPP
-#define GFX_ELEMENT_CAMERA_HPP
+#pragma once
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -35,8 +34,6 @@
 #include "gfx/element/gfx_element.hpp"
 #include "gfx/shader/gfx_shader.hpp"
 #include "gfx/element/gfx_input.hpp"
-
-#include <glm/glm.hpp>
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -75,7 +72,7 @@ namespace GFX
             /**
             * \brief The default constructor for the Camera.
             */
-            Camera(const glm::vec3& position, float fov, float aspect, float near, float far);
+            Camera(const glm::vec3& position, float32_t fov, float32_t aspect, float32_t nearValue, float32_t farValue);
 
             /*********************************/
             // Public functions
@@ -99,7 +96,7 @@ namespace GFX
             * 
             * \retval 
             */
-            void SetAspect(float aspect);
+            void SetAspect(float32_t aspect);
 
             /**************************************************************************************************/
             /**
@@ -109,7 +106,7 @@ namespace GFX
             * 
             * \retval 
             */
-            void SetDistance(float offset);
+            void SetDistance(float32_t offset);
 
             /**************************************************************************************************/
             /**
@@ -189,7 +186,7 @@ namespace GFX
             * 
             * \retval 
             */
-            void OnMouseWheel(double delta);
+            void OnMouseWheel(float64_t delta);
 
             /**************************************************************************************************/
             /**
@@ -209,7 +206,7 @@ namespace GFX
             * 
             * \retval 
             */
-            void OnMouseMove(double x, double y, Input::EInputButton button);
+            void OnMouseMove(float64_t x, float64_t y, Input::EInputButton button);
 
             /**************************************************************************************************/
             /**
@@ -232,14 +229,14 @@ namespace GFX
 
             glm::vec3 m_Focus;
 
-            float m_Distance;
-            float m_Aspect;
-            float m_FOV;
-            float m_Near;
-            float m_Far;
+            float32_t m_Distance;
+            float32_t m_Aspect;
+            float32_t m_FOV;
+            float32_t m_Near;
+            float32_t m_Far;
 
-            float m_Pitch;
-            float m_Yaw;
+            float32_t m_Pitch;
+            float32_t m_Yaw;
 
             glm::vec2 m_CurrentPos2D;
 
@@ -259,5 +256,4 @@ namespace GFX
 ** 3.5 Functions
 **===============================================================================================*/
 
-#endif
 /** @} */

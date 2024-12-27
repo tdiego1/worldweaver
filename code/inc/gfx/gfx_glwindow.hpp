@@ -21,8 +21,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GFX_WINDOW_HPP
-#define GFX_WINDOW_HPP
+#pragma once
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -32,9 +31,13 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <GLFW/glfw3.h>
+#include "gfx/gfx_common.hpp"
 
 #include "gfx/gfx_window.hpp"
+#include "gfx/gfx_uicontext.hpp"
+#include "gfx/gfx_glcontext.hpp"
+#include "gui/gui_property.hpp"
+#include "gui/gui_glview.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -57,14 +60,6 @@ namespace GFX
         {
 
         public:
-            /*********************************/
-            // Public type definitions
-            /*********************************/
-
-            /*********************************/
-            // Public member variables
-            /*********************************/
-
             /*********************************/
             // Constructors/Destructor
             /*********************************/
@@ -178,12 +173,18 @@ namespace GFX
             // Private member variables
             /*********************************/
 
-            GLFWwindow* m_Window;   // The GLFW window.
-            bool m_IsRunning;         // The running state of the window.
+            GLFWwindow* m_Window;                                               // The GLFW window.
 
-            // Render Contexts
+            // Contexts
+            std::unique_ptr<GFX::Render::UIContext> m_UIContext;                // The UI context.
+            std::unique_ptr<GFX::Render::GLContext> m_RenderContext;            // The OpenGL context.
 
             // UI Components
+            std::unique_ptr<WorldWeaver::GUI::PropertyPanel> m_PropertyPanel;   // The property panel.
+            std::unique_ptr<WorldWeaver::GUI::GLView>        m_RenderView;      // The GL view.
+            
+
+            bool m_IsRunning;                                                   // The running state of the window.
 
         };
     }
@@ -200,17 +201,5 @@ namespace GFX
 /*=================================================================================================
 ** 3.5 Functions
 **===============================================================================================*/
-namespace GFX
-{
-    namespace Window
-    {
-        /**************************************************************************************************/
-        /**
-        * \par Details: 
-        */
-        inline GLWindow::~GLWindow(){}
-    }
-}
 
-#endif
 /** @} */

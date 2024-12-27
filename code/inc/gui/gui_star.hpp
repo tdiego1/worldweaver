@@ -21,8 +21,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GUI_STAR_HPP
-#define GUI_STAR_HPP
+#pragma once
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -136,5 +135,4 @@ namespace WorldWeaver
     }
 }
 
-#endif
 /** @} */

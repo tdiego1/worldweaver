@@ -29,6 +29,8 @@ set(PROJECT_INCLUDES
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/application.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/gfx_helper.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/star.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/common.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/types.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gui/gui_main.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gui/gui_glview.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gui/gui_property.hpp
@@ -49,6 +51,7 @@ set(PROJECT_INCLUDES
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/shader/gfx_shader.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_glframebuffer.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_glvibuffer.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_common.hpp
     )
 
 add_executable(worldweaver

@@ -90,7 +90,7 @@ void WorldWeaver::GUI::PropertyPanel::Render(WorldWeaver::GUI::GLView* sceneView
 
     if (ImGui::CollapsingHeader("Material") && mesh)
     {
-        ImGui::ColorPicker3("Color", (float*)&mesh->m_Color, ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_DisplayRGB);
+        ImGui::ColorPicker3("Color", (float32_t*)&mesh->m_Color, ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_DisplayRGB);
         ImGui::SliderFloat("Roughness", &mesh->m_Roughness, 0.0f, 1.0f);
         ImGui::SliderFloat("Metallic", &mesh->m_Metallic, 0.0f, 1.0f);
     }

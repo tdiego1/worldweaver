@@ -21,8 +21,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GFX_ELEMENT_LIGHT_HPP
-#define GFX_ELEMENT_LIGHT_HPP
+#pragma once
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -65,7 +64,7 @@ namespace GFX
 
             glm::vec3 m_Position;
             glm::vec3 m_Color;
-            float m_Intensity;
+            float32_t m_Intensity;
 
             /*********************************/
             // Constructors/Destructor
@@ -150,5 +149,4 @@ namespace GFX
     }
 }
 
-#endif
 /** @} */

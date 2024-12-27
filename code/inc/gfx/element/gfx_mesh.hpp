@@ -21,8 +21,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GFX_ELEMENT_MESH_HPP
-#define GFX_ELEMENT_MESH_HPP
+#pragma once
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -32,7 +31,7 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <memory>
+#include "gfx/gfx_common.hpp"
 
 #include "gfx/element/gfx_element.hpp"
 #include "gfx/element/gfx_vertex.hpp"
@@ -69,8 +68,8 @@ namespace GFX
             /*********************************/
 
             glm::vec3 m_Color;
-            float m_Roughness;
-            float m_Metallic;
+            float32_t m_Roughness;
+            float32_t m_Metallic;
 
             /*********************************/
             // Constructors/Destructor
@@ -244,6 +243,4 @@ namespace GFX
     
 } // namespace GFX
 
-
-#endif
 /** @} */

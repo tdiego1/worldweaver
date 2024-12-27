@@ -143,7 +143,7 @@ void GFX::Util::Shader::SetInt1(int32_t value, const std::string& name)
 /**
 * \par Details: 
 */
-void GFX::Util::Shader::SetFloat1(float value, const std::string& name)
+void GFX::Util::Shader::SetFloat1(float32_t value, const std::string& name)
 {
     GLint my_location = glGetUniformLocation(GetProgramID(), name.c_str());
     glUniform1f(my_location, value);
@@ -153,7 +153,7 @@ void GFX::Util::Shader::SetFloat1(float value, const std::string& name)
 /**
 * \par Details: 
 */
-void GFX::Util::Shader::SetFloat3(float a, float b, float c, const std::string& name)
+void GFX::Util::Shader::SetFloat3(float32_t a, float32_t b, float32_t c, const std::string& name)
 {
     GLint my_location = glGetUniformLocation(GetProgramID(), name.c_str());
     glUniform3f(my_location, a, b, c);
