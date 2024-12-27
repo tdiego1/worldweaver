@@ -57,14 +57,6 @@ namespace GFX
 
         public:
             /*********************************/
-            // Public type definitions
-            /*********************************/
-
-            /*********************************/
-            // Public member variables
-            /*********************************/
-
-            /*********************************/
             // Constructors/Destructor
             /*********************************/
 
@@ -80,141 +72,111 @@ namespace GFX
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Updates the camera.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] shader The shader to update.
             */
             void Update(GFX::Util::Shader* shader) override;
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Sets the aspect ratio of the camera.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] aspect The aspect ratio.
             */
             void SetAspect(float32_t aspect);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Sets the distance of the camera.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] offset The distance offset.
             */
             void SetDistance(float32_t offset);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Gets the projection matrix of the camera.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \retval glm::mat4 The projection matrix.
             */
             const glm::mat4& GetProjection(void) const;
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Gets the view projection matrix of the camera.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \retval glm::mat4 The view projection matrix.
             */
             glm::mat4 GetViewProjection(void) const;
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Gets the Up vector of the camera.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \retval glm::vec3 The Up vector.
             */
             glm::vec3 GetUp(void) const;
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Gets the Right vector of the camera.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \retval glm::vec3 The Right vector.
             */
             glm::vec3 GetRight(void) const;
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Gets the Forward vector of the camera.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \retval glm::vec3 The Forward vector.
             */
             glm::vec3 GetForward(void) const;
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Gets the direction of the camera.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \retval glm::quat The direction.
             */
             glm::quat GetDirection(void) const;
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Gets the view matrix of the camera.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \retval glm::mat4 The view matrix.
             */
             glm::mat4 GetViewMatrix(void) const;
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Function called when the mouse wheel is scrolled.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] delta The scroll delta.
             */
             void OnMouseWheel(float64_t delta);
 
             /**************************************************************************************************/
             /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \brief Resets the camera.
             */
             void Reset(void);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Function called when the mouse is moved.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] x      The x position of the mouse.
+            * \param[in] y      The y position of the mouse.
+            * \param[in] button The button pressed.
             */
             void OnMouseMove(float64_t x, float64_t y, Input::EInputButton button);
 
             /**************************************************************************************************/
             /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \brief Updates the view matrix of the camera.
             */
             void UpdateViewMatrix(void);
 
@@ -223,22 +185,22 @@ namespace GFX
             // Private member variables
             /*********************************/
 
-            glm::mat4 m_ViewMatrix;
-            glm::mat4 m_Projection;
-            glm::vec3 m_Position;
+            glm::mat4 m_ViewMatrix;     // The view matrix.
+            glm::mat4 m_Projection;     // The projection matrix.
+            glm::vec3 m_Position;       // The position of the camera.
 
-            glm::vec3 m_Focus;
+            glm::vec3 m_Focus;          // The focus of the camera.
 
-            float32_t m_Distance;
-            float32_t m_Aspect;
-            float32_t m_FOV;
-            float32_t m_Near;
-            float32_t m_Far;
+            float32_t m_Distance;       // The distance of the camera.
+            float32_t m_Aspect;         // The aspect ratio of the camera.
+            float32_t m_FOV;            // The field of view of the camera.
+            float32_t m_Near;           // The near value of the camera.
+            float32_t m_Far;            // The far value of the camera.
 
-            float32_t m_Pitch;
-            float32_t m_Yaw;
+            float32_t m_Pitch;          // The pitch of the camera.
+            float32_t m_Yaw;            // The yaw of the camera.
 
-            glm::vec2 m_CurrentPos2D;
+            glm::vec2 m_CurrentPos2D;   // The current 2D position of the camera.
 
         };
     }

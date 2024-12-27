@@ -50,7 +50,7 @@ namespace GFX
         {
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief The keyboard input buttons.
             */
             enum class EInputButton
             {

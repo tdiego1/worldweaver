@@ -55,16 +55,12 @@ namespace GFX
 
         public:
             /*********************************/
-            // Public type definitions
-            /*********************************/
-
-            /*********************************/
             // Public member variables
             /*********************************/
 
-            glm::vec3 m_Position;
-            glm::vec3 m_Color;
-            float32_t m_Intensity;
+            glm::vec3 m_Position;   // The position of the light.
+            glm::vec3 m_Color;      // The color of the light.
+            float32_t m_Intensity;  // The intensity of the light.
 
             /*********************************/
             // Constructors/Destructor
@@ -88,39 +84,11 @@ namespace GFX
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Updates the light.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] shader The shader to update.
             */
             void Update(GFX::Util::Shader* shader) override;
-
-        protected:
-            /*********************************/
-            // Protected type definitions
-            /*********************************/
-
-            /*********************************/
-            // Protected member variables
-            /*********************************/
-
-            /*********************************/
-            // Protected functions
-            /*********************************/
-
-        private:
-            /*********************************/
-            // Private type definitions
-            /*********************************/
-
-            /*********************************/
-            // Private member variables
-            /*********************************/
-
-            /*********************************/
-            // Private functions
-            /*********************************/
 
         };
     }

@@ -55,10 +55,6 @@ namespace GFX
 
         public:
             /*********************************/
-            // Public type definitions
-            /*********************************/
-
-            /*********************************/
             // Public member variables
             /*********************************/
 
@@ -85,11 +81,10 @@ namespace GFX
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Initialize the vertex by position and normal.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] position The position of the vertex.
+            * \param[in] normal   The normal of the vertex.
             */
             Vertex(const glm::vec3& position, const glm::vec3& normal);
 

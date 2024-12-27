@@ -60,16 +60,12 @@ namespace GFX
 
         public:
             /*********************************/
-            // Public type definitions
-            /*********************************/
-
-            /*********************************/
             // Public member variables
             /*********************************/
 
-            glm::vec3 m_Color;
-            float32_t m_Roughness;
-            float32_t m_Metallic;
+            glm::vec3 m_Color;      // The color of the mesh.
+            float32_t m_Roughness;  // The roughness of the mesh.
+            float32_t m_Metallic;   // The metallic value of the mesh.
 
             /*********************************/
             // Constructors/Destructor
@@ -93,111 +89,80 @@ namespace GFX
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Loads the mesh from a file.
             * 
-            * \param[in] 
+            * \param[in] path The path to the mesh file.
             * 
-            * \retval 
+            * \retval True if the mesh was loaded.
+            * \retval False if the mesh was not loaded.
             */
             bool Load(const std::string& path);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Adds a vertex to the mesh.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] vertex The vertex to add.
             */
             void AddVertex(const Vertex& vertex);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Adds an index to the mesh.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] index The index to add.
             */
             void AddIndex(uint32_t index);
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Gets the indices of the mesh.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \retval std::vector<uint32_t> The indices of the mesh.
             */
             std::vector<uint32_t> GetIndices(void) const;
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Updates the mesh.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] shader The shader to update.
             */
             void Update(GFX::Util::Shader* shader) override;
 
             /**************************************************************************************************/
             /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \brief Initializes the mesh.
             */
             void Initialize(void);
 
             /**************************************************************************************************/
             /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \brief Creates the buffers for the mesh.
             */
             void CreateBuffers(void);
 
             /**************************************************************************************************/
             /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \brief Deletes the buffers for the mesh.
             */
             void DeleteBuffers(void);
             
             /**************************************************************************************************/
             /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \brief Renders the mesh.
             */
             void Render(void);
 
             /**************************************************************************************************/
             /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \brief Binds to the mesh buffers.
             */
             void Bind(void);
 
             /**************************************************************************************************/
             /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \brief Unbiunds from the mesh buffers.
             */
             void UnBind(void);
 
@@ -206,9 +171,9 @@ namespace GFX
             // Private member variables
             /*********************************/
 
-            std::unique_ptr<GFX::Render::GLVertexBuffer> m_RenderBufferManager;   // The Render Buffer Manager.
-            std::vector<Vertex> m_Vertices;   // The vertices of the mesh.
-            std::vector<uint32_t> m_Indices;  // The indices of the mesh.
+            std::unique_ptr<GFX::Render::GLVertexBuffer> m_RenderBufferManager;     // The Render Buffer Manager.
+            std::vector<Vertex> m_Vertices;                                         // The vertices of the mesh.
+            std::vector<uint32_t> m_Indices;                                        // The indices of the mesh.
 
 
         };

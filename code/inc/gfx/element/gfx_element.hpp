@@ -21,8 +21,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GFX_ELEMENT_HPP
-#define GFX_ELEMENT_HPP
+#pragma once
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -59,6 +58,12 @@ namespace GFX
             // Public functions
             /*********************************/
 
+            /**************************************************************************************************/
+            /**
+            * \brief Virtual function to update the shader in the element.
+            * 
+            * \param[in] shader The shader to update.
+            */
             virtual void Update(GFX::Util::Shader* shader) = 0;
 
         };
@@ -77,5 +82,4 @@ namespace GFX
 ** 3.5 Functions
 **===============================================================================================*/
 
-#endif
 /** @} */

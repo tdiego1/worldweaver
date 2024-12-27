@@ -55,14 +55,6 @@ namespace GFX
 
         public:
             /*********************************/
-            // Public type definitions
-            /*********************************/
-
-            /*********************************/
-            // Public member variables
-            /*********************************/
-
-            /*********************************/
             // Constructors/Destructor
             /*********************************/
 
@@ -78,51 +70,36 @@ namespace GFX
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Creates the buffers for the vertex and index data.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] vertices The vertices to create the buffer with.
+            * \param[in] indices  The indices to create the buffer with.
             */
             void CreateBuffers(const std::vector<GFX::Element::Vertex>& vertices, const std::vector<uint32_t>& indices) override;
 
             /**************************************************************************************************/
             /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \brief Deletes the buffers for the vertices and indices.
             */
             void DeleteBuffers(void) override;
 
             /**************************************************************************************************/
             /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \brief Binds the vertex buffers
             */
             void Bind(void) override;
 
             /**************************************************************************************************/
             /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \brief UnBinds the vertex buffers
             */
             void UnBind(void) override;
 
             /**************************************************************************************************/
             /**
-            * \brief 
+            * \brief Draws the vertex buffer.
             * 
-            * \param[in] 
-            * 
-            * \retval 
+            * \param[in] indexCount The number of indices to draw.
             */
             void Draw(int32_t indexCount) override;
 
