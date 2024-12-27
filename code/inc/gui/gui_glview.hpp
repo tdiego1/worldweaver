@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GFX_HELPER
+* \addtogroup GUI
 * @{
 * \details
-* This file provides the public interface for the GFX_Helper Module.
+* This file provides the public interface for the GLView Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,7 +31,14 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <stdint.h>
+#include "gfx/gfx_common.hpp"
+
+#include "gfx/element/gfx_mesh.hpp"
+#include "gfx/element/gfx_input.hpp"
+#include "gfx/element/gfx_camera.hpp"
+#include "gfx/element/gfx_light.hpp"
+#include "gfx/shader/gfx_shader.hpp"
+#include "gfx/gfx_glframebuffer.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -44,45 +51,31 @@
 **===============================================================================================*/
 namespace WorldWeaver
 {
-    namespace GFX
+    namespace GUI
     {
         /**************************************************************************************************/
         /**
         * \par Details: 
         */
-        class GFXHelper
+        class GLView
         {
 
         public:
-            /*********************************/
-            // Public type definitions
-            /*********************************/
-
-            enum class ShaderType
-            {
-                VERTEX,
-                FRAGMENT
-            };
-
-            /*********************************/
-            // Public member variables
-            /*********************************/
-
             /*********************************/
             // Constructors/Destructor
             /*********************************/
 
             /**************************************************************************************************/
             /**
-            * \brief The default constructor for the <ExampleClass>.
+            * \brief The default constructor for the GLView.
             */
-            GFXHelper(void);
+            GLView(void);
 
             /**************************************************************************************************/
             /**
-            * \brief The defaiult destructor for the <ExampleClass>.
+            * \brief The default destructor for the GLView.
             */
-            ~GFXHelper(void);
+            ~GLView(void);
 
             /*********************************/
             // Public functions
@@ -90,64 +83,84 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
-            * \brief Initializes the GFX_Helper module.
+            * \brief Gets the Light.
             */
-            void GFXHelperInit(void);
+            GFX::Element::Light* GetLight(void);
 
             /**************************************************************************************************/
             /**
-            * \brief Sets up a shader program.
-            * 
-            * \param[in] shaderSource The shader source code.
-            */
-            void SetupShader(const char* shaderSource, ShaderType shaderType);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Compiles the shader program.
-            */
-            void CompileShaderProgram();
-
-            /**************************************************************************************************/
-            /**
-            * \brief Gets the shader program object ID.
-            * 
-            * \retval uint32_t The shader program object ID.
-            */
-            uint32_t GetVertexShader() const;
-
-            /**************************************************************************************************/
-            /**
-             * \brief Gets the fragment shader object ID.
-             * 
-             * \retval uint32_t The fragment shader object ID.
+             * \brief Resizes the view.
+             *  
+             * \param[in] width  The width of the view.
+             * \param[in] height The height of the view.
              */
-            uint32_t GetFragmentShader() const;
+            void Resize(int32_t width, int32_t height);
 
             /**************************************************************************************************/
             /**
-             * \brief Gets the shader program object ID.
-             * 
-             * \retval uint32_t The shader program object ID.
+             * \brief Renders the view.
              */
-            uint32_t GetShaderProgram() const;
+            void Render(void);
+
+            /**************************************************************************************************/
+            /**
+            * \brief Loads a mesh.
+            * 
+            * \param[in] path The path to the mesh.
+            */
+            void LoadMesh(const std::string& path);
+
+            /**************************************************************************************************/
+            /**
+            * \brief Sets the mesh.
+            * 
+            * \param[in] mesh The mesh.
+            */
+           void SetMesh(std::shared_ptr<GFX::Element::Mesh> mesh);
+
+           /**************************************************************************************************/
+           /**
+           * \brief Gets the mesh.
+           * 
+           * \retval std::shared_ptr<GFX::Element::Mesh> The mesh.
+           */
+           std::shared_ptr<GFX::Element::Mesh> GetMesh(void);
+
+           /**************************************************************************************************/
+           /**
+           * \brief Called when the mouse is moved.
+           * 
+           * \param[in] x      The x position of the mouse.
+           * \param[in] y      The y position of the mouse.
+           * \param[in] button The button pressed.
+           */
+           void OnMouseMove(float64_t x, float64_t y, GFX::Element::Input::EInputButton button);
+
+           /**************************************************************************************************/
+           /**
+           * \brief Called when the mouse is scrolled.
+           * 
+           * \param[in] delta The scroll delta.
+           */
+           void OnMouseWheel(float64_t delta);
+
+           /**************************************************************************************************/
+           /**
+           * \brief Resets the view.
+           */
+           void ResetView(void);
 
         private:
             /*********************************/
-            // Private type definitions
-            /*********************************/
-
-            /*********************************/
             // Private member variables
             /*********************************/
-            
-            uint32_t m_VertexShader;   // Vertex shader object ID.
-            uint32_t m_FragmentShader; // Fragment shader object ID.
-            uint32_t m_ShaderProgram;  // Shader program object ID.
 
-            /*********************************/
-            // Private functions
-            /*********************************/
+            std::unique_ptr<GFX::Element::Camera> m_Camera;             // The camera.
+            std::unique_ptr<GFX::Render::GLFrameBuffer> m_FrameBuffer;  // The frame buffer.
+            std::unique_ptr<GFX::Util::Shader> m_Shader;                // The shader.
+            std::unique_ptr<GFX::Element::Light> m_Light;               // The light.
+            std::shared_ptr<GFX::Element::Mesh> m_Mesh;                 // The mesh.
+            glm::vec2 m_Size;                                           // The size of the view.
 
         };
     }
@@ -166,13 +179,12 @@ namespace WorldWeaver
 **===============================================================================================*/
 namespace WorldWeaver
 {
-    namespace GFX
+    namespace GUI
     {
-        /**************************************************************************************************/
-        /**
-        * \par Details: 
-        */
-        inline GFXHelper::~GFXHelper(){}
+        inline GLView::~GLView()
+        {
+            m_Shader->Unload();
+        }
     }
 }
 

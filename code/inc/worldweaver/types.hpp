@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GUI_WINDOW
+* \addtogroup WORLDWEAVER
 * @{
 * \details
-* This file provides the public interface for the GUI_WINDOW Module.
+* This file provides the public include headers for the Common Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,6 +31,9 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
+#include <string>
+#include <assert.h>
+
 /*=================================================================================================
 ** 3.  DECLARATIONS
 **
@@ -40,29 +43,14 @@
 /*=================================================================================================
 ** 3.2 Types and Classes
 **===============================================================================================*/
-namespace WorldWeaver
-{
-    namespace GUI
-    {
-        /*********************************/
-        // Public type definitions
-        /*********************************/
 
-        /*********************************/
-        // Public variables
-        /*********************************/
+typedef      float  float32_t;
+typedef      double float64_t;
+typedef long double float128_t;
 
-        /*********************************/
-        // Public functions
-        /*********************************/
-
-        /**************************************************************************************************/
-        /**
-        * \brief The Star Interface ImGui window.
-        */
-        void StarInterface();
-    }
-}
+static_assert(sizeof(float32_t)*CHAR_BIT == 32, "float 32");
+static_assert(sizeof(float64_t)*CHAR_BIT == 64, "float 64");
+static_assert(sizeof(float128_t)*CHAR_BIT == 128, "float 128");
 
 /*=================================================================================================
 ** 3.3 Constants

@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GUI_WINDOW
+* \addtogroup RENDER
 * @{
 * \details
-* This file provides the public interface for the GUI_WINDOW Module.
+* This file provides the public interface for the UIContext Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,6 +31,8 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
+#include "gfx/gfx_rendercontext.hpp"
+
 /*=================================================================================================
 ** 3.  DECLARATIONS
 **
@@ -40,27 +42,52 @@
 /*=================================================================================================
 ** 3.2 Types and Classes
 **===============================================================================================*/
-namespace WorldWeaver
+namespace GFX
 {
-    namespace GUI
+    namespace Render
     {
-        /*********************************/
-        // Public type definitions
-        /*********************************/
-
-        /*********************************/
-        // Public variables
-        /*********************************/
-
-        /*********************************/
-        // Public functions
-        /*********************************/
-
         /**************************************************************************************************/
         /**
-        * \brief The Star Interface ImGui window.
+        * \par Details: 
         */
-        void StarInterface();
+        class UIContext : public RenderContext
+        {
+
+        public:
+            /*********************************/
+            // Public functions
+            /*********************************/
+
+            /**************************************************************************************************/
+            /**
+            * \brief Initializes the UIContext.
+            * 
+            * \param[in] window The window to initialize the UIContext with.
+            * 
+            * \retval True if the UIContext was initialized successfully.
+            * \retval False if the UIContext was not initialized successfully.
+            */
+            bool Initialize(GFX::Window::BaseWindow* window) override;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Sets up the UIContext for rendering.
+            */
+            void PreRender(void) override;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Renders the UIContext.
+            */
+            void Render(void) override;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Cleans up and ends the UIContext.
+            */
+            void End(void) override;
+
+        };
     }
 }
 

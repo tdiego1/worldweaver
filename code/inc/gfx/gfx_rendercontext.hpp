@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GFX_HELPER
+* \addtogroup BASE_RENDER
 * @{
 * \details
-* This file provides the public interface for the GFX_Helper Module.
+* This file provides the public interface for the RenderContext Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,7 +31,7 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <stdint.h>
+#include "gfx/gfx_window.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -42,47 +42,27 @@
 /*=================================================================================================
 ** 3.2 Types and Classes
 **===============================================================================================*/
-namespace WorldWeaver
+namespace GFX
 {
-    namespace GFX
+    namespace Render
     {
         /**************************************************************************************************/
         /**
         * \par Details: 
         */
-        class GFXHelper
+        class RenderContext
         {
 
         public:
-            /*********************************/
-            // Public type definitions
-            /*********************************/
-
-            enum class ShaderType
-            {
-                VERTEX,
-                FRAGMENT
-            };
-
-            /*********************************/
-            // Public member variables
-            /*********************************/
-
             /*********************************/
             // Constructors/Destructor
             /*********************************/
 
             /**************************************************************************************************/
             /**
-            * \brief The default constructor for the <ExampleClass>.
+            * \brief The default constructor for the <RenderContext>.
             */
-            GFXHelper(void);
-
-            /**************************************************************************************************/
-            /**
-            * \brief The defaiult destructor for the <ExampleClass>.
-            */
-            ~GFXHelper(void);
+            RenderContext(void);
 
             /*********************************/
             // Public functions
@@ -90,64 +70,38 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
-            * \brief Initializes the GFX_Helper module.
-            */
-            void GFXHelperInit(void);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Sets up a shader program.
+            * \brief Initializes the RenderContext.
             * 
-            * \param[in] shaderSource The shader source code.
-            */
-            void SetupShader(const char* shaderSource, ShaderType shaderType);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Compiles the shader program.
-            */
-            void CompileShaderProgram();
-
-            /**************************************************************************************************/
-            /**
-            * \brief Gets the shader program object ID.
+            * \param[in] window The window to initialize the RenderContext with.
             * 
-            * \retval uint32_t The shader program object ID.
+            * \retval True if the RenderContext was initialized successfully.
             */
-            uint32_t GetVertexShader() const;
+            virtual bool Initialize(GFX::Window::BaseWindow* window);
 
             /**************************************************************************************************/
             /**
-             * \brief Gets the fragment shader object ID.
-             * 
-             * \retval uint32_t The fragment shader object ID.
-             */
-            uint32_t GetFragmentShader() const;
+            * \brief Begins the RenderContext.
+            */
+            virtual void PreRender(void) = 0;
 
             /**************************************************************************************************/
             /**
-             * \brief Gets the shader program object ID.
-             * 
-             * \retval uint32_t The shader program object ID.
-             */
-            uint32_t GetShaderProgram() const;
+            * \brief Post Render functions.
+            */
+            virtual void Render(void) = 0;
 
-        private:
+            /**************************************************************************************************/
+            /**
+            * \brief Ends the RenderContext.
+            */
+            virtual void End(void) = 0;
+
+        protected:
             /*********************************/
-            // Private type definitions
+            // Protected member variables
             /*********************************/
 
-            /*********************************/
-            // Private member variables
-            /*********************************/
-            
-            uint32_t m_VertexShader;   // Vertex shader object ID.
-            uint32_t m_FragmentShader; // Fragment shader object ID.
-            uint32_t m_ShaderProgram;  // Shader program object ID.
-
-            /*********************************/
-            // Private functions
-            /*********************************/
+            GFX::Window::BaseWindow* m_Window;  // The window to render.
 
         };
     }
@@ -164,15 +118,26 @@ namespace WorldWeaver
 /*=================================================================================================
 ** 3.5 Functions
 **===============================================================================================*/
-namespace WorldWeaver
+namespace GFX
 {
-    namespace GFX
+    namespace Render
     {
         /**************************************************************************************************/
         /**
         * \par Details: 
         */
-        inline GFXHelper::~GFXHelper(){}
+        inline RenderContext::RenderContext() : m_Window(nullptr)
+        {}
+
+        /**************************************************************************************************/
+        /**
+        * \par Details: 
+        */
+        inline bool RenderContext::Initialize(GFX::Window::BaseWindow* window)
+        {
+            m_Window = window;
+            return true;
+        }
     }
 }
 

@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GUI_WINDOW
+* \addtogroup GUI
 * @{
 * \details
-* This file provides the public interface for the GUI_WINDOW Module.
+* This file provides the public interface for the GUIHelper Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,6 +31,11 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
+#include "gfx/gfx_common.hpp"
+
+#include "imgui.h"
+#include "imgui_internal.h"
+
 /*=================================================================================================
 ** 3.  DECLARATIONS
 **
@@ -44,23 +49,19 @@ namespace WorldWeaver
 {
     namespace GUI
     {
-        /*********************************/
-        // Public type definitions
-        /*********************************/
-
-        /*********************************/
-        // Public variables
-        /*********************************/
-
-        /*********************************/
-        // Public functions
-        /*********************************/
-
-        /**************************************************************************************************/
-        /**
-        * \brief The Star Interface ImGui window.
-        */
-        void StarInterface();
+        namespace Helper
+        {
+            /**************************************************************************************************/
+            /**
+            * \brief Draws an ImGui widget for a glm::vec3.
+            * 
+            * \param[in] label The label for the widget.
+            * \param[in] values The values for the widget.
+            * \param[in] resetValue The value to reset the widget to.
+            * \param[in] columnWidth The width of the column.
+            */
+            void DrawVector3Widget(const std::string& label, glm::vec3& values);
+        }
     }
 }
 

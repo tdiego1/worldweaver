@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GFX_HELPER
+* \addtogroup BASE_RENDER
 * @{
 * \details
-* This file provides the public interface for the GFX_Helper Module.
+* This file provides the public interface for the VertexIndexBuffer Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,7 +31,9 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <stdint.h>
+#include "gfx/gfx_common.hpp"
+
+#include "gfx/element/gfx_vertex.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -42,47 +44,27 @@
 /*=================================================================================================
 ** 3.2 Types and Classes
 **===============================================================================================*/
-namespace WorldWeaver
+namespace GFX
 {
-    namespace GFX
+    namespace Render
     {
         /**************************************************************************************************/
         /**
         * \par Details: 
         */
-        class GFXHelper
+        class VertexIndexBuffer
         {
 
         public:
-            /*********************************/
-            // Public type definitions
-            /*********************************/
-
-            enum class ShaderType
-            {
-                VERTEX,
-                FRAGMENT
-            };
-
-            /*********************************/
-            // Public member variables
-            /*********************************/
-
             /*********************************/
             // Constructors/Destructor
             /*********************************/
 
             /**************************************************************************************************/
             /**
-            * \brief The default constructor for the <ExampleClass>.
+            * \brief The default constructor for the BaseRender.
             */
-            GFXHelper(void);
-
-            /**************************************************************************************************/
-            /**
-            * \brief The defaiult destructor for the <ExampleClass>.
-            */
-            ~GFXHelper(void);
+            VertexIndexBuffer(void);
 
             /*********************************/
             // Public functions
@@ -90,64 +72,47 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
-            * \brief Initializes the GFX_Helper module.
-            */
-            void GFXHelperInit(void);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Sets up a shader program.
+            * \brief Creates the buffers for the vertices and indices.
             * 
-            * \param[in] shaderSource The shader source code.
+            * \param[in] vertices The vertices to create the buffer.
+            * \param[in] indices The indices to create the buffer.
             */
-            void SetupShader(const char* shaderSource, ShaderType shaderType);
+            virtual void CreateBuffers(const std::vector<GFX::Element::Vertex>& vertices, const std::vector<uint32_t>& indices) = 0;
 
             /**************************************************************************************************/
             /**
-            * \brief Compiles the shader program.
+            * \brief Deletes the buffers for the vertices and indices.
             */
-            void CompileShaderProgram();
+            virtual void DeleteBuffers(void) = 0;
 
             /**************************************************************************************************/
             /**
-            * \brief Gets the shader program object ID.
+            * \brief Binds the buffer.
+            */
+            virtual void Bind(void) = 0;
+
+            /**************************************************************************************************/
+            /**
+            * \brief UnBinds from the buffer.
+            */
+            virtual void UnBind(void) = 0;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Draws the buffer.
             * 
-            * \retval uint32_t The shader program object ID.
+            * \param[in] indexCount The index count to draw.
             */
-            uint32_t GetVertexShader() const;
+            virtual void Draw(int32_t indexCount) = 0;
 
-            /**************************************************************************************************/
-            /**
-             * \brief Gets the fragment shader object ID.
-             * 
-             * \retval uint32_t The fragment shader object ID.
-             */
-            uint32_t GetFragmentShader() const;
-
-            /**************************************************************************************************/
-            /**
-             * \brief Gets the shader program object ID.
-             * 
-             * \retval uint32_t The shader program object ID.
-             */
-            uint32_t GetShaderProgram() const;
-
-        private:
+        protected:
             /*********************************/
-            // Private type definitions
+            // Protected member variables
             /*********************************/
 
-            /*********************************/
-            // Private member variables
-            /*********************************/
-            
-            uint32_t m_VertexShader;   // Vertex shader object ID.
-            uint32_t m_FragmentShader; // Fragment shader object ID.
-            uint32_t m_ShaderProgram;  // Shader program object ID.
-
-            /*********************************/
-            // Private functions
-            /*********************************/
+            GLuint m_VBO;   // The Vertex Buffer Object (VBO).
+            GLuint m_VAO;   // The Vertex Array Object (VAO).
+            GLuint m_EBO;   // The Element Buffer Object (EBO).
 
         };
     }
@@ -164,15 +129,16 @@ namespace WorldWeaver
 /*=================================================================================================
 ** 3.5 Functions
 **===============================================================================================*/
-namespace WorldWeaver
+namespace GFX
 {
-    namespace GFX
+    namespace Render
     {
         /**************************************************************************************************/
         /**
         * \par Details: 
         */
-        inline GFXHelper::~GFXHelper(){}
+        inline VertexIndexBuffer::VertexIndexBuffer() : m_VBO{ 0 }, m_VAO{ 0 }, m_EBO{ 0 }
+        {}
     }
 }
 

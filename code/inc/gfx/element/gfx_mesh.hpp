@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GFX_HELPER
+* \addtogroup GFX_ELEMENT
 * @{
 * \details
-* This file provides the public interface for the GFX_Helper Module.
+* This file provides the public interface for the Mesh Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,7 +31,12 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <stdint.h>
+#include "gfx/gfx_common.hpp"
+
+#include "gfx/element/gfx_element.hpp"
+#include "gfx/element/gfx_vertex.hpp"
+#include "gfx/shader/gfx_shader.hpp"
+#include "gfx/gfx_glvibuffer.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -42,31 +47,25 @@
 /*=================================================================================================
 ** 3.2 Types and Classes
 **===============================================================================================*/
-namespace WorldWeaver
+namespace GFX
 {
-    namespace GFX
+    namespace Element
     {
         /**************************************************************************************************/
         /**
         * \par Details: 
         */
-        class GFXHelper
+        class Mesh : public Element
         {
 
         public:
             /*********************************/
-            // Public type definitions
-            /*********************************/
-
-            enum class ShaderType
-            {
-                VERTEX,
-                FRAGMENT
-            };
-
-            /*********************************/
             // Public member variables
             /*********************************/
+
+            glm::vec3 m_Color;      // The color of the mesh.
+            float32_t m_Roughness;  // The roughness of the mesh.
+            float32_t m_Metallic;   // The metallic value of the mesh.
 
             /*********************************/
             // Constructors/Destructor
@@ -74,15 +73,15 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
-            * \brief The default constructor for the <ExampleClass>.
+            * \brief The default constructor for the Mesh.
             */
-            GFXHelper(void);
+            Mesh(void) = default;
 
             /**************************************************************************************************/
             /**
-            * \brief The defaiult destructor for the <ExampleClass>.
+            * \brief The default destructor for the Mesh.
             */
-            ~GFXHelper(void);
+            virtual ~Mesh(void);
 
             /*********************************/
             // Public functions
@@ -90,64 +89,92 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
-            * \brief Initializes the GFX_Helper module.
-            */
-            void GFXHelperInit(void);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Sets up a shader program.
+            * \brief Loads the mesh from a file.
             * 
-            * \param[in] shaderSource The shader source code.
-            */
-            void SetupShader(const char* shaderSource, ShaderType shaderType);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Compiles the shader program.
-            */
-            void CompileShaderProgram();
-
-            /**************************************************************************************************/
-            /**
-            * \brief Gets the shader program object ID.
+            * \param[in] path The path to the mesh file.
             * 
-            * \retval uint32_t The shader program object ID.
+            * \retval True if the mesh was loaded.
+            * \retval False if the mesh was not loaded.
             */
-            uint32_t GetVertexShader() const;
+            bool Load(const std::string& path);
 
             /**************************************************************************************************/
             /**
-             * \brief Gets the fragment shader object ID.
-             * 
-             * \retval uint32_t The fragment shader object ID.
-             */
-            uint32_t GetFragmentShader() const;
+            * \brief Adds a vertex to the mesh.
+            * 
+            * \param[in] vertex The vertex to add.
+            */
+            void AddVertex(const Vertex& vertex);
 
             /**************************************************************************************************/
             /**
-             * \brief Gets the shader program object ID.
-             * 
-             * \retval uint32_t The shader program object ID.
-             */
-            uint32_t GetShaderProgram() const;
+            * \brief Adds an index to the mesh.
+            * 
+            * \param[in] index The index to add.
+            */
+            void AddIndex(uint32_t index);
+
+            /**************************************************************************************************/
+            /**
+            * \brief Gets the indices of the mesh.
+            * 
+            * \retval std::vector<uint32_t> The indices of the mesh.
+            */
+            std::vector<uint32_t> GetIndices(void) const;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Updates the mesh.
+            * 
+            * \param[in] shader The shader to update.
+            */
+            void Update(GFX::Util::Shader* shader) override;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Initializes the mesh.
+            */
+            void Initialize(void);
+
+            /**************************************************************************************************/
+            /**
+            * \brief Creates the buffers for the mesh.
+            */
+            void CreateBuffers(void);
+
+            /**************************************************************************************************/
+            /**
+            * \brief Deletes the buffers for the mesh.
+            */
+            void DeleteBuffers(void);
+            
+            /**************************************************************************************************/
+            /**
+            * \brief Renders the mesh.
+            */
+            void Render(void);
+
+            /**************************************************************************************************/
+            /**
+            * \brief Binds to the mesh buffers.
+            */
+            void Bind(void);
+
+            /**************************************************************************************************/
+            /**
+            * \brief Unbiunds from the mesh buffers.
+            */
+            void UnBind(void);
 
         private:
             /*********************************/
-            // Private type definitions
-            /*********************************/
-
-            /*********************************/
             // Private member variables
             /*********************************/
-            
-            uint32_t m_VertexShader;   // Vertex shader object ID.
-            uint32_t m_FragmentShader; // Fragment shader object ID.
-            uint32_t m_ShaderProgram;  // Shader program object ID.
 
-            /*********************************/
-            // Private functions
-            /*********************************/
+            std::unique_ptr<GFX::Render::GLVertexBuffer> m_RenderBufferManager;     // The Render Buffer Manager.
+            std::vector<Vertex> m_Vertices;                                         // The vertices of the mesh.
+            std::vector<uint32_t> m_Indices;                                        // The indices of the mesh.
+
 
         };
     }
@@ -164,16 +191,21 @@ namespace WorldWeaver
 /*=================================================================================================
 ** 3.5 Functions
 **===============================================================================================*/
-namespace WorldWeaver
+
+namespace GFX
 {
-    namespace GFX
+    namespace Element
     {
         /**************************************************************************************************/
         /**
         * \par Details: 
         */
-        inline GFXHelper::~GFXHelper(){}
+        inline Mesh::~Mesh(void)
+        {
+            DeleteBuffers();
+        }
     }
-}
+    
+} // namespace GFX
 
 /** @} */

@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GUI_WINDOW
+* \addtogroup GFX_ELEMENT
 * @{
 * \details
-* This file provides the public interface for the GUI_WINDOW Module.
+* This file provides the public interface for the Element Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,6 +31,8 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
+#include "gfx/shader/gfx_shader.hpp"
+
 /*=================================================================================================
 ** 3.  DECLARATIONS
 **
@@ -40,27 +42,31 @@
 /*=================================================================================================
 ** 3.2 Types and Classes
 **===============================================================================================*/
-namespace WorldWeaver
+namespace GFX
 {
-    namespace GUI
+    namespace Element
     {
-        /*********************************/
-        // Public type definitions
-        /*********************************/
-
-        /*********************************/
-        // Public variables
-        /*********************************/
-
-        /*********************************/
-        // Public functions
-        /*********************************/
-
         /**************************************************************************************************/
         /**
-        * \brief The Star Interface ImGui window.
+        * \par Details: 
         */
-        void StarInterface();
+        class Element
+        {
+
+        public:
+            /*********************************/
+            // Public functions
+            /*********************************/
+
+            /**************************************************************************************************/
+            /**
+            * \brief Virtual function to update the shader in the element.
+            * 
+            * \param[in] shader The shader to update.
+            */
+            virtual void Update(GFX::Util::Shader* shader) = 0;
+
+        };
     }
 }
 

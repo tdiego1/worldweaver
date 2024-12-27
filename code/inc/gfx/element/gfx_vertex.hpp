@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GUI_WINDOW
+* \addtogroup ELEMENTS
 * @{
 * \details
-* This file provides the public interface for the GUI_WINDOW Module.
+* This file provides the public interface for the Vertex Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,6 +31,8 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
+#include "gfx/gfx_common.hpp"
+
 /*=================================================================================================
 ** 3.  DECLARATIONS
 **
@@ -40,27 +42,63 @@
 /*=================================================================================================
 ** 3.2 Types and Classes
 **===============================================================================================*/
-namespace WorldWeaver
+namespace GFX
 {
-    namespace GUI
+    namespace Element
     {
-        /*********************************/
-        // Public type definitions
-        /*********************************/
-
-        /*********************************/
-        // Public variables
-        /*********************************/
-
-        /*********************************/
-        // Public functions
-        /*********************************/
-
         /**************************************************************************************************/
         /**
-        * \brief The Star Interface ImGui window.
+        * \par Details: 
         */
-        void StarInterface();
+        class Vertex
+        {
+
+        public:
+            /*********************************/
+            // Public member variables
+            /*********************************/
+
+            glm::vec3 m_Position;
+            glm::vec3 m_Normal;
+
+            /*********************************/
+            // Constructors/Destructor
+            /*********************************/
+
+            /**************************************************************************************************/
+            /**
+            * \brief The default constructor for the Vertex.
+            */
+            Vertex(void);
+
+            /**************************************************************************************************/
+            /**
+            * \brief Initialize the vertex by string to be tokenized.
+            * 
+            * \param[in] tokens The tokens to initialize the vertex.
+            */
+            Vertex(const std::vector<std::string> tokens);
+
+            /**************************************************************************************************/
+            /**
+            * \brief Initialize the vertex by position and normal.
+            * 
+            * \param[in] position The position of the vertex.
+            * \param[in] normal   The normal of the vertex.
+            */
+            Vertex(const glm::vec3& position, const glm::vec3& normal);
+
+            /**************************************************************************************************/
+            /**
+            * \brief The defaiult destructor for the Vertex.
+            */
+            ~Vertex(void) = default;
+
+            /*********************************/
+            // Public functions
+            /*********************************/
+
+        };
     }
 }
 

@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GUI_WINDOW
+* \addtogroup WORLDWEAVER
 * @{
 * \details
-* This file provides the public interface for the GUI_WINDOW Module.
+* This file provides the public include headers for the Common Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,6 +31,20 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
+// Std includes
+#include <stdint.h>
+#include <string>
+#include <algorithm>
+#include <cmath>
+#include <vector>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <memory>
+#include <assert.h>
+
+#include "worldweaver/types.hpp"
+
 /*=================================================================================================
 ** 3.  DECLARATIONS
 **
@@ -40,29 +54,6 @@
 /*=================================================================================================
 ** 3.2 Types and Classes
 **===============================================================================================*/
-namespace WorldWeaver
-{
-    namespace GUI
-    {
-        /*********************************/
-        // Public type definitions
-        /*********************************/
-
-        /*********************************/
-        // Public variables
-        /*********************************/
-
-        /*********************************/
-        // Public functions
-        /*********************************/
-
-        /**************************************************************************************************/
-        /**
-        * \brief The Star Interface ImGui window.
-        */
-        void StarInterface();
-    }
-}
 
 /*=================================================================================================
 ** 3.3 Constants

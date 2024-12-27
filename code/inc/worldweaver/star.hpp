@@ -21,8 +21,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef STAR_HPP
-#define STAR_HPP
+#pragma once
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -31,7 +30,7 @@
 /*=================================================================================================
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
-#include <cstdint>
+#include "worldweaver/common.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -91,7 +90,7 @@ namespace WorldWeaver
             struct SpectralClass
             {
                 SpectralMajor spectralMajor;
-                float spectralMinor;
+                float32_t spectralMinor;
                 bool isMainSequence;
             };
 
@@ -144,7 +143,7 @@ namespace WorldWeaver
             * 
             * \param[in] mass The mass of the star.
             */
-           void SetMass(float mass);
+           void SetMass(float32_t mass);
 
             /**************************************************************************************************/
             /**
@@ -152,7 +151,7 @@ namespace WorldWeaver
             * 
             * \param[in] currentAge The current age of the star.
             */
-            void SetCurrentAge(float currentAge);
+            void SetCurrentAge(float32_t currentAge);
 
             /**************************************************************************************************/
             /**
@@ -166,57 +165,57 @@ namespace WorldWeaver
             /**
              * \brief Gets the mass of a star.
              *  
-             * \retval float The mass of the star.
+             * \retval float32_t The mass of the star.
              */
-            float GetMass() const;
+            float32_t GetMass() const;
 
             /**************************************************************************************************/
             /**
              * \brief Gets the current age of a star.
              *  
-             * \retval float The current age of the star.
+             * \retval float32_t The current age of the star.
              */
-            float GetCurrentAge() const;
+            float32_t GetCurrentAge() const;
 
             /**************************************************************************************************/
             /**
              * \brief Gets the maximum age of a star.
              *  
-             * \retval float The maximum age of the star.
+             * \retval float32_t The maximum age of the star.
              */
-            float GetMaxAge() const;
+            float32_t GetMaxAge() const;
 
             /**************************************************************************************************/
             /**
              * \brief Gets the radius of a star.
              *  
-             * \retval float The radius of the star.
+             * \retval float32_t The radius of the star.
              */
-            float GetRadius() const;
+            float32_t GetRadius() const;
 
             /**************************************************************************************************/
             /**
              * \brief Gets the luminosity of a star.
              *  
-             * \retval float The luminosity of the star.
+             * \retval float32_t The luminosity of the star.
              */
-            float GetLuminosity() const;
+            float32_t GetLuminosity() const;
 
             /**************************************************************************************************/
             /**
              * \brief Gets the density of a star.
              *  
-             * \retval float The density of the star.
+             * \retval float32_t The density of the star.
              */
-            float GetDensity() const;
+            float32_t GetDensity() const;
 
             /**************************************************************************************************/
             /**
              * \brief Gets the temperature of a star.
              *  
-             * \retval float The temperature of the star.
+             * \retval float32_t The temperature of the star.
              */
-            float GetTemperature() const;
+            float32_t GetTemperature() const;
 
             /**************************************************************************************************/
             /**
@@ -230,17 +229,17 @@ namespace WorldWeaver
             /**
              * \brief Gets the minimum habitable zone of a star in AU.
              *  
-             * \retval float The minimum habitable zone of the star in AU.
+             * \retval float32_t The minimum habitable zone of the star in AU.
              */
-            float GetMinHabitableZone() const;
+            float32_t GetMinHabitableZone() const;
 
             /**************************************************************************************************/
             /**
              * \brief Gets the maximum habitable zone of a star in AU.
              *  
-             * \retval float The maximum habitable zone of the star in AU.
+             * \retval float32_t The maximum habitable zone of the star in AU.
              */
-            float GetMaxHabitableZone() const;
+            float32_t GetMaxHabitableZone() const;
 
             /**************************************************************************************************/
             /**
@@ -259,16 +258,16 @@ namespace WorldWeaver
             // Private member variables
             /*********************************/
             SpectralClass m_SpectralClass;
-            float m_Mass;
-            float m_CurrentAge;
-            float m_MaxAge;
-            float m_Radius;
-            float m_Luminosity;
-            float m_Density;
-            float m_Temperature;
+            float32_t m_Mass;
+            float32_t m_CurrentAge;
+            float32_t m_MaxAge;
+            float32_t m_Radius;
+            float32_t m_Luminosity;
+            float32_t m_Density;
+            float32_t m_Temperature;
             Color m_Color;
-            float m_MinHabitableZone;
-            float m_MaxHabitableZone;
+            float32_t m_MinHabitableZone;
+            float32_t m_MaxHabitableZone;
             LifeCapable m_IsLifeCapable;
 
             /*********************************/
@@ -307,5 +306,4 @@ namespace WorldWeaver
     }
 }
 
-#endif
 /** @} */

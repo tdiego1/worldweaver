@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GUI_WINDOW
+* \addtogroup GFX_RENDER
 * @{
 * \details
-* This file provides the public interface for the GUI_WINDOW Module.
+* This file provides the public interface for the GLVertexBuffer Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,6 +31,8 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
+#include "gfx/gfx_vibuffer.hpp"
+
 /*=================================================================================================
 ** 3.  DECLARATIONS
 **
@@ -40,27 +42,68 @@
 /*=================================================================================================
 ** 3.2 Types and Classes
 **===============================================================================================*/
-namespace WorldWeaver
+namespace GFX
 {
-    namespace GUI
+    namespace Render
     {
-        /*********************************/
-        // Public type definitions
-        /*********************************/
-
-        /*********************************/
-        // Public variables
-        /*********************************/
-
-        /*********************************/
-        // Public functions
-        /*********************************/
-
         /**************************************************************************************************/
         /**
-        * \brief The Star Interface ImGui window.
+        * \par Details: 
         */
-        void StarInterface();
+        class GLVertexBuffer : public VertexIndexBuffer
+        {
+
+        public:
+            /*********************************/
+            // Constructors/Destructor
+            /*********************************/
+
+            /**************************************************************************************************/
+            /**
+            * \brief The default constructor for the GLVertexBuffer.
+            */
+            GLVertexBuffer(void);
+
+            /*********************************/
+            // Public functions
+            /*********************************/
+
+            /**************************************************************************************************/
+            /**
+            * \brief Creates the buffers for the vertex and index data.
+            * 
+            * \param[in] vertices The vertices to create the buffer with.
+            * \param[in] indices  The indices to create the buffer with.
+            */
+            void CreateBuffers(const std::vector<GFX::Element::Vertex>& vertices, const std::vector<uint32_t>& indices) override;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Deletes the buffers for the vertices and indices.
+            */
+            void DeleteBuffers(void) override;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Binds the vertex buffers
+            */
+            void Bind(void) override;
+
+            /**************************************************************************************************/
+            /**
+            * \brief UnBinds the vertex buffers
+            */
+            void UnBind(void) override;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Draws the vertex buffer.
+            * 
+            * \param[in] indexCount The number of indices to draw.
+            */
+            void Draw(int32_t indexCount) override;
+
+        };
     }
 }
 

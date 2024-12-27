@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GUI_WINDOW
+* \addtogroup GFX_ELEMENT
 * @{
 * \details
-* This file provides the public interface for the GUI_WINDOW Module.
+* This file provides the public interface for the Light Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,6 +31,8 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
+#include "gfx/element/gfx_element.hpp"
+
 /*=================================================================================================
 ** 3.  DECLARATIONS
 **
@@ -40,27 +42,55 @@
 /*=================================================================================================
 ** 3.2 Types and Classes
 **===============================================================================================*/
-namespace WorldWeaver
+namespace GFX
 {
-    namespace GUI
+    namespace Element
     {
-        /*********************************/
-        // Public type definitions
-        /*********************************/
-
-        /*********************************/
-        // Public variables
-        /*********************************/
-
-        /*********************************/
-        // Public functions
-        /*********************************/
-
         /**************************************************************************************************/
         /**
-        * \brief The Star Interface ImGui window.
+        * \par Details: 
         */
-        void StarInterface();
+        class Light : public Element
+        {
+
+        public:
+            /*********************************/
+            // Public member variables
+            /*********************************/
+
+            glm::vec3 m_Position;   // The position of the light.
+            glm::vec3 m_Color;      // The color of the light.
+            float32_t m_Intensity;  // The intensity of the light.
+
+            /*********************************/
+            // Constructors/Destructor
+            /*********************************/
+
+            /**************************************************************************************************/
+            /**
+            * \brief The default constructor for the Light.
+            */
+            Light(void);
+
+            /**************************************************************************************************/
+            /**
+            * \brief The default destructor for the Light.
+            */
+            ~Light(void);
+
+            /*********************************/
+            // Public functions
+            /*********************************/
+
+            /**************************************************************************************************/
+            /**
+            * \brief Updates the light.
+            * 
+            * \param[in] shader The shader to update.
+            */
+            void Update(GFX::Util::Shader* shader) override;
+
+        };
     }
 }
 
@@ -75,5 +105,16 @@ namespace WorldWeaver
 /*=================================================================================================
 ** 3.5 Functions
 **===============================================================================================*/
+namespace GFX
+{
+    namespace Element
+    {
+        /**************************************************************************************************/
+        /**
+        * \par Details: 
+        */
+        inline Light::~Light(){}
+    }
+}
 
 /** @} */

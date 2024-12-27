@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GFX_HELPER
+* \addtogroup BASE_RENDER
 * @{
 * \details
-* This file provides the public interface for the GFX_Helper Module.
+* This file provides the public interface for the FrameBuffer Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,7 +31,7 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <stdint.h>
+#include "gfx/gfx_common.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -42,47 +42,27 @@
 /*=================================================================================================
 ** 3.2 Types and Classes
 **===============================================================================================*/
-namespace WorldWeaver
+namespace GFX
 {
-    namespace GFX
+    namespace Render
     {
         /**************************************************************************************************/
         /**
         * \par Details: 
         */
-        class GFXHelper
+        class FrameBuffer
         {
 
         public:
-            /*********************************/
-            // Public type definitions
-            /*********************************/
-
-            enum class ShaderType
-            {
-                VERTEX,
-                FRAGMENT
-            };
-
-            /*********************************/
-            // Public member variables
-            /*********************************/
-
             /*********************************/
             // Constructors/Destructor
             /*********************************/
 
             /**************************************************************************************************/
             /**
-            * \brief The default constructor for the <ExampleClass>.
+            * \brief The default constructor for the FrameBuffer.
             */
-            GFXHelper(void);
-
-            /**************************************************************************************************/
-            /**
-            * \brief The defaiult destructor for the <ExampleClass>.
-            */
-            ~GFXHelper(void);
+            FrameBuffer(void);
 
             /*********************************/
             // Public functions
@@ -90,65 +70,49 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
-            * \brief Initializes the GFX_Helper module.
-            */
-            void GFXHelperInit(void);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Sets up a shader program.
+            * \brief Creates the buffers for the FrameBuffer.
             * 
-            * \param[in] shaderSource The shader source code.
+            * \param[in] width  The width of the FrameBuffer.
+            * \param[in] height The height of the FrameBuffer.
             */
-            void SetupShader(const char* shaderSource, ShaderType shaderType);
+            virtual void CreateBuffers(int32_t width, int32_t height) = 0;
 
             /**************************************************************************************************/
             /**
-            * \brief Compiles the shader program.
+            * \brief Deletes the buffers for the FrameBuffer.
             */
-            void CompileShaderProgram();
+            virtual void DeleteBuffers(void) = 0;
 
             /**************************************************************************************************/
             /**
-            * \brief Gets the shader program object ID.
+            * \brief Binds the FrameBuffer.
+            */
+            virtual void Bind(void) = 0;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Unbinds the FrameBuffer.
+            */
+            virtual void Unbind(void) = 0;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Gets the texture of the FrameBuffer.
             * 
-            * \retval uint32_t The shader program object ID.
+            * \retval uint32_t The texture of the FrameBuffer.
             */
-            uint32_t GetVertexShader() const;
+            virtual uint32_t GetTexture(void) = 0;
 
-            /**************************************************************************************************/
-            /**
-             * \brief Gets the fragment shader object ID.
-             * 
-             * \retval uint32_t The fragment shader object ID.
-             */
-            uint32_t GetFragmentShader() const;
-
-            /**************************************************************************************************/
-            /**
-             * \brief Gets the shader program object ID.
-             * 
-             * \retval uint32_t The shader program object ID.
-             */
-            uint32_t GetShaderProgram() const;
-
-        private:
+        protected:
             /*********************************/
-            // Private type definitions
+            // Protected member variables
             /*********************************/
 
-            /*********************************/
-            // Private member variables
-            /*********************************/
-            
-            uint32_t m_VertexShader;   // Vertex shader object ID.
-            uint32_t m_FragmentShader; // Fragment shader object ID.
-            uint32_t m_ShaderProgram;  // Shader program object ID.
-
-            /*********************************/
-            // Private functions
-            /*********************************/
-
+            uint32_t m_FBO;         // The FrameBuffer Object.
+            uint32_t m_TextureID;   // The texture of the FrameBuffer.
+            uint32_t m_DepthID;     // The depth of the FrameBuffer.
+            int32_t m_Width;        // The width of the FrameBuffer.
+            int32_t m_Height;       // The height of the FrameBuffer;
         };
     }
 }
@@ -164,15 +128,16 @@ namespace WorldWeaver
 /*=================================================================================================
 ** 3.5 Functions
 **===============================================================================================*/
-namespace WorldWeaver
+namespace GFX
 {
-    namespace GFX
+    namespace Render
     {
         /**************************************************************************************************/
         /**
         * \par Details: 
         */
-        inline GFXHelper::~GFXHelper(){}
+        inline FrameBuffer::FrameBuffer() : m_FBO(0), m_TextureID(0), m_DepthID(0), m_Width(0), m_Height(0)
+        {}
     }
 }
 

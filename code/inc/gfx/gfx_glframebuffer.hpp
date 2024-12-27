@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GUI_WINDOW
+* \addtogroup GFX_RENDER
 * @{
 * \details
-* This file provides the public interface for the GUI_WINDOW Module.
+* This file provides the public interface for the GLFrameBuffer Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,6 +31,8 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
+#include "gfx/gfx_framebuffer.hpp"
+
 /*=================================================================================================
 ** 3.  DECLARATIONS
 **
@@ -40,27 +42,58 @@
 /*=================================================================================================
 ** 3.2 Types and Classes
 **===============================================================================================*/
-namespace WorldWeaver
+namespace GFX
 {
-    namespace GUI
+    namespace Render
     {
-        /*********************************/
-        // Public type definitions
-        /*********************************/
-
-        /*********************************/
-        // Public variables
-        /*********************************/
-
-        /*********************************/
-        // Public functions
-        /*********************************/
-
         /**************************************************************************************************/
         /**
-        * \brief The Star Interface ImGui window.
+        * \par Details: 
         */
-        void StarInterface();
+        class GLFrameBuffer : public FrameBuffer
+        {
+
+        public:
+            /*********************************/
+            // Public functions
+            /*********************************/
+
+            /**************************************************************************************************/
+            /**
+            * \brief Creates the frame buffer.
+            * 
+            * \param[in] width The width of the frame buffer.
+            * \param[in] height The height of the frame buffer.
+            */
+            void CreateBuffers(int32_t width, int32_t height) override;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Deletes the frame buffer.
+            */
+            void DeleteBuffers(void) override;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Binds the frame buffer.
+            */
+            void Bind(void) override;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Unbinds the frame buffer.
+            */
+            void Unbind(void) override;
+
+            /**************************************************************************************************/
+            /**
+            * \brief Gets the texturen ID.
+            * 
+            * \retval uint32_t The texture ID.
+            */
+            uint32_t GetTexture(void) override;
+
+        };
     }
 }
 

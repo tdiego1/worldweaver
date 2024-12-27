@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GUI_WINDOW
+* \addtogroup GFX_ELEMENT
 * @{
 * \details
-* This file provides the public interface for the GUI_WINDOW Module.
+* This file provides the public interface for the Input Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,6 +31,8 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
+#include "gfx/gfx_common.hpp"
+
 /*=================================================================================================
 ** 3.  DECLARATIONS
 **
@@ -40,27 +42,36 @@
 /*=================================================================================================
 ** 3.2 Types and Classes
 **===============================================================================================*/
-namespace WorldWeaver
+namespace GFX
 {
-    namespace GUI
+    namespace Element
     {
-        /*********************************/
-        // Public type definitions
-        /*********************************/
+        namespace Input
+        {
+            /**************************************************************************************************/
+            /**
+            * \brief The keyboard input buttons.
+            */
+            enum class EInputButton
+            {
+                LEFT = 0,
+                RIGHT = 1,
+                MIDDLE = 2,
+                NONE = 9
+            };
 
-        /*********************************/
-        // Public variables
-        /*********************************/
+            /**************************************************************************************************/
+            /**
+            * \brief Gets the button that was pressed.
+            * 
+            * \param[in] window The window that the button was pressed in.
+            * 
+            * \retval EInputButton The button that was pressed.
+            */
+            EInputButton GetPressedButton(GLFWwindow* window);
 
-        /*********************************/
-        // Public functions
-        /*********************************/
 
-        /**************************************************************************************************/
-        /**
-        * \brief The Star Interface ImGui window.
-        */
-        void StarInterface();
+        }
     }
 }
 

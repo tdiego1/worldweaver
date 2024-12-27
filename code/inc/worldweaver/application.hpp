@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GUI_WINDOW
+* \addtogroup APPLICATION
 * @{
 * \details
-* This file provides the public interface for the GUI_WINDOW Module.
+* This file provides the public interface for the Application Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,6 +31,9 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
+#include "worldweaver/common.hpp"
+#include "gfx/gfx_glwindow.hpp"
+
 /*=================================================================================================
 ** 3.  DECLARATIONS
 **
@@ -42,25 +45,50 @@
 **===============================================================================================*/
 namespace WorldWeaver
 {
-    namespace GUI
+    namespace Main
     {
-        /*********************************/
-        // Public type definitions
-        /*********************************/
-
-        /*********************************/
-        // Public variables
-        /*********************************/
-
-        /*********************************/
-        // Public functions
-        /*********************************/
-
         /**************************************************************************************************/
         /**
-        * \brief The Star Interface ImGui window.
+        * \par Details: 
         */
-        void StarInterface();
+        class Application
+        {
+
+        public:
+            /*********************************/
+            // Constructors/Destructor
+            /*********************************/
+
+            /**************************************************************************************************/
+            /**
+            * \brief The default constructor for the <ExampleClass>.
+            */
+            Application(const std::string &appName);
+
+            /**************************************************************************************************/
+            /**
+            * \brief The defaiult destructor for the <ExampleClass>.
+            */
+            ~Application(void);
+
+            /*********************************/
+            // Public functions
+            /*********************************/
+
+            /**************************************************************************************************/
+            /**
+            * \brief Main loop of the application.
+            */
+            void MainLoop(void);
+
+        private:
+            /*********************************/
+            // Private member variables
+            /*********************************/
+
+            std::unique_ptr<GFX::Window::GLWindow> m_Window; // The window.
+
+        };
     }
 }
 
@@ -75,5 +103,16 @@ namespace WorldWeaver
 /*=================================================================================================
 ** 3.5 Functions
 **===============================================================================================*/
+namespace WorldWeaver
+{
+    namespace Main
+    {
+        /**************************************************************************************************/
+        /**
+        * \par Details: 
+        */
+        inline Application::~Application(){}
+    }
+}
 
 /** @} */

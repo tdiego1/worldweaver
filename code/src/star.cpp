@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup <DoxModuleId>
+* \addtogroup STAR
 * @{
 * \details
-* This file provides the public interface for the <Module_Name> Module.
+* This file provides the public interface for the Star Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -29,7 +29,6 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 #include "worldweaver/star.hpp"
-#include <cstring>
 #include <cmath>
 
 /*=================================================================================================

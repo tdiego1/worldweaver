@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GUI_WINDOW
+* \addtogroup GUI
 * @{
 * \details
-* This file provides the public interface for the GUI_WINDOW Module.
+* This file provides the public interface for the Property Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -31,6 +31,15 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
+#include "gfx/gfx_common.hpp"
+
+#include <functional>
+
+#include "imgui.h"
+#include <ImFileBrowser.h>
+
+#include "gui/gui_glview.hpp"
+
 /*=================================================================================================
 ** 3.  DECLARATIONS
 **
@@ -44,23 +53,58 @@ namespace WorldWeaver
 {
     namespace GUI
     {
-        /*********************************/
-        // Public type definitions
-        /*********************************/
-
-        /*********************************/
-        // Public variables
-        /*********************************/
-
-        /*********************************/
-        // Public functions
-        /*********************************/
-
         /**************************************************************************************************/
         /**
-        * \brief The Star Interface ImGui window.
+        * \par Details: 
         */
-        void StarInterface();
+        class PropertyPanel
+        {
+
+        public:
+            /*********************************/
+            // Constructors/Destructor
+            /*********************************/
+
+            /**************************************************************************************************/
+            /**
+            * \brief The default constructor for the PropertyPanel.
+            */
+            PropertyPanel(void);
+
+            /**************************************************************************************************/
+            /**
+            * \brief The default destructor for the PropertyPanel.
+            */
+            ~PropertyPanel(void) = default;
+
+            /*********************************/
+            // Public functions
+            /*********************************/
+
+            /**************************************************************************************************/
+            /**
+            * \brief Renders the Property Panel.
+            */
+            void Render(WorldWeaver::GUI::GLView* sceneView);
+
+            /**************************************************************************************************/
+            /**
+            * \brief Sets the mesh load callback.
+            * 
+            * \param[in] callback The mesh load callback.
+            */
+            void SetMeshLoadCallback(const std::function<void(const std::string&)>& callback);
+
+        private:
+            /*********************************/
+            // Private member variables
+            /*********************************/
+
+            ImGui::FileBrowser m_FileBrowser;                           // The file browser.
+            std::function<void(const std::string&)> m_MeshLoadCallback; // The mesh load callback.
+            std::string m_CurrentFile;                                  // The path to the current file.
+
+        };
     }
 }
 
