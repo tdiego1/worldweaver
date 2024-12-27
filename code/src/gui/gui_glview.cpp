@@ -74,7 +74,7 @@ WorldWeaver::GUI::GLView::GLView() :
     m_FrameBuffer = std::make_unique<GFX::Render::GLFrameBuffer>();
     m_FrameBuffer->CreateBuffers(800, 600);
     m_Shader = std::make_unique<GFX::Util::Shader>();
-    m_Shader->Load("shaders/vs.shader", "shaders/fs_pbr.shader");
+    m_Shader->Load("code/inc/gfx/shader/vs.shader", "code/inc/gfx/shader/fs_pbr.shader");
     m_Light = std::make_unique<GFX::Element::Light>();
     m_Camera = std::make_unique<GFX::Element::Camera>(glm::vec3(0.0f, 0.0f, 3.0f), 45.0f, 1.3f, 0.1f, 100.0f);
 }

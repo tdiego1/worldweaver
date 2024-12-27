@@ -61,9 +61,10 @@
 /**
 * \par Details: 
 */
-WorldWeaver::Main::Application::Application(const std::string& name)
+WorldWeaver::Main::Application::Application(const std::string& appName)
 {
-
+    m_Window = std::make_unique<GFX::Window::GLWindow>();
+    m_Window->Initialize(1024, 720, appName);
 }
 
 /**************************************************************************************************/
@@ -72,7 +73,10 @@ WorldWeaver::Main::Application::Application(const std::string& name)
 */
 void WorldWeaver::Main::Application::MainLoop()
 {
-
+    while(m_Window->IsRunning())
+    {
+        m_Window->Render();
+    }
 }
 
 /*=================================================================================================
