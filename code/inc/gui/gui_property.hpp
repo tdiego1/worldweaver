@@ -3,7 +3,7 @@
 * \addtogroup GUI
 * @{
 * \details
-* This file provides the public interface for the GLView Module.
+* This file provides the public interface for the Property Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -21,8 +21,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GUI_GLVIEW_HPP
-#define GUI_GLVIEW_HPP
+#ifndef GUI_PROPERTY_HPP
+#define GUI_PROPERTY_HPP
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -32,16 +32,13 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <stdint.h>
+#include <functional>
 #include <string>
-#include <memory>
 
-#include "gfx/element/gfx_mesh.hpp"
-#include "gfx/element/gfx_input.hpp"
-#include "gfx/element/gfx_camera.hpp"
-#include "gfx/element/gfx_light.hpp"
-#include "gfx/shader/gfx_shader.hpp"
-#include "gfx/gfx_glframebuffer.hpp"
+#include "imgui.h"
+#include <ImFileBrowser.h>
+
+#include "gui/gui_glview.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -60,7 +57,7 @@ namespace WorldWeaver
         /**
         * \par Details: 
         */
-        class GLView
+        class PropertyPanel
         {
 
         public:
@@ -70,15 +67,15 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
-            * \brief The default constructor for the GLView.
+            * \brief The default constructor for the PropertyPanel.
             */
-            GLView(void);
+            PropertyPanel(void);
 
             /**************************************************************************************************/
             /**
-            * \brief The default destructor for the GLView.
+            * \brief The default destructor for the PropertyPanel.
             */
-            ~GLView(void);
+            ~PropertyPanel(void) = default;
 
             /*********************************/
             // Public functions
@@ -86,84 +83,26 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
-            * \brief Gets the Light.
+            * \brief Renders the Property Panel.
             */
-            GFX::Element::Light* GetLight(void);
+            void Render(WorldWeaver::GUI::GLView* sceneView);
 
             /**************************************************************************************************/
             /**
-             * \brief Resizes the view.
-             *  
-             * \param[in] width  The width of the view.
-             * \param[in] height The height of the view.
-             */
-            void Resize(int32_t width, int32_t height);
-
-            /**************************************************************************************************/
-            /**
-             * \brief Renders the view.
-             */
-            void Render(void);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Loads a mesh.
+            * \brief Sets the mesh load callback.
             * 
-            * \param[in] path The path to the mesh.
+            * \param[in] callback The mesh load callback.
             */
-            void LoadMesh(const std::string& path);
-
-            /**************************************************************************************************/
-            /**
-            * \brief Sets the mesh.
-            * 
-            * \param[in] mesh The mesh.
-            */
-           void SetMesh(std::shared_ptr<GFX::Element::Mesh> mesh);
-
-           /**************************************************************************************************/
-           /**
-           * \brief Gets the mesh.
-           * 
-           * \retval std::shared_ptr<GFX::Element::Mesh> The mesh.
-           */
-           std::shared_ptr<GFX::Element::Mesh> GetMesh(void);
-
-           /**************************************************************************************************/
-           /**
-           * \brief Called when the mouse is moved.
-           * 
-           * \param[in] x      The x position of the mouse.
-           * \param[in] y      The y position of the mouse.
-           * \param[in] button The button pressed.
-           */
-           void OnMouseMove(double x, double y, GFX::Element::Input::EInputButton button);
-
-           /**************************************************************************************************/
-           /**
-           * \brief Called when the mouse is scrolled.
-           * 
-           * \param[in] delta The scroll delta.
-           */
-           void OnMouseWheel(double delta);
-
-           /**************************************************************************************************/
-           /**
-           * \brief Resets the view.
-           */
-           void ResetView(void);
+            void SetMeshLoadCallback(const std::function<void(const std::string&)>& callback);
 
         private:
             /*********************************/
             // Private member variables
             /*********************************/
 
-            std::unique_ptr<GFX::Element::Camera> m_Camera;             // The camera.
-            std::unique_ptr<GFX::Render::GLFrameBuffer> m_FrameBuffer;  // The frame buffer.
-            std::unique_ptr<GFX::Util::Shader> m_Shader;                // The shader.
-            std::unique_ptr<GFX::Element::Light> m_Light;               // The light.
-            std::shared_ptr<GFX::Element::Mesh> m_Mesh;                 // The mesh.
-            glm::vec2 m_Size;                                           // The size of the view.
+            ImGui::FileBrowser m_FileBrowser;                           // The file browser.
+            std::function<void(const std::string&)> m_MeshLoadCallback; // The mesh load callback.
+            std::string m_CurrentFile;                                  // The path to the current file.
 
         };
     }
@@ -180,16 +119,6 @@ namespace WorldWeaver
 /*=================================================================================================
 ** 3.5 Functions
 **===============================================================================================*/
-namespace WorldWeaver
-{
-    namespace GUI
-    {
-        inline GLView::~GLView()
-        {
-            m_Shader->Unload();
-        }
-    }
-}
 
 #endif
 /** @} */

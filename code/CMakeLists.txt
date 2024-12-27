@@ -9,7 +9,9 @@ set(PROJECT_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx_helper.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/gui_main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/gui_glview.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/gui_property.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/gui_star.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/gui_helper.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_glwindow.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_vertex.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_uicontext.cpp
@@ -29,7 +31,9 @@ set(PROJECT_INCLUDES
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/star.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gui/gui_main.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gui/gui_glview.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/gui/gui_property.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gui/gui_star.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/gui/gui_helper.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_window.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_glwindow.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_vibuffer.hpp
@@ -61,6 +65,7 @@ target_include_directories(worldweaver PUBLIC
                            ${CMAKE_SOURCE_DIR}/lib/libassert
                            ${CMAKE_SOURCE_DIR}/lib/glad/include
                            ${CMAKE_SOURCE_DIR}/lib/assimp/include
+                           ${CMAKE_SOURCE_DIR}/lib/plugins/imgui/
                            )
 
 configure_file("${CMAKE_SOURCE_DIR}/lib/assimp/include/assimp/config.h.in" "${CMAKE_SOURCE_DIR}/lib/assimp/include/assimp/config.h")
