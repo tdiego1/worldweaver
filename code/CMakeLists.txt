@@ -20,6 +20,7 @@ set(PROJECT_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_input.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_light.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_mesh.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_glvibuffer.cpp
 )
 
 set(PROJECT_INCLUDES
@@ -43,6 +44,7 @@ set(PROJECT_INCLUDES
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/element/gfx_mesh.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/shader/gfx_shader.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_glframebuffer.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_glvibuffer.hpp
     )
 
 add_executable(worldweaver
@@ -58,6 +60,7 @@ target_include_directories(worldweaver PUBLIC
                            ${CMAKE_SOURCE_DIR}/lib/imgui
                            ${CMAKE_SOURCE_DIR}/lib/libassert
                            ${CMAKE_SOURCE_DIR}/lib/glad/include
+                           ${CMAKE_SOURCE_DIR}/lib/assimp/include
                            )
 
 configure_file("${CMAKE_SOURCE_DIR}/lib/assimp/include/assimp/config.h.in" "${CMAKE_SOURCE_DIR}/lib/assimp/include/assimp/config.h")

@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GFX_ELEMENT
+* \addtogroup GFX_RENDER
 * @{
 * \details
-* This file provides the public interface for the Mesh Module.
+* This file provides the public interface for the GLVertexBuffer Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -21,8 +21,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GFX_ELEMENT_MESH_HPP
-#define GFX_ELEMENT_MESH_HPP
+#ifndef GFX_RENDER_GLVERTEXBUFFER_HPP
+#define GFX_RENDER_GLVERTEXBUFFER_HPP
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -32,12 +32,7 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <memory>
-
-#include "gfx/element/gfx_element.hpp"
-#include "gfx/element/gfx_vertex.hpp"
-#include "gfx/shader/gfx_shader.hpp"
-#include "gfx/gfx_glvibuffer.hpp"
+#include "gfx/gfx_vibuffer.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -50,13 +45,13 @@
 **===============================================================================================*/
 namespace GFX
 {
-    namespace Element
+    namespace Render
     {
         /**************************************************************************************************/
         /**
         * \par Details: 
         */
-        class Mesh : public Element
+        class GLVertexBuffer : public VertexIndexBuffer
         {
 
         public:
@@ -68,25 +63,15 @@ namespace GFX
             // Public member variables
             /*********************************/
 
-            glm::vec3 m_Color;
-            float m_Roughness;
-            float m_Metallic;
-
             /*********************************/
             // Constructors/Destructor
             /*********************************/
 
             /**************************************************************************************************/
             /**
-            * \brief The default constructor for the Mesh.
+            * \brief The default constructor for the GLVertexBuffer.
             */
-            Mesh(void) = default;
-
-            /**************************************************************************************************/
-            /**
-            * \brief The default destructor for the Mesh.
-            */
-            virtual ~Mesh(void);
+            GLVertexBuffer(void);
 
             /*********************************/
             // Public functions
@@ -100,7 +85,7 @@ namespace GFX
             * 
             * \retval 
             */
-            bool Load(const std::string& path);
+            void CreateBuffers(const std::vector<GFX::Element::Vertex>& vertices, const std::vector<uint32_t>& indices) override;
 
             /**************************************************************************************************/
             /**
@@ -110,7 +95,7 @@ namespace GFX
             * 
             * \retval 
             */
-            void AddVertex(const Vertex& vertex);
+            void DeleteBuffers(void) override;
 
             /**************************************************************************************************/
             /**
@@ -120,7 +105,7 @@ namespace GFX
             * 
             * \retval 
             */
-            void AddIndex(uint32_t index);
+            void Bind(void) override;
 
             /**************************************************************************************************/
             /**
@@ -130,7 +115,7 @@ namespace GFX
             * 
             * \retval 
             */
-            std::vector<uint32_t> GetIndices(void) const;
+            void UnBind(void) override;
 
             /**************************************************************************************************/
             /**
@@ -140,77 +125,7 @@ namespace GFX
             * 
             * \retval 
             */
-            void Update(GFX::Util::Shader* shader) override;
-
-            /**************************************************************************************************/
-            /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
-            */
-            void Initialize(void);
-
-            /**************************************************************************************************/
-            /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
-            */
-            void CreateBuffers(void);
-
-            /**************************************************************************************************/
-            /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
-            */
-            void DeleteBuffers(void);
-            
-            /**************************************************************************************************/
-            /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
-            */
-            void Render(void);
-
-            /**************************************************************************************************/
-            /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
-            */
-            void Bind(void);
-
-            /**************************************************************************************************/
-            /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
-            */
-            void UnBind(void);
-
-        private:
-            /*********************************/
-            // Private member variables
-            /*********************************/
-
-            std::unique_ptr<GFX::Render::GLVertexBuffer> m_RenderBufferManager;   // The Render Buffer Manager.
-            std::vector<Vertex> m_Vertices;   // The vertices of the mesh.
-            std::vector<uint32_t> m_Indices;  // The indices of the mesh.
-
+            void Draw(int32_t indexCount) override;
 
         };
     }
@@ -227,23 +142,6 @@ namespace GFX
 /*=================================================================================================
 ** 3.5 Functions
 **===============================================================================================*/
-
-namespace GFX
-{
-    namespace Element
-    {
-        /**************************************************************************************************/
-        /**
-        * \par Details: 
-        */
-        inline Mesh::~Mesh(void)
-        {
-            DeleteBuffers();
-        }
-    }
-    
-} // namespace GFX
-
 
 #endif
 /** @} */

@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GFX_ELEMENT
+* \addtogroup GFX_RENDER
 * @{
 * \details
-* This file provides the public interface for the Mesh Module.
+* This file provides the public interface for the GLVertexBuffer Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -29,11 +29,7 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include "gfx/element/gfx_mesh.hpp"
-
-#include <assimp/Importer.hpp>
-#include <assimp/postprocess.h>
-#include <assimp/scene.h>
+#include "gfx/gfx_glvibuffer.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -65,147 +61,80 @@
 /**
 * \par Details: 
 */
-bool GFX::Element::Mesh::Load(const std::string& path)
+GFX::Render::GLVertexBuffer::GLVertexBuffer()
 {
-    const uint32_t c_mesh_import_flags =
-        aiProcess_CalcTangentSpace |
-        aiProcess_Triangulate |
-        aiProcess_SortByPType |
-        aiProcess_GenNormals |
-        aiProcess_GenUVCoords |
-        aiProcess_OptimizeMeshes |
-        aiProcess_ValidateDataStructure;
-
-    Assimp::Importer Importer;
-
-    const aiScene* scene = Importer.ReadFile(path.c_str(),
-    c_mesh_import_flags);
-
-    if (scene && scene->HasMeshes())
-    {
-        m_Indices.clear();
-        m_Vertices.clear();
-
-        auto* mesh = scene->mMeshes[0];
-
-        for (uint32_t i = 0; i < mesh->mNumVertices; i++)
-        {
-            GFX::Element::Vertex vertex;
-            vertex.m_Position = { mesh->mVertices[i].x, mesh->mVertices[i].y ,mesh->mVertices[i].z };
-            vertex.m_Normal = { mesh->mNormals[i].x, mesh->mNormals[i].y ,mesh->mNormals[i].z };
-
-            AddVertex(vertex);
-        }
-
-        for (size_t i = 0; i < mesh->mNumFaces; i++)
-        {
-            aiFace face = mesh->mFaces[i];
-
-            for (size_t j = 0; j < face.mNumIndices; j++)
-            AddIndex(face.mIndices[j]);
-        }
-
-        Initialize();
-        return true;
-    }
-    return false;
 }
 
 /**************************************************************************************************/
 /**
 * \par Details: 
 */
-void GFX::Element::Mesh::AddVertex(const GFX::Element::Vertex& vertex)
+void GFX::Render::GLVertexBuffer::CreateBuffers(const std::vector<GFX::Element::Vertex>& vertices, const std::vector<uint32_t>& indices)
 {
-    m_Vertices.push_back(vertex);
+    glGenVertexArrays(1, &m_VAO);
+
+    glGenBuffers(1, &m_EBO);
+    glGenBuffers(1, &m_VBO);
+
+    glBindVertexArray(m_VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GFX::Element::Vertex), vertices.data(), GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), indices.data(), GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GFX::Element::Vertex), (void*)0);
+
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GFX::Element::Vertex), (void*)offsetof(GFX::Element::Vertex, m_Normal));
+
+    glBindVertexArray(0);
 }
 
 /**************************************************************************************************/
 /**
 * \par Details: 
 */
-void GFX::Element::Mesh::AddIndex(uint32_t index)
+void GFX::Render::GLVertexBuffer::DeleteBuffers(void)
 {
-    m_Indices.push_back(index);
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glDeleteBuffers(1, &m_EBO);
+    glDeleteBuffers(1, &m_VBO);
+    glDeleteVertexArrays(1, &m_VAO);
 }
 
 /**************************************************************************************************/
 /**
 * \par Details: 
 */
-std::vector<uint32_t> GFX::Element::Mesh::GetIndices() const
+void GFX::Render::GLVertexBuffer::Bind(void)
 {
-    return m_Indices;
+    glBindVertexArray(m_VAO);
 }
 
 /**************************************************************************************************/
 /**
 * \par Details: 
 */
-void GFX::Element::Mesh::Update(GFX::Util::Shader* shader)
+void GFX::Render::GLVertexBuffer::UnBind(void)
 {
-    // pbr color
-    shader->SetVector3(m_Color, "albedo");
-
-    shader->SetFloat1(m_Roughness, "roughness");
-    shader->SetFloat1(m_Metallic, "metallic");
-    shader->SetFloat1(1.0f, "ao");
+    glBindVertexArray(0);
 }
 
 /**************************************************************************************************/
 /**
 * \par Details: 
 */
-void GFX::Element::Mesh::Initialize()
+void GFX::Render::GLVertexBuffer::Draw(int32_t indexCount)
 {
-    m_RenderBufferManager = std::make_unique<GFX::Render::GLVertexBuffer>();
-
-    CreateBuffers();
-}
-
-/**************************************************************************************************/
-/**
-* \par Details: 
-*/
-void GFX::Element::Mesh::CreateBuffers()
-{
-    m_RenderBufferManager->CreateBuffers(m_Vertices, m_Indices);
-}
-
-/**************************************************************************************************/
-/**
-* \par Details: 
-*/
-void GFX::Element::Mesh::DeleteBuffers()
-{
-    m_RenderBufferManager->DeleteBuffers();
-}
-
-/**************************************************************************************************/
-/**
-* \par Details: 
-*/
-void GFX::Element::Mesh::Render()
-{
-    m_RenderBufferManager->Draw((int32_t) m_Indices.size());
-}
-
-/**************************************************************************************************/
-/**
-* \par Details: 
-*/
-void GFX::Element::Mesh::Bind()
-{
-    m_RenderBufferManager->Bind();
-}
-
-/**************************************************************************************************/
-/**
-* \par Details: 
-*/
-void GFX::Element::Mesh::UnBind()
-{
-    m_RenderBufferManager->UnBind();
+    Bind();
+    glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
+    UnBind();
 }
 
 /*=================================================================================================
