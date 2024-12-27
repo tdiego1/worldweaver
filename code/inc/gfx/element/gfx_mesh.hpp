@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup BASE_RENDER
+* \addtogroup GFX_ELEMENT
 * @{
 * \details
-* This file provides the public interface for the VertexIndexBuffer Module.
+* This file provides the public interface for the Mesh Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -21,8 +21,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GFX_RENDER_VERTEX_INDEX_BUFFER_HPP
-#define GFX_RENDER_VERTEX_INDEX_BUFFER_HPP
+#ifndef GFX_ELEMENT_MESH_HPP
+#define GFX_ELEMENT_MESH_HPP
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -32,9 +32,12 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include <GLFW/glfw3.h>
+#include <memory>
 
+#include "gfx/element/gfx_element.hpp"
 #include "gfx/element/gfx_vertex.hpp"
+#include "gfx/shader/gfx_shader.hpp"
+#include "gfx/gfx_vibuffer.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -47,25 +50,43 @@
 **===============================================================================================*/
 namespace GFX
 {
-    namespace Render
+    namespace Element
     {
         /**************************************************************************************************/
         /**
         * \par Details: 
         */
-        class VertexIndexBuffer
+        class Mesh : public Element
         {
 
         public:
+            /*********************************/
+            // Public type definitions
+            /*********************************/
+
+            /*********************************/
+            // Public member variables
+            /*********************************/
+
+            glm::vec3 m_Color;
+            float m_Roughness;
+            float m_Metallic;
+
             /*********************************/
             // Constructors/Destructor
             /*********************************/
 
             /**************************************************************************************************/
             /**
-            * \brief The default constructor for the BaseRender.
+            * \brief The default constructor for the Mesh.
             */
-            VertexIndexBuffer(void);
+            Mesh(void) = default;
+
+            /**************************************************************************************************/
+            /**
+            * \brief The default destructor for the Mesh.
+            */
+            virtual ~Mesh(void);
 
             /*********************************/
             // Public functions
@@ -73,47 +94,123 @@ namespace GFX
 
             /**************************************************************************************************/
             /**
-            * \brief Creates the buffers for the vertices and indices.
+            * \brief 
             * 
-            * \param[in] vertices The vertices to create the buffer.
-            * \param[in] indices The indices to create the buffer.
-            */
-            virtual void CreateBuffers(const std::vector<GFX::Element::Vertex>& vertices, const std::vector<uint32_t>& indices) = 0;
-
-            /**************************************************************************************************/
-            /**
-            * \brief Deletes the buffers for the vertices and indices.
-            */
-            virtual void DeleteBuffers(void) = 0;
-
-            /**************************************************************************************************/
-            /**
-            * \brief Binds the buffer.
-            */
-            virtual void Bind(void) = 0;
-
-            /**************************************************************************************************/
-            /**
-            * \brief UnBinds from the buffer.
-            */
-            virtual void UnBind(void) = 0;
-
-            /**************************************************************************************************/
-            /**
-            * \brief Draws the buffer.
+            * \param[in] 
             * 
-            * \param[in] indexCount The index count to draw.
+            * \retval 
             */
-            virtual void Draw(int32_t indexCount) = 0;
+            bool Load(const std::string& path);
 
-        protected:
+            /**************************************************************************************************/
+            /**
+            * \brief 
+            * 
+            * \param[in] 
+            * 
+            * \retval 
+            */
+            void AddVertex(const Vertex& vertex);
+
+            /**************************************************************************************************/
+            /**
+            * \brief 
+            * 
+            * \param[in] 
+            * 
+            * \retval 
+            */
+            void AddIndex(uint32_t index);
+
+            /**************************************************************************************************/
+            /**
+            * \brief 
+            * 
+            * \param[in] 
+            * 
+            * \retval 
+            */
+            std::vector<uint32_t> GetIndices(void) const;
+
+            /**************************************************************************************************/
+            /**
+            * \brief 
+            * 
+            * \param[in] 
+            * 
+            * \retval 
+            */
+            void Update(GFX::Util::Shader* shader) override;
+
+            /**************************************************************************************************/
+            /**
+            * \brief 
+            * 
+            * \param[in] 
+            * 
+            * \retval 
+            */
+            void Initialize(void);
+
+            /**************************************************************************************************/
+            /**
+            * \brief 
+            * 
+            * \param[in] 
+            * 
+            * \retval 
+            */
+            void CreateBuffers(void);
+
+            /**************************************************************************************************/
+            /**
+            * \brief 
+            * 
+            * \param[in] 
+            * 
+            * \retval 
+            */
+            void DeleteBuffers(void);
+            
+            /**************************************************************************************************/
+            /**
+            * \brief 
+            * 
+            * \param[in] 
+            * 
+            * \retval 
+            */
+            void Render(void);
+
+            /**************************************************************************************************/
+            /**
+            * \brief 
+            * 
+            * \param[in] 
+            * 
+            * \retval 
+            */
+            void Bind(void);
+
+            /**************************************************************************************************/
+            /**
+            * \brief 
+            * 
+            * \param[in] 
+            * 
+            * \retval 
+            */
+            void UnBind(void);
+
+        private:
             /*********************************/
-            // Protected member variables
+            // Private member variables
             /*********************************/
 
-            GLuint m_VBO;   // The Vertex Buffer Object (VBO).
-            GLuint m_VAO;   // The Vertex Array Object (VAO).
-            GLuint m_EBO;   // The Element Buffer Object (EBO).
+            std::unique_ptr<GFX::Render::VertexIndexBuffer> m_RenderBufferManager;   // The Render Buffer Manager.
+            std::vector<Vertex> m_Vertices;   // The vertices of the mesh.
+            std::vector<uint32_t> m_Indices;  // The indices of the mesh.
+
 
         };
     }
@@ -130,18 +227,6 @@ namespace GFX
 /*=================================================================================================
 ** 3.5 Functions
 **===============================================================================================*/
-namespace GFX
-{
-    namespace Render
-    {
-        /**************************************************************************************************/
-        /**
-        * \par Details: 
-        */
-        inline VertexIndexBuffer::VertexIndexBuffer() : m_VBO{ 0 }, m_VAO{ 0 }, m_EBO{ 0 }
-        {}
-    }
-}
 
 #endif
 /** @} */

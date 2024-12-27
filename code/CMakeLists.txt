@@ -11,7 +11,7 @@ set(PROJECT_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/gui_glview.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/gui_star.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_glwindow.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_element_vertex.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_vertex.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_uicontext.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_glcontext.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_shader.cpp
@@ -19,6 +19,7 @@ set(PROJECT_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_camera.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_input.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_light.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_mesh.cpp
 )
 
 set(PROJECT_INCLUDES
@@ -35,10 +36,11 @@ set(PROJECT_INCLUDES
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_rendercontext.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_uicontext.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_glcontext.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/element/gfx_element_vertex.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/element/gfx_vertex.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/element/gfx_camera.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/element/gfx_input.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/element/gfx_light.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/element/gfx_mesh.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/shader/gfx_shader.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_glframebuffer.hpp
     )
