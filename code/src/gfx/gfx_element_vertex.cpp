@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup GFX_WINDOW
+* \addtogroup GFX_ELEMENT
 * @{
 * \details
-* This file provides the public interface for the GFXWindow Module.
+* This file provides the public interface for the Vertex Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -29,7 +29,7 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include "gfx/gfx_window.hpp"
+#include "gfx/element/gfx_element_vertex.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -61,101 +61,30 @@
 /**
 * \par Details: 
 */
-GFX::Window::GLWindow::GLWindow() :
-    m_Window(nullptr),
-    m_IsRunning(true)
+GFX::Element::Vertex::Vertex() :
+    m_Position(),
+    m_Normal()
 {
-
 }
 
 /**************************************************************************************************/
 /**
 * \par Details: 
 */
-bool GFX::Window::GLWindow::Initialize(int32_t width, int32_t height, const std::string& title)
+GFX::Element::Vertex::Vertex(const std::vector<std::string> tokens) :
+    m_Position(),
+    m_Normal()
 {
-    return true;
 }
 
 /**************************************************************************************************/
 /**
 * \par Details: 
 */
-void GFX::Window::GLWindow::Render()
+GFX::Element::Vertex::Vertex(const glm::vec3& position, const glm::vec3& normal) :
+    m_Position(position),
+    m_Normal(normal)
 {
-
-}
-
-/**************************************************************************************************/
-/**
-* \par Details: 
-*/
-void GFX::Window::GLWindow::HandleInput()
-{
-
-}
-
-/**************************************************************************************************/
-/**
-* \par Details: 
-*/
-void* GFX::Window::GLWindow::GetNativeWindow()
-{
-    return m_Window;
-}
-
-/**************************************************************************************************/
-/**
-* \par Details: 
-*/
-void GFX::Window::GLWindow::SetNativeWindow(void* window)
-{
-    m_Window = static_cast<GLFWwindow*>(window);
-}
-
-/**************************************************************************************************/
-/**
-* \par Details: 
-*/
-void GFX::Window::GLWindow::OnScroll(double delta)
-{
-
-}
-
-/**************************************************************************************************/
-/**
-* \par Details: 
-*/
-void GFX::Window::GLWindow::OnKey(int32_t key, int32_t scanCode, int32_t action, int32_t mods)
-{
-
-}
-
-/**************************************************************************************************/
-/**
-* \par Details: 
-*/
-void GFX::Window::GLWindow::OnResize(int32_t width, int32_t height)
-{
-
-}
-
-/**************************************************************************************************/
-/**
-* \par Details: 
-*/
-void GFX::Window::GLWindow::OnClose()
-{
-
-}
-
-/**************************************************************************************************/
-/**
-* \par Details: 
-*/
-bool GFX::Window::GLWindow::IsRunning()
-{
-    return m_IsRunning;
 }
 
 /*=================================================================================================

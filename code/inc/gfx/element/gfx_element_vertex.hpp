@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup BASE_WINDOW
+* \addtogroup ELEMENTS
 * @{
 * \details
-* This file provides the public interface for the BaseWindow Module.
+* This file provides the public interface for the Vertex Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -21,8 +21,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef BASE_WINDOW_HPP
-#define BASE_WINDOW_HPP
+#ifndef GFX_ELEMENT_VERTEX_HPP
+#define GFX_ELEMENT_VERTEX_HPP
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -31,8 +31,10 @@
 /*=================================================================================================
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
-#include <cstdint>
+
 #include <string>
+
+#include <glm/glm.hpp>
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -45,13 +47,13 @@
 **===============================================================================================*/
 namespace GFX
 {
-    namespace Window
+    namespace Element
     {
         /**************************************************************************************************/
         /**
         * \par Details: 
         */
-        class BaseWindow
+        class Vertex
         {
 
         public:
@@ -63,63 +65,47 @@ namespace GFX
             // Public member variables
             /*********************************/
 
-            int32_t m_Width;
-            int32_t m_Height;
-            std::string m_Title;
+            glm::vec3 m_Position;
+            glm::vec3 m_Normal;
+
+            /*********************************/
+            // Constructors/Destructor
+            /*********************************/
+
+            /**************************************************************************************************/
+            /**
+            * \brief The default constructor for the Vertex.
+            */
+            Vertex(void);
+
+            /**************************************************************************************************/
+            /**
+            * \brief Initialize the vertex by string to be tokenized.
+            * 
+            * \param[in] tokens The tokens to initialize the vertex.
+            */
+            Vertex(const std::vector<std::string> tokens);
+
+            /**************************************************************************************************/
+            /**
+            * \brief 
+            * 
+            * \param[in] 
+            * 
+            * \retval 
+            */
+            Vertex(const glm::vec3& position, const glm::vec3& normal);
+
+            /**************************************************************************************************/
+            /**
+            * \brief The defaiult destructor for the Vertex.
+            */
+            ~Vertex(void) = default;
 
             /*********************************/
             // Public functions
             /*********************************/
 
-            /**************************************************************************************************/
-            /**
-            * \brief Gets the Native window.
-            * 
-            * \retval void* The native window.
-            */
-           virtual void* GetNativeWindow(void) = 0;
-
-           /**************************************************************************************************/
-           /**
-           * \brief Sets the native window.
-           * 
-           * \param[in] window The native window.
-           */
-           virtual void SetNativeWindow(void* window) = 0;
-
-           /**************************************************************************************************/
-           /**
-           * \brief Called when scroll is registered.
-           * 
-           * \param[in] delta The scroll delta.
-           */
-           virtual void OnScroll(double delta) = 0;
-
-           /**************************************************************************************************/
-           /**
-           * \brief Called when a key is pressed.
-           * 
-           * \param[in] key The key pressed.
-           * \param[in] scanCode The scan code of the key.
-           * \param[in] action The action of the key.
-           * \param[in] mods The mods of the key.
-           */
-           virtual void OnKey(int32_t key, int32_t scanCode, int32_t action, int32_t mods) = 0;
-
-           /**************************************************************************************************/
-           /**
-           * \brief Called when the window is resized.
-           * 
-           * \param[in] width The width of the window.
-           * \param[in] height The height of the window.
-           */
-           virtual void OnResize(int32_t width, int32_t height) = 0;
-
-           /**************************************************************************************************/
-           /**
-           * \brief Called when the window is closed.
-           */
-           virtual void OnClose(void) = 0;
         };
     }
 }

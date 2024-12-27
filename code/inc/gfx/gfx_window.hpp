@@ -45,7 +45,7 @@
 /*=================================================================================================
 ** 3.2 Types and Classes
 **===============================================================================================*/
-namespace WorldWeaver
+namespace GFX
 {
     namespace Window
     {
@@ -53,7 +53,7 @@ namespace WorldWeaver
         /**
         * \par Details: 
         */
-        class GFXWindow : public BaseWindow
+        class GLWindow : public BaseWindow
         {
 
         public:
@@ -73,13 +73,13 @@ namespace WorldWeaver
             /**
             * \brief The default constructor for the GFXWindow.
             */
-            GFXWindow(void);
+            GLWindow(void);
 
             /**************************************************************************************************/
             /**
             * \brief The defaiult destructor for the GFXWindow.
             */
-            ~GFXWindow(void);
+            ~GLWindow(void);
 
             /*********************************/
             // Public functions
@@ -200,7 +200,7 @@ namespace WorldWeaver
 /*=================================================================================================
 ** 3.5 Functions
 **===============================================================================================*/
-namespace WorldWeaver
+namespace GFX
 {
     namespace Window
     {
@@ -208,7 +208,7 @@ namespace WorldWeaver
         /**
         * \par Details: 
         */
-        inline GFXWindow::~GFXWindow(){}
+        inline GLWindow::~GLWindow(){}
     }
 }
 

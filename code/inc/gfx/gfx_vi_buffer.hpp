@@ -1,9 +1,9 @@
 /**************************************************************************************************/
 /**
-* \addtogroup BASE_WINDOW
+* \addtogroup BASE_RENDER
 * @{
 * \details
-* This file provides the public interface for the BaseWindow Module.
+* This file provides the public interface for the VertexIndexBuffer Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -21,8 +21,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef BASE_WINDOW_HPP
-#define BASE_WINDOW_HPP
+#ifndef GFX_RENDER_VERTEX_INDEX_BUFFER_HPP
+#define GFX_RENDER_VERTEX_INDEX_BUFFER_HPP
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -31,8 +31,10 @@
 /*=================================================================================================
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
-#include <cstdint>
-#include <string>
+
+#include <GLFW/glfw3.h>
+
+#include "gfx/element/gfx_element_vertex.hpp"
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -45,27 +47,25 @@
 **===============================================================================================*/
 namespace GFX
 {
-    namespace Window
+    namespace Render
     {
         /**************************************************************************************************/
         /**
         * \par Details: 
         */
-        class BaseWindow
+        class VertexIndexBuffer
         {
 
         public:
             /*********************************/
-            // Public type definitions
+            // Constructors/Destructor
             /*********************************/
 
-            /*********************************/
-            // Public member variables
-            /*********************************/
-
-            int32_t m_Width;
-            int32_t m_Height;
-            std::string m_Title;
+            /**************************************************************************************************/
+            /**
+            * \brief The default constructor for the BaseRender.
+            */
+            VertexIndexBuffer(void);
 
             /*********************************/
             // Public functions
@@ -73,53 +73,48 @@ namespace GFX
 
             /**************************************************************************************************/
             /**
-            * \brief Gets the Native window.
+            * \brief Creates the buffers for the vertices and indices.
             * 
-            * \retval void* The native window.
+            * \param[in] vertices The vertices to create the buffer.
+            * \param[in] indices The indices to create the buffer.
             */
-           virtual void* GetNativeWindow(void) = 0;
+            virtual void CreateBuffers(const std::vector<GFX::Element::Vertex>& vertices, const std::vector<uint32_t>& indices) = 0;
 
-           /**************************************************************************************************/
-           /**
-           * \brief Sets the native window.
-           * 
-           * \param[in] window The native window.
-           */
-           virtual void SetNativeWindow(void* window) = 0;
+            /**************************************************************************************************/
+            /**
+            * \brief Deletes the buffers for the vertices and indices.
+            */
+            virtual void DeleteBuffers(void) = 0;
 
-           /**************************************************************************************************/
-           /**
-           * \brief Called when scroll is registered.
-           * 
-           * \param[in] delta The scroll delta.
-           */
-           virtual void OnScroll(double delta) = 0;
+            /**************************************************************************************************/
+            /**
+            * \brief Binds the buffer.
+            */
+            virtual void Bind(void) = 0;
 
-           /**************************************************************************************************/
-           /**
-           * \brief Called when a key is pressed.
-           * 
-           * \param[in] key The key pressed.
-           * \param[in] scanCode The scan code of the key.
-           * \param[in] action The action of the key.
-           * \param[in] mods The mods of the key.
-           */
-           virtual void OnKey(int32_t key, int32_t scanCode, int32_t action, int32_t mods) = 0;
+            /**************************************************************************************************/
+            /**
+            * \brief UnBinds from the buffer.
+            */
+            virtual void UnBind(void) = 0;
 
-           /**************************************************************************************************/
-           /**
-           * \brief Called when the window is resized.
-           * 
-           * \param[in] width The width of the window.
-           * \param[in] height The height of the window.
-           */
-           virtual void OnResize(int32_t width, int32_t height) = 0;
+            /**************************************************************************************************/
+            /**
+            * \brief Draws the buffer.
+            * 
+            * \param[in] indexCount The index count to draw.
+            */
+            virtual void Draw(int32_t indexCount) = 0;
 
-           /**************************************************************************************************/
-           /**
-           * \brief Called when the window is closed.
-           */
-           virtual void OnClose(void) = 0;
+        protected:
+            /*********************************/
+            // Protected member variables
+            /*********************************/
+
+            GLuint m_VBO;   // The Vertex Buffer Object (VBO).
+            GLuint m_VAO;   // The Vertex Array Object (VAO).
+            GLuint m_EBO;   // The Element Buffer Object (EBO).
+
         };
     }
 }
@@ -135,6 +130,18 @@ namespace GFX
 /*=================================================================================================
 ** 3.5 Functions
 **===============================================================================================*/
+namespace GFX
+{
+    namespace Render
+    {
+        /**************************************************************************************************/
+        /**
+        * \par Details: 
+        */
+        inline VertexIndexBuffer::VertexIndexBuffer() : m_VBO{ 0 }, m_VAO{ 0 }, m_EBO{ 0 }
+        {}
+    }
+}
 
 #endif
 /** @} */

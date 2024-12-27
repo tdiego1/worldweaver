@@ -9,6 +9,7 @@ set(PROJECT_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx_helper.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/gui_main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_window.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_element_vertex.cpp
 )
 
 set(PROJECT_INCLUDES
@@ -17,6 +18,9 @@ set(PROJECT_INCLUDES
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/star.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gui/gui_main.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_window.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_vi_buffer.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_framebuffer.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/element/gfx_element_vertex.hpp
     )
 
 add_executable(worldweaver
