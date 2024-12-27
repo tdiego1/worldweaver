@@ -15,6 +15,7 @@ set(PROJECT_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_uicontext.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_glcontext.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_shader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_glframebuffer.cpp
 )
 
 set(PROJECT_INCLUDES
@@ -33,6 +34,7 @@ set(PROJECT_INCLUDES
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_glcontext.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/element/gfx_element_vertex.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/shader/gfx_shader.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_glframebuffer.hpp
     )
 
 add_executable(worldweaver
