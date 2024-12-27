@@ -3,7 +3,7 @@
 * \addtogroup GFX_ELEMENT
 * @{
 * \details
-* This file provides the public interface for the Element Module.
+* This file provides the public interface for the Input Module.
 * 
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
@@ -21,8 +21,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************************/
 
-#ifndef GFX_ELEMENT_HPP
-#define GFX_ELEMENT_HPP
+#ifndef GFX_ELEMENT_INPUT_HPP
+#define GFX_ELEMENT_INPUT_HPP
 
 /*=================================================================================================
 ** 1.  REFERENCES
@@ -32,7 +32,7 @@
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
 
-#include "gfx/shader/gfx_shader.hpp"
+#include <GLFW/glfw3.h>
 
 /*=================================================================================================
 ** 3.  DECLARATIONS
@@ -47,21 +47,32 @@ namespace GFX
 {
     namespace Element
     {
-        /**************************************************************************************************/
-        /**
-        * \par Details: 
-        */
-        class Element
+        namespace Input
         {
+            /**************************************************************************************************/
+            /**
+            * \brief 
+            */
+            enum class EInputButton
+            {
+                LEFT = 0,
+                RIGHT = 1,
+                MIDDLE = 2,
+                NONE = 9
+            };
 
-        public:
-            /*********************************/
-            // Public functions
-            /*********************************/
+            /**************************************************************************************************/
+            /**
+            * \brief Gets the button that was pressed.
+            * 
+            * \param[in] window The window that the button was pressed in.
+            * 
+            * \retval EInputButton The button that was pressed.
+            */
+            EInputButton GetPressedButton(GLFWwindow* window);
 
-            virtual void Update(GFX::Util::Shader* shader) = 0;
 
-        };
+        }
     }
 }
 
