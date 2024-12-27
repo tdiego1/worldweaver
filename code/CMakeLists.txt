@@ -60,9 +60,13 @@ target_include_directories(worldweaver PUBLIC
                            ${CMAKE_SOURCE_DIR}/lib/glad/include
                            )
 
+configure_file("${CMAKE_SOURCE_DIR}/lib/assimp/include/assimp/config.h.in" "${CMAKE_SOURCE_DIR}/lib/assimp/include/assimp/config.h")
+configure_file("${CMAKE_SOURCE_DIR}/lib/assimp/contrib/zlib/zconf.h.cmakein" "lib/assimp/contrib/zlib/zconf.h")
+
 target_link_libraries(worldweaver
                       libassert-lib
                       imgui
+                      assimp
                       ${OPENGL_LIBRARIES}
                       glm
                       glfw

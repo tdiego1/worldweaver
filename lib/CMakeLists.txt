@@ -5,6 +5,13 @@ add_subdirectory(glfw)
 add_subdirectory(glm)
 add_subdirectory(libassert)
 
+set(BUILD_SHARED_LIBS OFF CACHE INTERNAL "" FORCE)
+set(ASSIMP_BUILD_TESTS OFF CACHE INTERNAL "" FORCE)
+set(ASSIMP_NO_EXPORT ON CACHE INTERNAL "" FORCE)
+set(ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE INTERNAL "" FORCE)
+set(ASSIMP_WARNINGS_AS_ERRORS OFF CACHE INTERNAL "" FORCE)
+add_subdirectory(Assimp)
+
 #---------------------------------------------------------------------------
     # imGUI library
 

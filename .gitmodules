@@ -10,3 +10,6 @@
 [submodule "lib/libassert"]
 	path = lib/libassert
 	url = https://github.com/jeremy-rifkin/libassert
+[submodule "lib/assimp"]
+	path = lib/assimp
+	url = https://github.com/assimp/assimp
