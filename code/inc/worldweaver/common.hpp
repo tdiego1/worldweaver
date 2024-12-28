@@ -34,6 +34,7 @@
 // Std includes
 #include <stdint.h>
 #include <string>
+#include <format>
 #include <algorithm>
 #include <cmath>
 #include <vector>

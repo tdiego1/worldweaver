@@ -96,9 +96,9 @@ bool GFX::Window::GLWindow::Initialize(int32_t width, int32_t height, const std:
 
     m_RenderView = std::make_unique<WorldWeaver::GUI::GLView>();
 
-    m_PropertyPanel = std::make_unique<WorldWeaver::GUI::PropertyPanel>();
+    m_StarPanel = std::make_unique<WorldWeaver::GUI::StarPanel>();
 
-    m_PropertyPanel->SetMeshLoadCallback(
+    m_StarPanel->SetMeshLoadCallback(
         [this](std::string filepath) { m_RenderView->LoadMesh(filepath); });
 
     m_IsRunning = true;
@@ -121,7 +121,8 @@ void GFX::Window::GLWindow::Render()
     // render scene to framebuffer and add it to scene view
     m_RenderView->Render();
 
-    m_PropertyPanel->Render(m_RenderView.get());
+    // Render the star panel
+    m_StarPanel->Render(m_RenderView.get());
 
     // Render the UI 
     m_UIContext->Render();
