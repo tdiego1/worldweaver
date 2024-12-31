@@ -7,7 +7,6 @@ set(PROJECT_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/star.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx_helper.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/gui_main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/gui_glview.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/gui_property.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/gui_star.cpp
@@ -31,7 +30,6 @@ set(PROJECT_INCLUDES
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/star.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/common.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/worldweaver/types.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/inc/gui/gui_main.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gui/gui_glview.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gui/gui_property.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gui/gui_star.hpp

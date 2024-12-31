@@ -37,6 +37,7 @@
 #include "gfx/gfx_uicontext.hpp"
 #include "gfx/gfx_glcontext.hpp"
 #include "gui/gui_property.hpp"
+#include "gui/gui_star.hpp"
 #include "gui/gui_glview.hpp"
 
 /*=================================================================================================
@@ -180,7 +181,7 @@ namespace GFX
             std::unique_ptr<GFX::Render::GLContext> m_RenderContext;            // The OpenGL context.
 
             // UI Components
-            std::unique_ptr<WorldWeaver::GUI::PropertyPanel> m_PropertyPanel;   // The property panel.
+            std::unique_ptr<WorldWeaver::GUI::StarPanel>    m_StarPanel;       // The star panel.
             std::unique_ptr<WorldWeaver::GUI::GLView>        m_RenderView;      // The GL view.
             
 
