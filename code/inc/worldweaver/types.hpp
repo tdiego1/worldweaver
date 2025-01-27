@@ -46,11 +46,9 @@
 
 typedef      float  float32_t;
 typedef      double float64_t;
-typedef long double float128_t;
 
 static_assert(sizeof(float32_t)*CHAR_BIT == 32, "float 32");
 static_assert(sizeof(float64_t)*CHAR_BIT == 64, "float 64");
-static_assert(sizeof(float128_t)*CHAR_BIT == 128, "float 128");
 
 /*=================================================================================================
 ** 3.3 Constants
