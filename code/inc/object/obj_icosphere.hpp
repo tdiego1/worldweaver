@@ -44,8 +44,10 @@
 /*=================================================================================================
 ** 3.2 Types and Classes
 **===============================================================================================*/
+
 namespace Object
 {
+
     /**************************************************************************************************/
     /**
      * \par Details:
@@ -324,7 +326,7 @@ namespace Object
          * \param[in] v3 The third vertex of the triangle.
          * \param[out] normal The computed normal.
          */
-        static void ComputeFaceNormal(const float v1[3], const float v2[3], const float v3[3], float normal[3]);
+        static void Icosphere::ComputeFaceNormal(const float v1[3], const float v2[3], const float v3[3], float normal[3]);
 
         /**************************************************************************************************/
         /**
@@ -333,7 +335,7 @@ namespace Object
          * \param[in] v The vertex.
          * \param[out] normal The computed normal.
          */
-        static void ComputeVertexNormal(const float v[3], float normal[3]);
+        static void Icosphere::ComputeVertexNormal(const float v[3], float normal[3]);
 
         /**************************************************************************************************/
         /**
@@ -344,7 +346,7 @@ namespace Object
          *
          * \retval float The scale factor.
          */
-        static float ComputeScaleForLength(const float v[3], float length);
+        static float Icosphere::ComputeScaleForLength(const float v[3], float length);
 
         /**************************************************************************************************/
         /**
@@ -356,7 +358,7 @@ namespace Object
          * \param[in] length The desired length.
          * \param[out] newV The interpolated vertex.
          */
-        static void InterpolateVertex(const float v1[3], const float v2[3], float alpha, float length, float newV[3]);
+        static void Icosphere::InterpolateVertex(const float v1[3], const float v2[3], float alpha, float length, float newV[3]);
 
         /**************************************************************************************************/
         /**
@@ -367,7 +369,7 @@ namespace Object
          * \param[in] alpha The interpolation factor.
          * \param[out] newT The interpolated texture coordinate.
          */
-        static void InterpolateTexCoord(const float t1[2], const float t2[2], float alpha, float newT[2]);
+        static void Icosphere::InterpolateTexCoord(const float t1[2], const float t2[2], float alpha, float newT[2]);
 
         /**************************************************************************************************/
         /**
@@ -379,7 +381,7 @@ namespace Object
          *
          * \retval float The interpolated value.
          */
-        static float Lerp(float from, float to, float alpha);
+        static float Icosphere::Lerp(float from, float to, float alpha);
 
         /**************************************************************************************************/
         /**
@@ -389,7 +391,7 @@ namespace Object
          *
          * \retval bool True if the texture coordinate is shared, false otherwise.
          */
-        static bool IsSharedTexCoord(const float t[2]);
+        static bool Icosphere::IsSharedTexCoord(const float t[2]);
 
         /**************************************************************************************************/
         /**
@@ -401,13 +403,13 @@ namespace Object
          *
          * \retval bool True if the point is on the line segment, false otherwise.
          */
-        static bool IsOnLineSegment(const float a[2], const float b[2], const float c[2]);
+        static bool Icosphere::IsOnLineSegment(const float a[2], const float b[2], const float c[2]);
 
         /**************************************************************************************************/
         /**
          * \brief Updates the radius of the Icosphere.
          */
-        void UpdateRadius();
+        void Icosphere::UpdateRadius();
 
         /**************************************************************************************************/
         /**
@@ -415,37 +417,37 @@ namespace Object
          *
          * \retval std::vector<float> The vertices of the icosahedron.
          */
-        std::vector<float> ComputeIcosahedronVertices();
+        std::vector<float> Icosphere::ComputeIcosahedronVertices();
 
         /**************************************************************************************************/
         /**
          * \brief Builds the flat vertices of the Icosphere.
          */
-        void BuildVerticesFlat();
+        void Icosphere::BuildVerticesFlat();
 
         /**************************************************************************************************/
         /**
          * \brief Builds the smooth vertices of the Icosphere.
          */
-        void BuildVerticesSmooth();
+        void Icosphere::BuildVerticesSmooth();
 
         /**************************************************************************************************/
         /**
          * \brief Subdivides the flat vertices of the Icosphere.
          */
-        void SubdivideVerticesFlat();
+        void Icosphere::SubdivideVerticesFlat();
 
         /**************************************************************************************************/
         /**
          * \brief Subdivides the smooth vertices of the Icosphere.
          */
-        void SubdivideVerticesSmooth();
+        void Icosphere::SubdivideVerticesSmooth();
 
         /**************************************************************************************************/
         /**
          * \brief Builds the interleaved vertices of the Icosphere.
          */
-        void BuildInterleavedVertices();
+        void Icosphere::BuildInterleavedVertices();
 
         /**************************************************************************************************/
         /**
@@ -455,7 +457,7 @@ namespace Object
          * \param[in] v2 The second vertex.
          * \param[in] v3 The third vertex.
          */
-        void AddVertices(const float v1[3], const float v2[3], const float v3[3]);
+        void Icosphere::AddVertices(const float v1[3], const float v2[3], const float v3[3]);
 
         /**************************************************************************************************/
         /**
@@ -465,7 +467,7 @@ namespace Object
          * \param[in] n2 The second normal.
          * \param[in] n3 The third normal.
          */
-        void AddNormals(const float n1[3], const float n2[3], const float n3[3]);
+        void Icosphere::AddNormals(const float n1[3], const float n2[3], const float n3[3]);
 
         /**************************************************************************************************/
         /**
@@ -475,7 +477,7 @@ namespace Object
          * \param[in] t2 The second texture coordinate.
          * \param[in] t3 The third texture coordinate.
          */
-        void AddTexCoords(const float t1[2], const float t2[2], const float t3[2]);
+        void Icosphere::AddTexCoords(const float t1[2], const float t2[2], const float t3[2]);
 
         /**************************************************************************************************/
         /**
@@ -485,7 +487,7 @@ namespace Object
          * \param[in] i2 The second index.
          * \param[in] i3 The third index.
          */
-        void AddIndices(unsigned int i1, unsigned int i2, unsigned int i3);
+        void Icosphere::AddIndices(unsigned int i1, unsigned int i2, unsigned int i3);
 
         /**************************************************************************************************/
         /**
@@ -494,7 +496,7 @@ namespace Object
          * \param[in] i1 The first line index.
          * \param[in] i2 The second line index.
          */
-        void AddLineIndices(unsigned int i1, unsigned int i2);
+        void Icosphere::AddLineIndices(unsigned int i1, unsigned int i2);
 
         /**************************************************************************************************/
         /**
@@ -506,7 +508,7 @@ namespace Object
          *
          * \retval unsigned int The index of the added sub-vertex.
          */
-        unsigned int AddSubVertexAttribs(const float v[3], const float n[3], const float t[2]);
+        unsigned int Icosphere::AddSubVertexAttribs(const float v[3], const float n[3], const float t[2]);
     };
 }   // namespace Object
 
