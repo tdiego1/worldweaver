@@ -4,7 +4,7 @@
 * @{
 * \details
 * This file provides the public interface for the Star Module.
-* 
+*
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
 * This program is free software: you can redistribute it and/or modify
@@ -30,6 +30,7 @@
 /*=================================================================================================
 ** 2.  INCLUDE FILES
 **===============================================================================================*/
+
 #include "worldweaver/common.hpp"
 
 /*=================================================================================================
@@ -47,19 +48,19 @@ namespace WorldWeaver
     {
         /**************************************************************************************************/
         /**
-        * \par Details: 
-        */
+         * \par Details:
+         */
         class Star
         {
 
-        public:
+          public:
             /*********************************/
             // Public type definitions
             /*********************************/
             /**************************************************************************************************/
             /**
-            * \brief The major spectral class of stars.
-            */
+             * \brief The major spectral class of stars.
+             */
             enum class SpectralMajor
             {
                 O,
@@ -85,8 +86,8 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
-            * \brief The spectral class of stars.
-            */
+             * \brief The spectral class of stars.
+             */
             struct SpectralClass
             {
                 SpectralMajor spectralMajor;
@@ -115,14 +116,14 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
-            * \brief The default constructor for the <ExampleClass>.
-            */
+             * \brief The default constructor for the <ExampleClass>.
+             */
             Star();
 
             /**************************************************************************************************/
             /**
-            * \brief The defaiult destructor for the <ExampleClass>.
-            */
+             * \brief The defaiult destructor for the <ExampleClass>.
+             */
             ~Star();
 
             /*********************************/
@@ -131,40 +132,40 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
-            * \brief Sets the spectral class of a star.
-            * 
-            * \param[in] spectralClass The spectral class of the star.
-            */
+             * \brief Sets the spectral class of a star.
+             *
+             * \param[in] spectralClass The spectral class of the star.
+             */
             void SetSpectralClass(SpectralClass spectralClass);
 
             /**************************************************************************************************/
             /**
-            * \brief Sets the mass of a star.
-            * 
-            * \param[in] mass The mass of the star.
-            */
-           void SetMass(float32_t mass);
+             * \brief Sets the mass of a star.
+             *
+             * \param[in] mass The mass of the star.
+             */
+            void SetMass(float32_t mass);
 
             /**************************************************************************************************/
             /**
-            * \brief Sets the current age of a star.
-            * 
-            * \param[in] currentAge The current age of the star.
-            */
+             * \brief Sets the current age of a star.
+             *
+             * \param[in] currentAge The current age of the star.
+             */
             void SetCurrentAge(float32_t currentAge);
 
             /**************************************************************************************************/
             /**
-            * \brief Gets the spectral class of a star.
-            * 
-            * \retval SpectralClass The spectral class of the star.
-            */
+             * \brief Gets the spectral class of a star.
+             *
+             * \retval SpectralClass The spectral class of the star.
+             */
             SpectralClass GetSpectralClass() const;
 
             /**************************************************************************************************/
             /**
              * \brief Gets the mass of a star.
-             *  
+             *
              * \retval float32_t The mass of the star.
              */
             float32_t GetMass() const;
@@ -172,7 +173,7 @@ namespace WorldWeaver
             /**************************************************************************************************/
             /**
              * \brief Gets the current age of a star.
-             *  
+             *
              * \retval float32_t The current age of the star.
              */
             float32_t GetCurrentAge() const;
@@ -180,7 +181,7 @@ namespace WorldWeaver
             /**************************************************************************************************/
             /**
              * \brief Gets the maximum age of a star.
-             *  
+             *
              * \retval float32_t The maximum age of the star.
              */
             float32_t GetMaxAge() const;
@@ -188,7 +189,7 @@ namespace WorldWeaver
             /**************************************************************************************************/
             /**
              * \brief Gets the radius of a star.
-             *  
+             *
              * \retval float32_t The radius of the star.
              */
             float32_t GetRadius() const;
@@ -196,7 +197,7 @@ namespace WorldWeaver
             /**************************************************************************************************/
             /**
              * \brief Gets the luminosity of a star.
-             *  
+             *
              * \retval float32_t The luminosity of the star.
              */
             float32_t GetLuminosity() const;
@@ -204,7 +205,7 @@ namespace WorldWeaver
             /**************************************************************************************************/
             /**
              * \brief Gets the density of a star.
-             *  
+             *
              * \retval float32_t The density of the star.
              */
             float32_t GetDensity() const;
@@ -212,7 +213,7 @@ namespace WorldWeaver
             /**************************************************************************************************/
             /**
              * \brief Gets the temperature of a star.
-             *  
+             *
              * \retval float32_t The temperature of the star.
              */
             float32_t GetTemperature() const;
@@ -220,7 +221,7 @@ namespace WorldWeaver
             /**************************************************************************************************/
             /**
              * \brief Gets the color of a star.
-             *  
+             *
              * \retval WorldWeaver::Model::Star::Color The color of the star in rgb.
              */
             Color GetColor() const;
@@ -228,7 +229,7 @@ namespace WorldWeaver
             /**************************************************************************************************/
             /**
              * \brief Gets the minimum habitable zone of a star in AU.
-             *  
+             *
              * \retval float32_t The minimum habitable zone of the star in AU.
              */
             float32_t GetMinHabitableZone() const;
@@ -236,7 +237,7 @@ namespace WorldWeaver
             /**************************************************************************************************/
             /**
              * \brief Gets the maximum habitable zone of a star in AU.
-             *  
+             *
              * \retval float32_t The maximum habitable zone of the star in AU.
              */
             float32_t GetMaxHabitableZone() const;
@@ -244,12 +245,12 @@ namespace WorldWeaver
             /**************************************************************************************************/
             /**
              * \brief Gets whether a star is capable of supporting Earth-like life.
-             *  
+             *
              * \retval LifeCapable The capability of the star to support Earth-like life.
              */
             LifeCapable GetIsLifeCapable() const;
 
-        private:
+          private:
             /*********************************/
             // Private type definitions
             /*********************************/
@@ -276,12 +277,12 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
-            * \brief Calculates the star's characteristics from mass.
-            */
+             * \brief Calculates the star's characteristics from mass.
+             */
             void CalculateCharacteristics();
         };
-    }
-}
+    }   // namespace Model
+}   // namespace WorldWeaver
 
 /*=================================================================================================
 ** 3.3 Constants
@@ -300,10 +301,12 @@ namespace WorldWeaver
     {
         /**************************************************************************************************/
         /**
-        * \par Details: 
-        */
-        inline Star::~Star(){}
-    }
-}
+         * \par Details:
+         */
+        inline Star::~Star()
+        {
+        }
+    }   // namespace Model
+}   // namespace WorldWeaver
 
 /** @} */

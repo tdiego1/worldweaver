@@ -4,7 +4,7 @@
 * @{
 * \details
 * This file provides the public interface for the GFXWindow Module.
-* 
+*
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
 * This program is free software: you can redistribute it and/or modify
@@ -60,11 +60,9 @@
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
-GFX::Window::GLWindow::GLWindow() :
-    m_Window(nullptr),
-    m_IsRunning(false)
+ * \par Details:
+ */
+GFX::Window::GLWindow::GLWindow() : m_Window(nullptr), m_IsRunning(false)
 {
     m_UIContext = std::make_unique<GFX::Render::UIContext>();
     m_RenderContext = std::make_unique<GFX::Render::GLContext>();
@@ -72,8 +70,8 @@ GFX::Window::GLWindow::GLWindow() :
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 GFX::Window::GLWindow::~GLWindow()
 {
     m_UIContext->End();
@@ -82,8 +80,8 @@ GFX::Window::GLWindow::~GLWindow()
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 bool GFX::Window::GLWindow::Initialize(int32_t width, int32_t height, const std::string& title)
 {
     m_Width = width;
@@ -98,8 +96,7 @@ bool GFX::Window::GLWindow::Initialize(int32_t width, int32_t height, const std:
 
     m_StarPanel = std::make_unique<WorldWeaver::GUI::StarPanel>();
 
-    m_StarPanel->SetMeshLoadCallback(
-        [this](std::string filepath) { m_RenderView->LoadMesh(filepath); });
+    m_StarPanel->SetMeshLoadCallback([this](std::string filepath) { m_RenderView->LoadMesh(filepath); });
 
     m_IsRunning = true;
 
@@ -108,8 +105,8 @@ bool GFX::Window::GLWindow::Initialize(int32_t width, int32_t height, const std:
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 void GFX::Window::GLWindow::Render()
 {
     // Clear the view
@@ -124,7 +121,7 @@ void GFX::Window::GLWindow::Render()
     // Render the star panel
     m_StarPanel->Render(m_RenderView.get());
 
-    // Render the UI 
+    // Render the UI
     m_UIContext->Render();
 
     // Render end, swap buffers
@@ -135,8 +132,8 @@ void GFX::Window::GLWindow::Render()
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 void GFX::Window::GLWindow::HandleInput()
 {
     // TODO: move this and camera to scene UI component?
@@ -165,8 +162,8 @@ void GFX::Window::GLWindow::HandleInput()
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 void* GFX::Window::GLWindow::GetNativeWindow()
 {
     return m_Window;
@@ -174,8 +171,8 @@ void* GFX::Window::GLWindow::GetNativeWindow()
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 void GFX::Window::GLWindow::SetNativeWindow(void* window)
 {
     m_Window = static_cast<GLFWwindow*>(window);
@@ -183,8 +180,8 @@ void GFX::Window::GLWindow::SetNativeWindow(void* window)
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 void GFX::Window::GLWindow::OnScroll(float64_t delta)
 {
     m_RenderView->OnMouseWheel(delta);
@@ -192,20 +189,19 @@ void GFX::Window::GLWindow::OnScroll(float64_t delta)
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 void GFX::Window::GLWindow::OnKey(int32_t key, int32_t scanCode, int32_t action, int32_t mods)
 {
-    if(action == GLFW_PRESS)
+    if (action == GLFW_PRESS)
     {
-
     }
 }
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 void GFX::Window::GLWindow::OnResize(int32_t width, int32_t height)
 {
     m_Width = width;
@@ -217,8 +213,8 @@ void GFX::Window::GLWindow::OnResize(int32_t width, int32_t height)
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 void GFX::Window::GLWindow::OnClose()
 {
     m_IsRunning = false;
@@ -226,8 +222,8 @@ void GFX::Window::GLWindow::OnClose()
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 bool GFX::Window::GLWindow::IsRunning()
 {
     return m_IsRunning;

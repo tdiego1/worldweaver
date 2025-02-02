@@ -4,7 +4,7 @@
  * @{
  * \details
  * This file implements the main functionality.
- * 
+ *
  * \par COPYRIGHT
  * Copyright (C) 2024 Diego Torres. All rights reserved.
  * This program is free software: you can redistribute it and/or modify
@@ -60,7 +60,7 @@
 /**
  * \brief This is the main function for the QT window
  */
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     std::unique_ptr<WorldWeaver::Main::Application> app = std::make_unique<WorldWeaver::Main::Application>("WorldWeaver");
 
@@ -68,4 +68,5 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+
 /** @}*/

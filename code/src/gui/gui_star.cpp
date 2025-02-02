@@ -4,7 +4,7 @@
 * @{
 * \details
 * This file provides the public interface for the Star Module.
-* 
+*
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
 * This program is free software: you can redistribute it and/or modify
@@ -59,17 +59,16 @@
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
-WorldWeaver::GUI::StarPanel::StarPanel() :
-    m_CurrentStar()
+ * \par Details:
+ */
+WorldWeaver::GUI::StarPanel::StarPanel() : m_CurrentStar()
 {
 }
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 void WorldWeaver::GUI::StarPanel::Render(WorldWeaver::GUI::GLView* sceneView)
 {
     // 1. Create a window called "Star Interface" and begin ImGui frame.
@@ -79,14 +78,14 @@ void WorldWeaver::GUI::StarPanel::Render(WorldWeaver::GUI::GLView* sceneView)
     std::string spectral_class = "";
     std::string is_life_capable = "";
 
-    if(ImGui::SliderFloat("Mass", &star_mass, 0.075f, 2.0f, "%.3f Msol", ImGuiSliderFlags_AlwaysClamp))
+    if (ImGui::SliderFloat("Mass", &star_mass, 0.075f, 2.0f, "%.3f Msol", ImGuiSliderFlags_AlwaysClamp))
     {
         m_CurrentStar.SetMass(star_mass);
     }
 
     float32_t star_age = m_CurrentStar.GetCurrentAge();
 
-    if(ImGui::SliderFloat("Current Age", &star_age, 0.0f, m_CurrentStar.GetMaxAge(), "%.3f Gyr", ImGuiSliderFlags_AlwaysClamp))
+    if (ImGui::SliderFloat("Current Age", &star_age, 0.0f, m_CurrentStar.GetMaxAge(), "%.3f Gyr", ImGuiSliderFlags_AlwaysClamp))
     {
         // Set the current age of the star.
         m_CurrentStar.SetCurrentAge(star_age);
@@ -94,7 +93,7 @@ void WorldWeaver::GUI::StarPanel::Render(WorldWeaver::GUI::GLView* sceneView)
 
     ImGui::Separator();
 
-    switch(m_CurrentStar.GetSpectralClass().spectralMajor)
+    switch (m_CurrentStar.GetSpectralClass().spectralMajor)
     {
         case WorldWeaver::Model::Star::SpectralMajor::O:
             spectral_class = "O";
@@ -120,31 +119,20 @@ void WorldWeaver::GUI::StarPanel::Render(WorldWeaver::GUI::GLView* sceneView)
     }
 
     spectral_class.append(std::format("{:.1f}", m_CurrentStar.GetSpectralClass().spectralMinor));
-
     spectral_class.append("V");
 
-
     ImGui::Text("Spectral Class: %s", spectral_class.c_str());
-
     ImGui::Text("Mass: %.3f Msol", m_CurrentStar.GetMass());
-
     ImGui::Text("Current Age: %.3f Gyr", m_CurrentStar.GetCurrentAge());
-
     ImGui::Text("Max Age: %.3f Gyr", m_CurrentStar.GetMaxAge());
-
     ImGui::Text("Radius: %.3f Rsol", m_CurrentStar.GetRadius());
-
     ImGui::Text("Luminosity: %.3f Lsol", m_CurrentStar.GetLuminosity());
-
     ImGui::Text("Density: %.3f Dsol", m_CurrentStar.GetDensity());
-
     ImGui::Text("Temperature: %.f K", m_CurrentStar.GetTemperature());
-
     ImGui::Text("Color: R: %d, G: %d, B: %d", m_CurrentStar.GetColor().r, m_CurrentStar.GetColor().g, m_CurrentStar.GetColor().b);
-
     ImGui::Text("Habitable Zone: %.3f - %.3f AU", m_CurrentStar.GetMinHabitableZone(), m_CurrentStar.GetMaxHabitableZone());
 
-    switch(m_CurrentStar.GetIsLifeCapable())
+    switch (m_CurrentStar.GetIsLifeCapable())
     {
         case WorldWeaver::Model::Star::LifeCapable::YES:
             is_life_capable = "Yes";
@@ -164,8 +152,8 @@ void WorldWeaver::GUI::StarPanel::Render(WorldWeaver::GUI::GLView* sceneView)
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 void WorldWeaver::GUI::StarPanel::SetMeshLoadCallback(const std::function<void(const std::string&)>& callback)
 {
     m_MeshLoadCallback = callback;

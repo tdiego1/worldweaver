@@ -4,7 +4,7 @@
 * @{
 * \details
 * This file provides the public interface for the StarPanel Module.
-* 
+*
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
 * This program is free software: you can redistribute it and/or modify
@@ -53,12 +53,12 @@ namespace WorldWeaver
     {
         /**************************************************************************************************/
         /**
-        * \par Details: 
-        */
+         * \par Details:
+         */
         class StarPanel
         {
 
-        public:
+          public:
             /*********************************/
             // Public type definitions
             /*********************************/
@@ -73,14 +73,14 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
-            * \brief The default constructor for the StarPanel.
-            */
+             * \brief The default constructor for the StarPanel.
+             */
             StarPanel(void);
 
             /**************************************************************************************************/
             /**
-            * \brief The default destructor for the StarPanel.
-            */
+             * \brief The default destructor for the StarPanel.
+             */
             ~StarPanel(void) = default;
 
             /*********************************/
@@ -89,24 +89,23 @@ namespace WorldWeaver
 
             /**************************************************************************************************/
             /**
-            * \brief 
-            * 
-            * \param[in] 
-            * 
-            * \retval 
-            */
+             * \brief
+             *
+             * \param[in]
+             *
+             * \retval
+             */
             void Render(WorldWeaver::GUI::GLView* glView);
 
             /**************************************************************************************************/
             /**
-            * \brief Sets the mesh load callback.
-            * 
-            * \param[in] callback The mesh load callback.
-            */
+             * \brief Sets the mesh load callback.
+             *
+             * \param[in] callback The mesh load callback.
+             */
             void SetMeshLoadCallback(const std::function<void(const std::string&)>& callback);
-            
 
-        private:
+          private:
             /*********************************/
             // Private type definitions
             /*********************************/
@@ -120,11 +119,10 @@ namespace WorldWeaver
             /*********************************/
 
             WorldWeaver::Model::Star m_CurrentStar;
-            std::function<void(const std::string&)> m_MeshLoadCallback; // The mesh load callback.
-
+            std::function<void(const std::string&)> m_MeshLoadCallback;   // The mesh load callback.
         };
-    }
-}
+    }   // namespace GUI
+}   // namespace WorldWeaver
 
 /*=================================================================================================
 ** 3.3 Constants

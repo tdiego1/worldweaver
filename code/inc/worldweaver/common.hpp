@@ -4,7 +4,7 @@
 * @{
 * \details
 * This file provides the public include headers for the Common Module.
-* 
+*
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
 * This program is free software: you can redistribute it and/or modify
@@ -32,17 +32,17 @@
 **===============================================================================================*/
 
 // Std includes
-#include <stdint.h>
-#include <string>
-#include <format>
 #include <algorithm>
+#include <assert.h>
 #include <cmath>
-#include <vector>
+#include <format>
 #include <fstream>
-#include <sstream>
 #include <iostream>
 #include <memory>
-#include <assert.h>
+#include <sstream>
+#include <stdint.h>
+#include <string>
+#include <vector>
 
 #include "worldweaver/types.hpp"
 

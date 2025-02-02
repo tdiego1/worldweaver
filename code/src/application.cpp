@@ -4,7 +4,7 @@
 * @{
 * \details
 * This file provides the public interface for the Application Module.
-* 
+*
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
 * This program is free software: you can redistribute it and/or modify
@@ -59,8 +59,8 @@
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 WorldWeaver::Main::Application::Application(const std::string& appName)
 {
     m_Window = std::make_unique<GFX::Window::GLWindow>();
@@ -69,11 +69,11 @@ WorldWeaver::Main::Application::Application(const std::string& appName)
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 void WorldWeaver::Main::Application::MainLoop()
 {
-    while(m_Window->IsRunning())
+    while (m_Window->IsRunning())
     {
         m_Window->Render();
     }

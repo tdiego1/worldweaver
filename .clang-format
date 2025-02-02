@@ -1,0 +1,45 @@
+---
+# options: https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+BasedOnStyle: LLVM
+IndentWidth: 4
+Language: Cpp
+# Must be 80 characters or less!
+ColumnLimit: 200
+# does (int) x instead of (int)x
+SpaceAfterCStyleCast: true
+# spaces, not tabs!
+UseTab: Never
+# if (x) doStuff()  is not allowed, bad style
+AllowShortIfStatementsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+# 
+AlignTrailingComments:
+  Kind: Always
+  OverEmptyLines: 2
+SpacesBeforeTrailingComments: 3
+#  #define SHORT_NAME       42
+#  #define LONGER_NAME      0x007f   # does nice spacing for macros
+AlignConsecutiveMacros: Consecutive
+# use \n instead of \r\n
+UseCRLF: false
+AlignAfterOpenBracket: Align
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: true
+  AfterEnum: true
+  AfterStruct: true
+  AfterClass: true
+  AfterCaseLabel: true
+  SplitEmptyFunction: true
+  AfterNamespace : true
+  AfterExternBlock: true
+  AfterControlStatement: true
+FixNamespaceComments: true 
+IndentCaseBlocks: true
+IndentCaseLabels: true
+NamespaceIndentation: All
+PointerAlignment: Left
+SeparateDefinitionBlocks: Always
+MaxEmptyLinesToKeep: 1

@@ -22,6 +22,7 @@ set(PROJECT_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_light.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_mesh.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx/gfx_glvibuffer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/object/obj_icosphere.cpp
 )
 
 set(PROJECT_INCLUDES
@@ -50,6 +51,7 @@ set(PROJECT_INCLUDES
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_glframebuffer.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_glvibuffer.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/gfx/gfx_common.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/object/obj_icosphere.hpp
     )
 
 add_executable(worldweaver

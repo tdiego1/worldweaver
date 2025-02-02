@@ -4,7 +4,7 @@
 * @{
 * \details
 * This file provides the public interface for the GLContext Module.
-* 
+*
 * \par COPYRIGHT
 * Copyright (C) 2024 Diego Torres. All rights reserved.
 * This program is free software: you can redistribute it and/or modify
@@ -31,8 +31,8 @@
 
 #include "gfx/gfx_glcontext.hpp"
 
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 #include <stdint.h>
 
@@ -60,42 +60,42 @@
 
 /**************************************************************************************************/
 /**
-* \brief The callback for the key event.
-* 
-* \param[in] window     The window that the key event occurred.
-* \param[in] key        The key that was pressed.
-* \param[in] scanCode   The scan code of the key.
-* \param[in] action     The action of the key.
-* \param[in] mods       The mods of the key.
-*/
+ * \brief The callback for the key event.
+ *
+ * \param[in] window     The window that the key event occurred.
+ * \param[in] key        The key that was pressed.
+ * \param[in] scanCode   The scan code of the key.
+ * \param[in] action     The action of the key.
+ * \param[in] mods       The mods of the key.
+ */
 static void OnKeyCallback(GLFWwindow* window, int32_t key, int32_t scanCode, int32_t action, int32_t mods);
 
 /**************************************************************************************************/
 /**
-* \brief The callback for the scroll event.
-* 
-* \param[in] window     The window that the scroll event occurred.
-* \param[in] xOffset    The x offset of the scroll.
-* \param[in] yOffset    The y offset of the scroll.
-*/
+ * \brief The callback for the scroll event.
+ *
+ * \param[in] window     The window that the scroll event occurred.
+ * \param[in] xOffset    The x offset of the scroll.
+ * \param[in] yOffset    The y offset of the scroll.
+ */
 static void OnScrollCallback(GLFWwindow* window, float64_t xOffset, float64_t yOffSet);
 
 /**************************************************************************************************/
 /**
-* \brief The callback for the resize event.
-* 
-* \param[in] window The window that the resize event occurred.
-* \param[in] width  The width of the window.
-* \param[in] height The height of the window.
-*/
+ * \brief The callback for the resize event.
+ *
+ * \param[in] window The window that the resize event occurred.
+ * \param[in] width  The width of the window.
+ * \param[in] height The height of the window.
+ */
 static void OnResizeCallback(GLFWwindow* window, int32_t width, int32_t height);
 
 /**************************************************************************************************/
 /**
-* \brief The callback for the close event.
-* 
-* \param[in] window The window that the close event occurred.
-*/
+ * \brief The callback for the close event.
+ *
+ * \param[in] window The window that the close event occurred.
+ */
 static void OnCloseCallback(GLFWwindow* window);
 
 /*=================================================================================================
@@ -104,8 +104,8 @@ static void OnCloseCallback(GLFWwindow* window);
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 bool GFX::Render::GLContext::Initialize(GFX::Window::BaseWindow* window)
 {
     GFX::Render::RenderContext::Initialize(window);
@@ -135,7 +135,7 @@ bool GFX::Render::GLContext::Initialize(GFX::Window::BaseWindow* window)
     glfwSetWindowCloseCallback(gl_window, OnCloseCallback);
     glfwMakeContextCurrent(gl_window);
 
-    if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
     {
         printf("Failed to initialize GLAD");
         return -1;
@@ -144,13 +144,12 @@ bool GFX::Render::GLContext::Initialize(GFX::Window::BaseWindow* window)
     glEnable(GL_DEPTH_TEST);
 
     return true;
-
 }
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 void GFX::Render::GLContext::PreRender()
 {
     glViewport(0, 0, m_Window->m_Width, m_Window->m_Height);
@@ -160,8 +159,8 @@ void GFX::Render::GLContext::PreRender()
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 void GFX::Render::GLContext::Render()
 {
     glfwPollEvents();
@@ -170,11 +169,11 @@ void GFX::Render::GLContext::Render()
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 void GFX::Render::GLContext::End()
 {
-    glfwDestroyWindow((GLFWwindow*)m_Window->GetNativeWindow());
+    glfwDestroyWindow((GLFWwindow*) m_Window->GetNativeWindow());
     glfwTerminate();
 }
 
@@ -184,8 +183,8 @@ void GFX::Render::GLContext::End()
 
 /**************************************************************************************************/
 /**
-* \par Details: 
-*/
+ * \par Details:
+ */
 static void OnKeyCallback(GLFWwindow* window, int32_t key, int32_t scanCode, int32_t action, int32_t mods)
 {
     GFX::Window::BaseWindow* gl_window = static_cast<GFX::Window::BaseWindow*>(glfwGetWindowUserPointer(window));
@@ -194,7 +193,7 @@ static void OnKeyCallback(GLFWwindow* window, int32_t key, int32_t scanCode, int
 
 /**************************************************************************************************/
 /**
- * \par Details: 
+ * \par Details:
  */
 static void OnScrollCallback(GLFWwindow* window, float64_t xOffset, float64_t yOffSet)
 {
@@ -204,7 +203,7 @@ static void OnScrollCallback(GLFWwindow* window, float64_t xOffset, float64_t yO
 
 /**************************************************************************************************/
 /**
- * \par Details: 
+ * \par Details:
  */
 static void OnResizeCallback(GLFWwindow* window, int32_t width, int32_t height)
 {
@@ -214,7 +213,7 @@ static void OnResizeCallback(GLFWwindow* window, int32_t width, int32_t height)
 
 /**************************************************************************************************/
 /**
- * \par Details: 
+ * \par Details:
  */
 static void OnCloseCallback(GLFWwindow* window)
 {
